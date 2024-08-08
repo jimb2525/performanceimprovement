@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Shift Swap Page Default">0b3d3ed11ba9d510b5bd2fc02a4bcbb2</macroponent>
+        <name>handleShiftSwapControlsUpdate</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+async function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    const {NowDateTime} = imports['sn_uxf.core_libraries']();
+    const userDateFormat = (api.context.session.user.dateFormat).toUpperCase();
+    const userTimeFormat = api.context.session.user.timeFormat;
+    let data = {};
+    data.event = event;
+    data.popoverTemplate = api.context.props.popoverTemplate;
+    data.isModalOpen = api.context.props.isModalOpen;
+    const readInTimezone = data.popoverTemplate.event.readInTimezone;
+    
+    const populateRequestorShifts = async (requestor, date, preFillData) => {
+        const dateInUserFormat = date;
+        date = NowDateTime(date, userDateFormat).format("YYYY-MM-DD");
+        const payload = {
+            individualAgents: requestor,
+            startDate: date,
+            endDate: date,
+            published: true,
+        };
+
+        return helpers
+            .snHttp('/api/sn_shift_planning/shift_planning/agent_schedules', {
+                method: 'POST',
+                body: payload,
+            })
+            .then(async ({
+                response
+            }) => {
+                let agentSchedules = response.result.shiftData.user.data[0].schedules;
+                let dropDownItems = [];
+                let requestorSchedules = [];
+                let selectedShiftIdArray = [];
+                let selectedSchedule = '';
+                if (Object.keys(agentSchedules).length > 0) {
+                    if (response.result.shiftData.user.data[0].schedules.hasOwnProperty(date)) {
+                        agentSchedules = agentSchedules[date];
+                        let agentWorkSchedules = agentSchedules.filter((agentScheduleRecord) => {
+                            return agentScheduleRecord.isExclusion == false;
+                        });
+                        for (const workEvent of agentWorkSchedules) {
+                            const dropDownItem = {};
+                            dropDownItem.id = workEvent.schedule.sysId;
+                            dropDownItem.label = await helpers.translate('{0} To {1}', [
+                                (NowDateTime(workEvent.startTime).tz(workEvent.readInTimezone, true).tz(readInTimezone).format(userTimeFormat)),
+                                (NowDateTime(workEvent.endTime).tz(workEvent.readInTimezone, true).tz(readInTimezone).format(userTimeFormat))
+                            ]);
+                            dropDownItems.push(dropDownItem);
+                            requestorSchedules.push(workEvent);
+                        }
+
+                        if (dropDownItems.length == 1) {
+                            let selectedShift = dropDownItems[0];
+                            selectedShiftIdArray.push(selectedShift.id);
+                            let selectedScheduleRecord = requestorSchedules.filter((agentScheduleRecord) => {
+                                return agentScheduleRecord.schedule.sysId === selectedShift.id;
+                            });
+                            selectedSchedule = selectedScheduleRecord;
+                        }
+                    }
+                }
+
+                if (preFillData) {
+                    let currentShiftUser = {};
+                    currentShiftUser.id = preFillData.user.sysId;
+                    currentShiftUser.label = preFillData.user.name;
+                    let requesteePayload = {
+                        shifts: '',
+                        selectedShift: '',
+                        requesteeSchedules: '',
+                        shiftDisable: true
+                    };
+
+                    api.setState('shiftSwapControls', {
+                        ...api.state.shiftSwapControls,
+                        requestorUserDetails: {
+                            ...api.state.shiftSwapControls.requestorUserDetails,
+                            "id": currentShiftUser.id,
+                            "label": currentShiftUser.label
+                        },
+                        requestorShiftData: {
+                            ...api.state.shiftSwapControls.requestorShiftData,
+                            dateValue: dateInUserFormat,
+                            dateValid: true,
+                            shifts: dropDownItems,
+                            selectedShift: selectedShiftIdArray,
+                            selectedSchedule: selectedSchedule,
+                            requestorSchedules: requestorSchedules,
+                            shiftDisable: dropDownItems.length > 0 ? false : true,
+                        },
+                        requesteeShiftData: {
+                            ...api.state.shiftSwapControls.requesteeShiftData,
+                            ...requesteePayload,
+                            dateValue: dateInUserFormat,
+                            dateValid: true
+                        },
+                    });
+                } else {
+
+                    api.setState('shiftSwapControls', {
+                        ...api.state.shiftSwapControls,
+                        requestorShiftData: {
+                            ...api.state.shiftSwapControls.requestorShiftData,
+                            dateValue: dateInUserFormat,
+                            dateValid: true,
+                            shifts: dropDownItems,
+                            selectedShift: selectedShiftIdArray,
+                            selectedSchedule: selectedSchedule,
+                            requestorSchedules: requestorSchedules,
+                            shiftDisable: dropDownItems.length > 0 ? false : true,
+                        }
+                    });
+
+                }
+
+            });
+    };
+
+    const populateRequesteeShifts = async (requestee, date) => {
+        const dateInUserFormat = date;
+        date = NowDateTime(date, userDateFormat).format("YYYY-MM-DD");
+        const payload = {
+            individualAgents: requestee,
+            startDate: date,
+            endDate: date,
+            published: true,
+        };
+        return helpers
+            .snHttp('/api/sn_shift_planning/shift_planning/agent_schedules', {
+                method: 'POST',
+                body: payload,
+            })
+            .then(async ({
+                response
+            }) => {
+                let agentSchedules = response.result.shiftData.user.data[0].schedules;
+                let dropDownItems = [];
+                let requesteeSchedules = [];
+                let selectedShiftIdArray = [];
+                let selectedSchedule = '';
+                if (Object.keys(agentSchedules).length > 0) {
+                    if (response.result.shiftData.user.data[0].schedules.hasOwnProperty(date)) {
+                        agentSchedules = agentSchedules[date];
+                        const agentWorkSchedules = agentSchedules.filter((agentScheduleRecord) => {
+                            return agentScheduleRecord.isExclusion == false;
+                        });
+
+                        for (const workEvent of agentWorkSchedules) {
+                            const dropDownItem = {};
+                            dropDownItem.id = workEvent.schedule.sysId;
+
+                            dropDownItem.label = await helpers.translate('{0} To {1}', [
+                                (NowDateTime(workEvent.startTime).tz(workEvent.readInTimezone, true).tz(readInTimezone).format(userTimeFormat)),
+                                (NowDateTime(workEvent.endTime).tz(workEvent.readInTimezone, true).tz(readInTimezone).format(userTimeFormat))
+                            ]);
+                            dropDownItems.push(dropDownItem);
+                            requesteeSchedules.push(workEvent);
+                        }
+                        if (dropDownItems.length == 1) {
+                            let selectedShift = dropDownItems[0];
+                            selectedShiftIdArray.push(selectedShift.id);
+                            let selectedScheduleRecord = requesteeSchedules.filter((agentScheduleRecord) => {
+                                return agentScheduleRecord.schedule.sysId === selectedShift.id;
+                            });
+                            selectedSchedule = selectedScheduleRecord;
+                        }
+                    }
+                }
+                
+                api.setState('shiftSwapControls', {
+                    ...api.state.shiftSwapControls,
+                    requesteeShiftData: {
+                        ...api.state.shiftSwapControls.requesteeShiftData,
+                        requestee,
+                        dateValue: dateInUserFormat,
+                        dateValid: true,
+                        shifts: dropDownItems,
+                        selectedShift: selectedShiftIdArray,
+                        selectedSchedule: selectedSchedule,
+                        requesteeSchedules: requesteeSchedules,
+                        shiftDisable: dropDownItems.length > 0 ? false : true,
+                    },
+                });
+            });
+    };
+
+    if (data.event.name === 'MACROPONENT_PROPERTY_CHANGED' && data.event.payload.name === "isModalOpen" && data.isModalOpen) {
+
+        let start = data.popoverTemplate.event.start;
+        let eventDate = NowDateTime(start.split(" ")[0]).format(userDateFormat);
+        let currentShiftUser = data.popoverTemplate.event.user;
+        //Set the Requestor Typeahead
+        api.setState('shiftSwapControls', {
+            ...api.state.shiftSwapControls,
+            requestorUserDetails: {
+                ...api.state.shiftSwapControls.requestorUserDetails,
+                "id": currentShiftUser.sysId,
+                "label": currentShiftUser.name
+            }
+        });
+        await populateRequestorShifts(currentShiftUser.sysId, eventDate, data.popoverTemplate.event);
+        api.data.get_agents_for_swap_query_mgr_workspace_1.refresh();
+
+
+    } else if (event.elementId == "sw_requestee_typeahead") {
+        if (
+            !api.state.shiftSwapControls.requesteeShiftData.dateValid ||
+            (event.name === 'NOW_TYPEAHEAD#SELECTED_ITEM_SET' && !event.payload.value) ||
+            (event.name == 'NOW_TYPEAHEAD#INVALID_SET' && event.payload.value == true)
+        ) {
+            api.setState('shiftSwapControls', {
+                ...api.state.shiftSwapControls,
+                requesteeShiftData: {
+                    ...api.state.shiftSwapControls.requesteeShiftData,
+                    requesteeInValid: true,
+                    shifts: '',
+                    selectedShift: '',
+                    requesteeSchedules: '',
+                    requestee: event.payload.value,
+                },
+            });
+        } else {
+            api.setState('shiftSwapControls', {
+                ...api.state.shiftSwapControls,
+                requesteeShiftData: {
+                    ...api.state.shiftSwapControls.requesteeShiftData,
+                    requesteeInValid: false,
+                    requestee: event.payload.value,
+                },
+            });
+            await populateRequesteeShifts(event.payload.value, api.state.shiftSwapControls.requesteeShiftData.dateValue);
+        }
+    } else if (event.elementId == 'sw_requestor_date') {
+
+        // const dateRegex = /^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+        let requestorDateValid = true;
+        //dateRegex.test(event.payload.value);
+        if (event.payload.error)
+            requestorDateValid = false;
+        if (!requestorDateValid) {
+            api.setState('shiftSwapControls', {
+                ...api.state.shiftSwapControls,
+                requestorShiftData: {
+                    ...api.state.shiftSwapControls.requestorShiftData,
+                    dateValue: event.payload.value,
+                    shifts: '',
+                    selectedShift: '',
+                    requestorSchedules: '',
+                    dateValid: false,
+                    shiftDisable: true,
+                }
+            });
+        } else {
+            api.setState('shiftSwapControls', {
+                ...api.state.shiftSwapControls,
+                requestorShiftData: {
+                    ...api.state.shiftSwapControls.requestorShiftData,
+                    dateValue: event.payload.value,
+                    dateValid: true,
+                },
+            });
+            await populateRequestorShifts(api.state.shiftSwapControls.requestorUserDetails.id, event.payload.value);
+        }
+    } else if (event.elementId == 'sw_requestee_date') {
+        const dateRegex = /^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+        let requesteeDateValid = true;
+        //dateRegex.test(event.payload.value);
+        if (event.payload.error)
+            requesteeDateValid = false;
+        if (!requesteeDateValid) {
+            api.setState('shiftSwapControls', {
+                ...api.state.shiftSwapControls,
+                requesteeShiftData: {
+                    ...api.state.shiftSwapControls.requesteeShiftData,
+                    dateValue: event.payload.value,
+                    dateValid: false,
+                    shifts: '',
+                    selectedShift: '',
+                    requesteeSchedules: '',
+                    shiftDisable: true,
+                },
+            });
+        } else {
+            api.setState('shiftSwapControls', {
+                ...api.state.shiftSwapControls,
+                requesteeShiftData: {
+                    ...api.state.shiftSwapControls.requesteeShiftData,
+                    dateValue: event.payload.value,
+                    dateValid: true,
+                },
+            });
+            if (api.state.shiftSwapControls.requesteeShiftData.requestee != '') {
+                await populateRequesteeShifts(api.state.shiftSwapControls.requesteeShiftData.requestee, event.payload.value);
+            }
+        }
+    } else if (event.elementId == 'sw_requestor_shift_dropdown') {
+        let selectedSchedule = api.state.shiftSwapControls.requestorShiftData.requestorSchedules.filter(
+            (agentScheduleRecord) => {
+                return agentScheduleRecord.schedule.sysId === event.payload.items[0].id;
+            }
+        );
+        api.setState('shiftSwapControls', {
+            ...api.state.shiftSwapControls,
+            requestorShiftData: {
+                ...api.state.shiftSwapControls.requestorShiftData,
+                selectedSchedule: selectedSchedule,
+                selectedShift: [event.payload.items[0].id],
+            },
+        });
+    } else if (event.elementId == 'sw_requestee_shift_dropdown') {
+        let selectedSchedule = api.state.shiftSwapControls.requesteeShiftData.requesteeSchedules.filter(
+            (agentScheduleRecord) => {
+                return agentScheduleRecord.schedule.sysId === event.payload.items[0].id;
+            }
+        );
+        api.setState('shiftSwapControls', {
+            ...api.state.shiftSwapControls,
+            requesteeShiftData: {
+                ...api.state.shiftSwapControls.requesteeShiftData,
+                selectedSchedule: selectedSchedule,
+                selectedShift: [event.payload.items[0].id],
+            },
+        });
+    } else if (event.elementId == 'sw_submit_button') {
+        const payload = {
+            requestor: api.state.shiftSwapControls.requestorUserDetails.id,
+            requestee: api.state.shiftSwapControls.requesteeShiftData.requestee,
+            requestor_date: api.state.shiftSwapControls.requestorShiftData.dateValue,
+            requestee_date: api.state.shiftSwapControls.requesteeShiftData.dateValue,
+            requestor_schedule: api.state.shiftSwapControls.requestorShiftData.selectedSchedule[0].schedule.sysId,
+            requestee_schedule: api.state.shiftSwapControls.requesteeShiftData.selectedSchedule[0].schedule.sysId,
+            requestor_shift_start: api.state.shiftSwapControls.requestorShiftData.selectedSchedule[0].startTimeDisplayValue,
+            requestor_shift_end: api.state.shiftSwapControls.requestorShiftData.selectedSchedule[0].endTimeDisplayValue,
+            requestee_shift_start: api.state.shiftSwapControls.requesteeShiftData.selectedSchedule[0].startTimeDisplayValue,
+            requestee_shift_end: api.state.shiftSwapControls.requesteeShiftData.selectedSchedule[0].endTimeDisplayValue,
+        };
+        await helpers
+            .snHttp('/api/now/table/sn_shift_planning_shift_swap_request?sysparm_input_display_value=true', {
+                method: 'POST',
+                body: payload,
+            })
+            .then(async ({
+                response
+            }) => {
+                api.emit('SHIFT_SWAP_MGR#PROPOGATE_NOTIFICATIONS_PARENT', {
+                  shouldRefresh: false,
+                  items: [
+                    {
+                      id: 'alert2',
+                      status: 'info',
+                      icon: 'calendar-fill',
+                      header: await helpers.translate('Swap request'),
+                      content: await helpers.translate('{0} submitted', response.result.number),
+                      action: {
+                        type: 'dismiss',
+                        href: '',
+                        label: 'dismiss_swap_alert',
+                      },
+                    },
+                  ] 
+                });
+                helpers.modal.close("[component-id$='shift_swap_modal']");
+            });
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:37</sys_created_on>
+        <sys_id>d33d3ed11ba9d510b5bd2fc02a4bcbec</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleShiftSwapControlsUpdate</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_d33d3ed11ba9d510b5bd2fc02a4bcbec</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:37</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_screen">
+    <sys_ux_screen action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <app_config display_value="WFO Config">065b64df73332010dd6131ff2ef6a726</app_config>
+        <description/>
+        <disable_auto_reflow>false</disable_auto_reflow>
+        <event_mappings>[ {
+  "eventMappingId" : "cktaamjfpbaaaaiigddhhhswkzhhccxiijj",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.MODAL_SELECTED_RELAY_247be6a673443010565db0a8d4f6a7fd",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.MODAL_SELECTED_RELAY_247be6a673443010565db0a8d4f6a7fd",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_canvas_core.MODAL_SELECTED",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "modalId" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "modalId" ]
+            }
+          },
+          "showModal" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "showModal" ]
+            }
+          },
+          "displayOptions" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "displayOptions" ]
+            }
+          },
+          "bare" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "bare" ]
+            }
+          },
+          "viewportElementId" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "viewportElementId" ]
+            }
+          },
+          "viewportRoute" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "viewportRoute" ]
+            }
+          },
+          "viewportFields" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "viewportFields" ]
+            }
+          }
+        }
+      },
+      "sysId" : "882eed4091382d3a41f1bb3f382ae089"
+    },
+    "operation" : null,
+    "targetId" : "cktaamjfpbaaaaiifddhhhsggmhhfmzccg",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "ckraqiznaaaaaaccccddhiiccbcenvccdx",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.TEAM_CALENDAR#PROPAGATE_NOTIFICATIONS_PARENT",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.TEAM_CALENDAR#PROPAGATE_NOTIFICATIONS_PARENT",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.SCHEDULE_PAGE#SHOW_CHILD_NOTIFICATIONS",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "items" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "items" ]
+            }
+          }
+        }
+      },
+      "sysId" : "7954d84473213010565db0a8d4f6a71a"
+    },
+    "operation" : null,
+    "targetId" : "ckraqiznaaaaaaccbbddhiiccrmutsttk",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "ckpcczsjjbbaaaaaabbaaddhiiaajjbpffiaaas",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.NOW_UXF_PAGE#SET_LOADING_STATE_RELAY_247be6a673443010565db0a8d4f6a7fd",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.NOW_UXF_PAGE#SET_LOADING_STATE_RELAY_247be6a673443010565db0a8d4f6a7fd",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf_page.NOW_UXF_PAGE#SET_LOADING_STATE",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "loading" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "loading" ]
+            }
+          },
+          "label" : {
+            "type" : "JSON_LITERAL",
+            "value" : null
+          },
+          "action" : {
+            "type" : "JSON_LITERAL",
+            "value" : null
+          },
+          "nonBlocking" : {
+            "type" : "JSON_LITERAL",
+            "value" : null
+          }
+        }
+      },
+      "sysId" : "0404f68486f1baab1dc7ef2a27a3de50"
+    },
+    "operation" : null,
+    "targetId" : "ckpcczsjjaazaaaaaazddhiiaaickaggnoaa",
+    "type" : "EVENT"
+  } ]
+} ]</event_mappings>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <macroponent_config>{
+  "label" : {
+    "type" : "TRANSLATION_LITERAL",
+    "value" : {
+      "code" : null,
+      "message" : "",
+      "comment" : ""
+    }
+  },
+  "bare" : {
+    "type" : "JSON_LITERAL",
+    "value" : true
+  },
+  "scrollable" : {
+    "type" : "JSON_LITERAL",
+    "value" : "none"
+  },
+  "headerLevel" : {
+    "type" : "JSON_LITERAL",
+    "value" : "1"
+  },
+  "headingOnlyVisibleToScreenReaders" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  },
+  "interceptNotifications" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  },
+  "propagateNotifications" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  }
+}</macroponent_config>
+        <name>Team Calendar default Copy</name>
+        <order>3003003</order>
+        <parent_macroponent display_value="Schedule">2b4368f2b7003010ca990f68ee11a90d</parent_macroponent>
+        <required_translations>[ ]</required_translations>
+        <rollback_screen/>
+        <screen_condition/>
+        <screen_type display_value="Team Calendar">247be6a673443010565db0a8d4f6a7f9</screen_type>
+        <sys_class_name>sys_ux_screen</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:25:48</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>30dc72911ba9d510b5bd2fc02a4bcb2c</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Team Calendar default Copy</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_screen_30dc72911ba9d510b5bd2fc02a4bcb2c</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:52:39</sys_updated_on>
+    </sys_ux_screen>
+    <sys_translated_text action="delete_multiple" query="documentkey=30dc72911ba9d510b5bd2fc02a4bcb2c"/>
+</record_update>

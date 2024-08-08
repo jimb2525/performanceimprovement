@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="awa_inbox_layout">
+    <awa_inbox_layout action="INSERT_OR_UPDATE">
+        <card_layout><![CDATA[<img src="awa_card_layout_guide.png" width="349" height="300" />]]></card_layout>
+        <condition/>
+        <field_1>number</field_1>
+        <field_2/>
+        <field_3/>
+        <field_4/>
+        <field_5/>
+        <is_default>true</is_default>
+        <name>Default Claim Work Item layout</name>
+        <order>1000000</order>
+        <service_channel display_value="Claim Work Item">92e12f101badd914b5bd2fc02a4bcbec</service_channel>
+        <short_description>Default inbox layout for the Claim Work Item Service Channel</short_description>
+        <sys_class_name>awa_inbox_layout</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-22 16:34:35</sys_created_on>
+        <sys_id>0c122b101badd914b5bd2fc02a4bcb47</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Default Claim Work Item layout</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>awa_inbox_layout_0c122b101badd914b5bd2fc02a4bcb47</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-22 16:34:35</sys_updated_on>
+    </awa_inbox_layout>
+</record_update>

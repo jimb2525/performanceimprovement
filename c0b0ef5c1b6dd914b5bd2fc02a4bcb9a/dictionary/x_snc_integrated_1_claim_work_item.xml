@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="8e81abdc1b6dd914b5bd2fc02a4bcbe6" extends="task" label="Claim Work Item" max_length="40" name="x_snc_integrated_1_claim_work_item" text_index="true" type="collection"/>
+</database>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+    <sys_security_acl action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>false</advanced>
+        <condition/>
+        <description/>
+        <local_or_existing>Local</local_or_existing>
+        <name>d39f8a811b615510b5bd2fc02a4bcb02</name>
+        <operation display_value="execute">execute</operation>
+        <script/>
+        <security_attribute/>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-24 18:33:39</sys_created_on>
+        <sys_id>7c6016051b615510b5bd2fc02a4bcbfa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>d39f8a811b615510b5bd2fc02a4bcb02</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_security_acl_7c6016051b615510b5bd2fc02a4bcbfa</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-24 18:33:39</sys_updated_on>
+        <type display_value="ux_data_broker">6d9c40e9531210101cb3ddeeff7b12f6</type>
+    </sys_security_acl>
+</record_update>

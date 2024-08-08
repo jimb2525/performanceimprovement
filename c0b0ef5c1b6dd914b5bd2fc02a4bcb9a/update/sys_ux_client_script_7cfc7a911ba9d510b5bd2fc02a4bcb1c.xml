@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>populateAttendees</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({ api, event, helpers, imports }) {
+    const { newAndEditEventModal } = api.state;
+    const { attendeesTypeaheadItems } = newAndEditEventModal;
+    const itemSysIdSet = new Set(attendeesTypeaheadItems.map((item) => item.id));
+    let newItems = [];
+
+    if (event.elementId === 'fetch_attendees_in_my_groups') {
+        const { output } = api.data.fetch_attendees_in_my_groups;
+        const result = output ? output.data.GlideAggregate_Query : [];
+        
+        newItems = result
+            .filter((item) => !itemSysIdSet.has(item.groupBy[0].value))
+            .map((item) => ({
+                id: item.groupBy[0].value,
+                label: item.groupBy[0].displayValue
+            }));
+    } else if (event.elementId === 'fetch_all_attendees') {
+        const { results = [] } = api.data.fetch_all_attendees;
+        
+        newItems = results
+            .filter((item) => !itemSysIdSet.has(item.sys_id.value))
+            .map((item) => ({ id: item.sys_id.value, label: item.name.value }));
+    }
+
+    api.setState('newAndEditEventModal', ({currentValue}) => {
+        return {
+            ...currentValue,
+            attendeesTypeaheadItems: currentValue.attendeesTypeaheadItems.concat(newItems).sort((a, b) => a.label.localeCompare(b.label))
+        };
+    });
+
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:21</sys_created_on>
+        <sys_id>7cfc7a911ba9d510b5bd2fc02a4bcb1c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>populateAttendees</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_7cfc7a911ba9d510b5bd2fc02a4bcb1c</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:21</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

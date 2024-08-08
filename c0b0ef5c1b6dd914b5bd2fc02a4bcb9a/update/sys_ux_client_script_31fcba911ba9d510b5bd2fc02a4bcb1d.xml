@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes>62fffe100f1330100026c562ff767e75</includes>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>handleUpdateScheduleSpans</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    const {
+        NowDateTime
+    } = imports['sn_uxf.core_libraries']();
+    const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+
+    const MANAGER_DATE_FORMAT = api.data.initialize_team_calendar_1.output.managerDateFormat;
+    const MANAGER_TIME_FORMAT = api.data.initialize_team_calendar_1.output.managerTimeFormat;
+
+    const currentCalendarView = api.state.calendarControls.currentView;
+    const currentViewConfig = currentCalendarView ? api.state[currentCalendarView] : "TIMELINE_DAY";
+
+    const WORK_SHIFT_CATEGORY = '07e433f449a11010f877de942e7c1d18';
+    const ONCALL_CATEGORY = '72dac1553bd02010e81a4ee1f3efc481';
+    const CALENDAR_DRAFT_COLOR = '#758284';
+    const CALENDAR_DRAFT_TEXT_COLOR = '#ffffff';
+    const CALENDAR_DRAFT_BREAK_COLOR = '#2C3537';
+    const CALENDAR_INDIVIDUALLY_QUERIED_ID = 'user';
+    let CALENDAR_INDIVIDUALLY_QUERIED_LABEL = '';
+    helpers.translate('Other').then(value => {
+        CALENDAR_INDIVIDUALLY_QUERIED_LABEL = value;
+    });
+    const CALENDAR_SECTION_BACKGROUND_COLOR = 'RGB(var(--now-color--neutral-2,228,230,231))';
+    const CALENDAR_SECTION_TEXT_COLOR = 'RGB(var(--now-color_text--primary,var(--now-color--neutral-18,22,27,28)))';
+    const CALENDAR_ROW_BACKGROUND_COLOR = 'RGB(var(--now-color--primary-0,221,237,233),0.25)';
+    const CALENDAR_ROW_TEXT_COLOR = 'RGB(var(--now-color_text--primary,var(--now-color--neutral-18,22,27,28)))';
+
+    let results = event.payload.eventPayload;
+    const groupsRead = {};
+
+    const convertTimezone = function(time, fromTZ, toTZ, displayFormat) {
+        return NowDateTime.tz(time, DEFAULT_DATETIME_FORMAT, fromTZ)
+            .tz(toTZ)
+            .format(DEFAULT_DATETIME_FORMAT);
+    };
+
+    function getTimeZones() {
+
+        //get TimeZones
+        let currentTimezones = [...api.state.calendarControls.timeZones];
+
+        results.forEach((result) => {
+
+            let apiTimezones = result['response']['result']['timeZones'] ? result['response']['result']['timeZones'] : {};
+            let transformedTimeZones = [];
+
+            Object.keys(apiTimezones).forEach(tz => {
+                let found = currentTimezones.some(el => el.name === tz);
+                if (!found) {
+                    currentTimezones.push({
+                        name: tz,
+                        label: apiTimezones[tz]
+                    });
+                }
+            });
+        });
+
+        api.setState('calendarControls', ({
+            currentValue
+        }) => {
+            return {
+                ...currentValue,
+                timeZones: currentTimezones
+            };
+        });
+    };
+
+    const getEventFromShift = (user, shift, isChildEvent) => {
+        const event = {};
+        event.user = {
+            sysId: user.sysId,
+            name: user.name
+        };
+        event.title = shift.name;
+        event.description = shift.description;
+        if (!(event.description) && shift.schedule && shift.schedule.workSchedule) {
+            event.description = shift.schedule.workSchedule.description;
+        }
+        event.participants = shift.schedule && shift.schedule.workSchedule ? shift.schedule.workSchedule.participants : [];
+        event.isExclusion = shift.isExclusion ? shift.isExclusion : false;
+        event.record_id = shift.sysId;
+        event.schedule = shift.schedule;
+        event.readInTimezone = api.state.managerTimezone;
+        event.category = shift.schedule.eventType.category.sys_id;
+        event.bgColor = shift.schedule.eventType.color;
+        event.isPublished = shift.schedule.isPublished || shift.schedule.eventType.category.sys_id === ONCALL_CATEGORY;
+        event.originalReadInTimezone = api.context.session.user.timeZone;
+
+        let eventStart = shift.startTime ? shift.startTime : shift.scheduledStartTime ? shift.scheduledStartTime : '';
+        let convertedEventStart = convertTimezone(eventStart, event.readInTimezone, api.state.managerTimezone);
+        event.start = convertedEventStart;
+        event.startTimeDisplayValue = shift.startTimeDisplayValue;
+        event.startTimeConverted = convertedEventStart;
+        event.startDateConvertedDisplay = NowDateTime(event.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT);
+        event.startTimeConvertedDisplay = NowDateTime(event.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_TIME_FORMAT);
+
+        let eventEnd = shift.endTime ? shift.endTime : shift.scheduledEndTime ? shift.scheduledEndTime : '';
+        let convertedEventEnd = convertTimezone(eventEnd, event.readInTimezone, api.state.managerTimezone);
+        event.end = convertedEventEnd;
+        event.endTimeDisplayValue = shift.endTimeDisplayValue;
+        event.endTimeConverted = convertedEventEnd;
+        event.endDateConvertedDisplay = NowDateTime(event.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT);
+        event.endTimeConvertedDisplay = NowDateTime(event.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_TIME_FORMAT);
+
+        // Associate this span with this user so that it is displayed in correct section of calendar
+        event.group = user.sysId;
+        event.id = `${event.record_id}_${event.start}_${event.end}_${user.sysId}`;
+        event.childEvents = [];
+
+        if (
+            event.category === WORK_SHIFT_CATEGORY &&
+            !event.isPublished
+        ) {
+            event.bgColor = CALENDAR_DRAFT_COLOR;
+            event.textColor = CALENDAR_DRAFT_TEXT_COLOR;
+        }
+        return event;
+    };
+
+    const parseEventsForUser = (spans, user) => {
+        var events = [];
+        for (let k = 0; k < spans.length; k += 1) {
+            const span = spans[k];
+            const childSpans = span.childSpans;
+            const event = getEventFromShift(user, span, false);
+            if (Array.isArray(childSpans)) {
+                for (let l = 0; l < childSpans.length; l += 1) {
+                    const childEvent = getEventFromShift(user, childSpans[l], true);
+                    if (
+                        event.category === WORK_SHIFT_CATEGORY &&
+                        !event.isPublished
+                    ) {
+                        childEvent.bgColor = CALENDAR_DRAFT_BREAK_COLOR;
+                    }
+                    event.childEvents.push(childEvent);
+                }
+            }
+            events.push(event);
+        }
+        return events;
+    };
+    /**
+     * events can duplicated while merging. Because same user is requested multiple times
+     *  or event category has been reloaded with append
+     */
+    const filterOutDuplicateEvents = (eventsPerDay, existingEvents) => {
+        for (let m = 0; m < eventsPerDay.length; m++) {
+            const currentEvent = eventsPerDay[m];
+            const currentEventJSON = JSON.stringify(currentEvent);
+            let foundDuplicate = false;
+            for (let k = 0; k < existingEvents.length; k++) {
+                const existingEvent = existingEvents[k];
+                if (existingEvent && currentEvent &&
+                    currentEvent.category === existingEvent.category &&
+                    currentEventJSON === JSON.stringify(existingEvent)) {
+                    foundDuplicate = true;
+                    break;
+                }
+            }
+            if (!foundDuplicate) existingEvents.push(currentEvent);
+        }
+    };
+    /**
+     * Read the schedules from API response to 
+     * {
+     *      userId: {date: [event1, event2, event3]}
+     * }
+     * This way events can be collected for each user per day. 
+     */
+    const readSchedulesForUserPerDay = (user, userSchedulesForUserPerDay, mergedEventPayLoad) => {
+        if (!mergedEventPayLoad[user.sysId]) mergedEventPayLoad[user.sysId] = {};
+        for (const day in userSchedulesForUserPerDay) {
+            const dateFormatRegex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
+            if (!dateFormatRegex.test(day)) {
+                console.log("Date is not in yyyy-mm-dd format - ", day);
+                continue;
+            }
+            if (!mergedEventPayLoad[user.sysId][day]) mergedEventPayLoad[user.sysId][day] = [];
+            const eventsPerDay = parseEventsForUser(userSchedulesForUserPerDay[day], user);
+            mergedEventPayLoad[user.sysId][day] = mergedEventPayLoad[user.sysId][day].concat(eventsPerDay);
+        }
+    };
+    const isObjectEmpty = (obj) => {
+        return (obj && Object.keys(obj).length === 0
+                    && Object.getPrototypeOf(obj) === Object.prototype);
+    };
+    /**
+     * API is called for each event category. So collect multiple events for each user for each day.
+     * Also, collect the group information that is later used to populate section headers
+     */
+    const appendEventPayload = (defaultEventData, newEventData) => {
+        if (isObjectEmpty(defaultEventData)) defaultEventData = {};
+        if (isObjectEmpty(newEventData)) return defaultEventData;
+        try {
+            let mergedEventPayLoad = JSON.parse(JSON.stringify(defaultEventData));
+            for (let group in newEventData) {
+                if (!groupsRead[group]) groupsRead[group] = {
+                    name: newEventData[group].name,
+                    schedules: {}
+                };
+                const groupSchedules = newEventData[group];
+                if (!groupSchedules || !groupSchedules.data || groupSchedules.data.length <= 0) continue;
+
+                for (let i = 0; i < groupSchedules.data.length; i++) {
+                    if (!groupSchedules.data[i]) continue;
+                    const userSchedulesForUserPerDay = groupSchedules.data[i].schedules;
+                    if (!userSchedulesForUserPerDay || userSchedulesForUserPerDay.length <= 0) continue;
+                    const user = {
+                        sysId: groupSchedules.data[i].sysId,
+                        name: groupSchedules.data[i].name
+                    };
+                    if (!groupsRead[group]["schedules"][user.sysId]) groupsRead[group]["schedules"][user.sysId] = user;
+                    readSchedulesForUserPerDay(user, userSchedulesForUserPerDay, mergedEventPayLoad);
+                }
+            }
+            return mergedEventPayLoad;
+        } catch (ex) {
+            console.log(ex);
+            return defaultEventData;
+        }
+    };
+
+    const getEvents = (eventPayload, calendarTimezone) => {
+        let events = [];
+        if (!eventPayload || eventPayload.length <= 0) return events;
+        try {
+            for (let userEvents in eventPayload) {
+                let userEventsForAllDaysRequested = [];
+                for (let day in eventPayload[userEvents]) {
+                    filterOutDuplicateEvents(eventPayload[userEvents][day], userEventsForAllDaysRequested);
+                }
+                events = events.concat(userEventsForAllDaysRequested);
+                //Convert to the calendar's current timezone - need to think if timezone conversion should be done here?
+                // events = convertAllEventTimes(events, calendarTimezone, false, true); // Dep- MomentTZ
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+        return events;
+    };
+
+    //getTimeZones();
+    let eventOperation = event.payload.operation;
+    
+    let currentEventPayload = eventOperation == "replace" ? {} : api.state['calendarControls']['currentEventPayload'];
+
+    results.forEach((result) => {
+        let apiEventPayload = result['response']['result']['shiftData'] ? result['response']['result']['shiftData'] : {};
+        currentEventPayload = appendEventPayload(currentEventPayload, apiEventPayload);
+    });
+
+    let processedEvents = getEvents(currentEventPayload, null);
+    const coverageKeyDay = "coverage-TIMELINE_DAY";
+    const coverageKeyWeek = "coverage-TIMELINE_WEEK";
+    const getSections = () => {
+        let sections = eventOperation == "replace" ? [] : api.state['calendarControls']['sections'];
+        let otherSection = null;
+        //For each group read during append, create a section:
+        try {
+            for (let groupId in groupsRead) {
+                let section = {
+                    children: []
+                };
+                let existingSection = sections.find((s) => s.id === groupId);
+                // section already read in fast load.
+                if(existingSection) continue;
+                
+                let category = groupsRead[groupId];
+                section.id = groupId;
+                section.runtimeData = new Map();
+                section.runtimeData.set(coverageKeyDay, []);
+                section.runtimeData.set(coverageKeyWeek, []);
+
+                if (groupId === CALENDAR_INDIVIDUALLY_QUERIED_ID)
+                    section.title = CALENDAR_INDIVIDUALLY_QUERIED_LABEL;
+                else section.title = category.name;
+                section.bgColor = CALENDAR_SECTION_BACKGROUND_COLOR;
+                section.textColor = CALENDAR_SECTION_TEXT_COLOR;
+
+                for (let userId in category.schedules) {
+                    const user = category.schedules[userId];
+                    let child = {};
+
+                    child.id = user.sysId;
+                    child.title = user.name;
+                    child.textColor = CALENDAR_ROW_TEXT_COLOR;
+
+                    section.children.push(child);
+                }
+                section.children.sort((a, b) => a.title.localeCompare(b.title));
+                if (section.id === CALENDAR_INDIVIDUALLY_QUERIED_ID)
+                    otherSection = section;
+                else sections.push(section);
+
+            }
+            sections.sort((a, b) => a.title.localeCompare(b.title));
+            if (otherSection) sections.push(otherSection);
+        } catch (ex) {
+            console.log(ex);
+        }
+        return sections;
+    };
+
+    const CALENDAR_VIEWS_TIMELINE_WEEK = 'TIMELINE_WEEK';
+    const CALENDAR_VIEWS_TIMELINE_DAY = 'TIMELINE_DAY';
+    const covergeCalculator = imports['sn_shift_planning.CoverageCalculator']();
+    let newSections = getSections();
+    const timezone = api.state.managerTimezone;
+    //populate section runtimeData so that coverage calculator and
+    //section header templates use it to calculate per hour or per day resource count
+    // We need per hour count in week view because there is popover in week view that shows hourly data
+    for (let n = 0; n < newSections.length; n++) {
+        if (CALENDAR_VIEWS_TIMELINE_DAY === currentCalendarView) {
+            newSections[n].runtimeData.set(coverageKeyDay,
+                covergeCalculator.getCoverage({ ...currentViewConfig, xSize: 24, xStep: 60, xUnitName: 'minutes' }, processedEvents, api.state.startDate, newSections, timezone, newSections[n]));
+        }
+        if (CALENDAR_VIEWS_TIMELINE_WEEK === currentCalendarView) {
+            newSections[n].runtimeData.set(coverageKeyWeek, 
+                covergeCalculator.getCoverage({ ...currentViewConfig, xSize: 7, xStep: 1, xUnitName: 'days' }, processedEvents, api.state.startDate, newSections, timezone, newSections[n]));
+            let dailyCoverageForWeek = {};
+            const coverageConfig = { ...currentViewConfig, currentCalendarView: CALENDAR_VIEWS_TIMELINE_DAY, xSize: 24, xStep: 60, xUnitName: 'minutes' };
+            let startDateTime = NowDateTime(api.state.startDate, "YYYY-MM-DD").startOf("day");
+            startDateTime.subtract(1, 'd');
+            for(var i = 0; i < 8; i++){
+                const key = startDateTime.format(DEFAULT_DATETIME_FORMAT);
+                dailyCoverageForWeek[key] = covergeCalculator.getCoverage(coverageConfig, processedEvents, key, newSections, timezone, newSections[n]);
+                startDateTime = startDateTime.add(1,'d');
+            }
+            newSections[n].runtimeData.set(coverageKeyDay, dailyCoverageForWeek);
+        }
+    }
+
+    let allEventTimezones = !api.state.calendarControls.timezones ? [] : api.state.calendarControls.timezones;
+    for(let i in processedEvents) {
+        let schedule = processedEvents[i].schedule.workSchedule;
+        if(!schedule || allEventTimezones.some((tz) => tz.name === schedule.timeZone))
+            continue;
+        allEventTimezones.push({
+            'name': schedule.timeZone,
+            'label': schedule.timeZoneDisplayValue
+        });
+    }
+
+    api.setState('isLoading', false);
+    api.setState('calendarControls', ({
+        currentValue
+    }) => {
+        return {
+            ...currentValue,
+            sections: newSections,
+            events: processedEvents,
+            timezones: allEventTimezones,
+            currentEventPayload: currentEventPayload
+        };
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:25</sys_created_on>
+        <sys_id>31fcba911ba9d510b5bd2fc02a4bcb1d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleUpdateScheduleSpans</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_31fcba911ba9d510b5bd2fc02a4bcb1d</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:25</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

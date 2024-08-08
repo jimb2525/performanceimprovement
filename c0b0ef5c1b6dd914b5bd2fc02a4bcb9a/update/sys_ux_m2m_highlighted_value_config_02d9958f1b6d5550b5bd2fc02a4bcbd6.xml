@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_m2m_highlighted_value_config">
+    <sys_ux_m2m_highlighted_value_config action="INSERT_OR_UPDATE">
+        <highlighted_value display_value="queue_name">25b9918f1b6d5550b5bd2fc02a4bcb12</highlighted_value>
+        <highlighted_value_config display_value="Red">60d9558f1b6d5550b5bd2fc02a4bcbb9</highlighted_value_config>
+        <order>0</order>
+        <sys_class_name>sys_ux_m2m_highlighted_value_config</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-30 19:42:43</sys_created_on>
+        <sys_id>02d9958f1b6d5550b5bd2fc02a4bcbd6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_m2m_highlighted_value_config_02d9958f1b6d5550b5bd2fc02a4bcbd6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 19:42:43</sys_updated_on>
+    </sys_ux_m2m_highlighted_value_config>
+</record_update>

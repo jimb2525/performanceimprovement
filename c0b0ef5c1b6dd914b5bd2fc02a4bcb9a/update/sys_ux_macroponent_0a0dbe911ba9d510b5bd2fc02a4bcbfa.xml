@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_macroponent">
+    <sys_ux_macroponent action="INSERT_OR_UPDATE">
+        <associated_types/>
+        <bundles/>
+        <category>page</category>
+        <component_dependencies/>
+        <composition>[ {
+  "elementId" : "viewport_cbo",
+  "elementLabel" : "Viewport",
+  "propertyValues" : {
+    "dynamicTabData" : ""
+  },
+  "eventMappings" : [ ],
+  "slot" : "Main",
+  "definition" : {
+    "id" : "MACROPONENT_VIEWPORT_HEADLESS",
+    "type" : "MACROPONENT_VIEWPORT_HEADLESS"
+  },
+  "overrides" : null,
+  "isHidden" : {
+    "type" : "JSON_LITERAL",
+    "value" : ""
+  },
+  "isHero" : false,
+  "isNonDestructive" : false,
+  "styles" : {
+    "height" : "calc(100vh - 262px)",
+    "display" : "flex"
+  }
+} ]</composition>
+        <da_relay_models/>
+        <data>[ {
+  "definition" : {
+    "id" : "866bcfaa53213010ca99ddeeff7b12b4",
+    "type" : "GRAPHQL"
+  },
+  "elementId" : "fetch_session_message",
+  "elementLabel" : "Fetch session message",
+  "eventMappings" : [ {
+    "eventMappingId" : "ckwbgfzdnaabbhheddeggwnsjjmddiau",
+    "isConfiguration" : false,
+    "offRowStorageId" : null,
+    "sourceEventApiName" : "sn_uxf.DATA_FETCH_SUCCEEDED",
+    "sourceEventCorrelationId" : null,
+    "sourceEventDefinition" : {
+      "apiName" : "sn_uxf.DATA_FETCH_SUCCEEDED",
+      "id" : null,
+      "type" : "UXEVENT"
+    },
+    "sourceEventSysId" : null,
+    "targets" : [ {
+      "broker" : null,
+      "clientScript" : {
+        "sysId" : "520dfe911ba9d510b5bd2fc02a4bcb93"
+      },
+      "conditional" : null,
+      "declarativeAction" : null,
+      "event" : null,
+      "operation" : null,
+      "targetId" : "ckwbgfzdnaabbhhfddeggwrvddebbav",
+      "type" : "CLIENT_SCRIPT"
+    } ]
+  } ],
+  "inputValues" : { },
+  "readEvaluationMode" : "EXPLICIT"
+} ]</data>
+        <description/>
+        <dispatched_events>df1eb0629702011016c576d917890d6c,7bdfe36ceb4001100b721ff5b55228b5,ddb09e9feb3330100b721ff5b5522808,326f3df3eb3130100b721ff5b55228b2</dispatched_events>
+        <ext_controller_dep/>
+        <extends display_value="Page Template">19be392623033300f4b4c50947bf65ba</extends>
+        <extension_point/>
+        <handled_events>9fe21dc5fd524510f877cbc4f8d9a228,53aa04f03b120110063c4ee1f3efc432,deed30a69702011016c576d917890d09,518ca324eb0001100b721ff5b55228d9,fb4f3df3eb3130100b721ff5b55228d1,cbc83df3eb3130100b721ff5b55228bc,a1fbd867eb3130100b721ff5b552285e,0c572d33eb1130100b721ff5b55228e2,1e7b7c37ebd130100b721ff5b55228ab,0969fd6aebd130100b721ff5b5522813,3258cd6aebd130100b721ff5b5522818,deb2fa0aeb1130100b721ff5b5522819,645d3db9ebd130100b721ff5b5522878</handled_events>
+        <interactions/>
+        <interfaces/>
+        <internal_event_mappings>{
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#CHANGE_CALENDAR_CONTEXT_DATE" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.TEAM_CALENDAR#CHANGE_CONTEXT_DATE_RELAY_1c5154dfeba030100b721ff5b55228a3",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "newContextDate" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "newContextDate" ]
+            }
+          }
+        }
+      },
+      "sysId" : "ddb09e9feb3330100b721ff5b5522808"
+    },
+    "operation" : null,
+    "targetId" : "ckwbbieiiyiaajjaoddeggwhzbjjruxk",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.APPLY_FILTER_PAGE#HANDLE_FILTER_APPLIED" : [ {
+    "broker" : null,
+    "clientScript" : {
+      "sysId" : "d20dfe911ba9d510b5bd2fc02a4bcb8a"
+    },
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : null,
+    "operation" : null,
+    "targetId" : "claasumckjaadduuddfggykadkvsgii",
+    "type" : "CLIENT_SCRIPT"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "claaswdffzffaaddwxddfggysdicccddybb",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.APPLY_FILTER_PAGE#BACK_BUTTON_CLICKED" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "claaserhhccxaaccgcddfggygffxyzmhhdd",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.TEAM_CALENDAR#SHOW_CHILD_NOTIFICATIONS_RELAY_1c5154dfeba030100b721ff5b55228a3",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "items" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "items" ]
+            }
+          },
+          "shouldRefresh" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "shouldRefresh" ]
+            }
+          }
+        }
+      },
+      "sysId" : "7bdfe36ceb4001100b721ff5b55228b5"
+    },
+    "operation" : null,
+    "targetId" : "ckwbgrrwtaaddgbbddeggwevffaamddbi",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_EDIT_WORK_SHIFT_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: 'team-calendar-sidebar-schedules-edit-work-shift-view',\n\t\tfields: event.payload,\n\t\tparams: event.payload\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckrjjzcaaasaaaabbhddhiiffbbddteeecwee",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#FETCH_SESSION_MESSAGE" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : null,
+    "operation" : {
+      "dataBrokerId" : "866bcfaa53213010ca99ddeeff7b12b4",
+      "operationName" : "REFRESH",
+      "parentResourceId" : "fetch_session_message",
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      }
+    },
+    "targetId" : "ckwffjbbpbbdaaeevdddegguggwbbcggsas",
+    "type" : "DATABROKER_OP"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_FILTERS_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : {
+      "sysId" : "6e0dfe911ba9d510b5bd2fc02a4bcbb8"
+    },
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : null,
+    "operation" : null,
+    "targetId" : "claasofiwbaacchfddfggydkdnlaashh",
+    "type" : "CLIENT_SCRIPT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_ADD_WORK_SHIFT_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: 'team-calendar-sidebar-schedules-add-work-shift-view',\n\t\tfields: event.payload,\n\t\tparams: event.payload\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckreeidnpaaaaaccaaddhiieentohhvpecc",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#SCHEDULE_PLAN_CREATED" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : null,
+    "operation" : {
+      "dataBrokerId" : "c7be3b25eb3430100b721ff5b552283d",
+      "operationName" : "REFRESH",
+      "parentResourceId" : "fetch_schedule_plans",
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      }
+    },
+    "targetId" : "ckrbbeefttvaaaabbdddhiibjziifggaen",
+    "type" : "DATABROKER_OP"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : null,
+    "operation" : {
+      "dataBrokerId" : "051b8639eb5530100b721ff5b5522854",
+      "operationName" : "REFRESH",
+      "parentResourceId" : "fetch_schedule_plan_definitions",
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      }
+    },
+    "targetId" : "ckrbbffhhhhugaaaaccmddhiibbbqffeqjffaa",
+    "type" : "DATABROKER_OP"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "ckrbbawviiiaaaabbddddhiiffeevacsxndd",
+    "type" : "EVENT"
+  } ],
+  "MACROPONENT_READY" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: 'team-calendar-sidebar-schedules-list-view',\n\t\tfields: null,\n\t\tparams: {\n\t\t\tschedulePlanListState: {...api.context.props.schedulePlanListState}\n\t\t}\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckpxaamyavaaaabbfddghhvgddtgrbbdb",
+    "type" : "EVENT"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tpropName: \"schedulePlanListState\",\n\t\tvalue: {...api.context.props.schedulePlanListState}\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "32408b42ff7a10109046e490703bf176"
+    },
+    "operation" : null,
+    "targetId" : "claahohoggddaabsyddfggynwpcciiidu",
+    "type" : "EVENT"
+  }, {
+    "broker" : null,
+    "clientScript" : {
+      "sysId" : "920dfe911ba9d510b5bd2fc02a4bcb8e"
+    },
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : null,
+    "operation" : null,
+    "targetId" : "clbbeeiiujjqkaabbemddfggyvjaaaoeels",
+    "type" : "CLIENT_SCRIPT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#SAVE_LIST_VIEW_STATE" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.TEAM_CALENDAR#SAVE_SCHEDULE_PLAN_LIST_STATE_RELAY_1c5154dfeba030100b721ff5b55228a3",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tschedulePlanListState: event.payload.schedulePlanListState\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "df1eb0629702011016c576d917890d6c"
+    },
+    "operation" : null,
+    "targetId" : "claahndwuhhaabbiiiddfggydixeereeffm",
+    "type" : "EVENT"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tpropName: \"schedulePlanListState\",\n\t\tvalue: {...event.payload.schedulePlanListState}\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "32408b42ff7a10109046e490703bf176"
+    },
+    "operation" : null,
+    "targetId" : "claainggaggpaajjcxddfggyzlznuiigd",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_LIST_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\tconst schedulePlanListState = api.state.schedulePlanListState;\n    return {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: 'team-calendar-sidebar-schedules-list-view',\n\t\tfields: event.payload,\n\t\tparams: {\n\t\t\t...event.payload,\n\t\t\tschedulePlanListState: schedulePlanListState\n\t\t}\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckrjjshqynaaaabbiiddhiiffwggbbvggktv",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_EDIT_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: 'team-calendar-sidebar-schedules-edit-view',\n\t\tfields: event.payload,\n\t\tparams: event.payload\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckreeaqaaiaaaabbddddhiiccggzeemvddiin",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_CREATE_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: 'team-calendar-sidebar-schedules-create-view',\n\t\tfields: null,\n\t\tparams: null\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckrbbhhffggevaaaaccfddhiiffhftffsqbbaa",
+    "type" : "EVENT"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "ckrbbhhjviijjaaaaddaddhiiffccdwacciiag",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#OPEN_SCHEDULE_PLAN" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: 'team-calendar-sidebar-schedules-details-view',\n\t\tfields: event.payload,\n\t\tparams: event.payload\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckrccjffftraaaaddkddhiiffmeeaoixox",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.GO_TO_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: event.payload.viewName,\n\t\tfields: null,\n\t\tparams: null\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckquhvcjxaaaagdddhiieezffbbsvehhb",
+    "type" : "EVENT"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "ckquhwddpffaaaagsddhiieeggxrrhhjrq",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_VIEW" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
+      "payload" : {
+        "type" : "CLIENT_TRANSFORM_SCRIPT",
+        "script" : {
+          "apiVersion" : "1.0.0",
+          "inlineScript" : "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n* @param {any} params.imports\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_cbo',\n\t\troute: event.payload.viewName,\n\t\tfields: null,\n\t\tparams: null\n\t};\n}",
+          "scriptSysId" : null
+        }
+      },
+      "sysId" : "f49aa75023071010b1e3c50947bf65de"
+    },
+    "operation" : null,
+    "targetId" : "ckqujiibvnaaaaiaaddhiiffjjgbbggeeffoi",
+    "type" : "EVENT"
+  } ],
+  "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#REFRESH_CALENDAR" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.TEAM_CALENDAR#REFRESH_REQUESTED_RELAY_1c5154dfeba030100b721ff5b55228a3",
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : "326f3df3eb3130100b721ff5b55228b2"
+    },
+    "operation" : null,
+    "targetId" : "cksjjlmzffaaaajjmddhiiddobcmkbpbb",
+    "type" : "EVENT"
+  } ]
+}</internal_event_mappings>
+        <layout>{
+  "default" : {
+    "children" : null,
+    "isInline" : null,
+    "items" : [{"slotName":"Main","rules":{"flex":"1"},"styles":{"display":"flex","flex-direction":"column"}}],
+    "root" : null,
+    "rules" : {"flex-flow":"column nowrap","align-items":"stretch","min-height":"400px","height":"100%","min-width":"400px"},
+    "styles" : null,
+    "templateId" : "28bde4cd53431010e6bcddeeff7b12cc",
+    "type" : "flex"
+  }
+}</layout>
+        <macroponent_dependencies/>
+        <name>Schedule plans</name>
+        <output_prop_mapping/>
+        <props>[ {
+  "name" : "schedulePlanListState",
+  "label" : "schedulePlanListState",
+  "fieldType" : "string",
+  "typeMetadata" : null,
+  "valueType" : "string",
+  "mandatory" : false,
+  "defaultValue" : "",
+  "description" : null,
+  "readOnly" : true,
+  "selectable" : false,
+  "disabled" : false
+} ]</props>
+        <required_translations>[ ]</required_translations>
+        <root_component/>
+        <root_component_config>{ }</root_component_config>
+        <root_component_definition/>
+        <schema_version>1.0.0</schema_version>
+        <state_properties>[ {
+  "name" : "schedulePlanListState",
+  "label" : "schedulePlanListState",
+  "fieldType" : "json",
+  "valueType" : "json",
+  "shape" : "",
+  "description" : "",
+  "initialValue" : {
+    "type" : "JSON_LITERAL",
+    "value" : { }
+  }
+}, {
+  "name" : "availableFilters",
+  "label" : "availableFilters",
+  "fieldType" : "json",
+  "valueType" : "json",
+  "shape" : "",
+  "description" : "",
+  "initialValue" : {
+    "type" : "JSON_LITERAL",
+    "value" : [ {
+      "parFilters" : [ ],
+      "filterName" : "State",
+      "filterProps" : {
+        "tablefields" : [ {
+          "table" : {
+            "id" : "sn_shift_planning_schedule_plan",
+            "label" : "Schedule",
+            "hierarchy" : null
+          },
+          "field" : {
+            "id" : "state",
+            "label" : "State",
+            "type" : "choice",
+            "reference" : null,
+            "referenceLabel" : null
+          }
+        } ],
+        "defaults" : [ ],
+        "booleanLabels" : { },
+        "maxElements" : 500,
+        "filterName" : "State",
+        "encodedQuery" : null,
+        "emptyOption" : null,
+        "choices" : null
+      }
+    }, {
+      "parFilters" : [ ],
+      "filterName" : "Dates",
+      "filterProps" : {
+        "tablefields" : [ {
+          "table" : {
+            "id" : "sn_shift_planning_schedule_plan",
+            "label" : "Schedule",
+            "hierarchy" : null
+          },
+          "field" : {
+            "id" : "default_start_date",
+            "label" : "Start date",
+            "type" : "glide_date",
+            "reference" : null,
+            "referenceLabel" : null
+          }
+        } ],
+        "defaults" : [ ],
+        "booleanLabels" : { },
+        "maxElements" : 500,
+        "filterName" : "Dates",
+        "encodedQuery" : null,
+        "emptyOption" : null,
+        "choices" : null
+      }
+    } ]
+  }
+}, {
+  "name" : "scheduleFilters",
+  "label" : "scheduleFilters",
+  "fieldType" : "json",
+  "valueType" : "json",
+  "shape" : "",
+  "description" : "",
+  "initialValue" : {
+    "type" : "JSON_LITERAL",
+    "value" : { }
+  }
+}, {
+  "name" : "filterQuery",
+  "label" : "filterQuery",
+  "fieldType" : "string",
+  "valueType" : "string",
+  "shape" : "",
+  "description" : "",
+  "initialValue" : {
+    "type" : "JSON_LITERAL",
+    "value" : null
+  }
+} ]</state_properties>
+        <sys_class_name>sys_ux_macroponent</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:43</sys_created_on>
+        <sys_id>0a0dbe911ba9d510b5bd2fc02a4bcbfa</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Schedule plans</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_macroponent_0a0dbe911ba9d510b5bd2fc02a4bcbfa</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:44</sys_updated_on>
+    </sys_ux_macroponent>
+</record_update>

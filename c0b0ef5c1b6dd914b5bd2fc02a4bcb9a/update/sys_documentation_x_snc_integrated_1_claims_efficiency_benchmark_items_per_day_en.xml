@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="items_per_day" label="Items Per Day" language="en" table="x_snc_integrated_1_claims_efficiency_benchmark">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>items_per_day</element>
+            <help/>
+            <hint/>
+            <label>Items Per Day</label>
+            <language>en</language>
+            <name>x_snc_integrated_1_claims_efficiency_benchmark</name>
+            <plural/>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-08-23 23:27:52</sys_created_on>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_name>Items Per Day</sys_name>
+            <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+            <sys_update_name>sys_documentation_x_snc_integrated_1_claims_efficiency_benchmark_items_per_day_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-08-23 23:27:53</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

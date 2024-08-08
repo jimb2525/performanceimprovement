@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Details view">011d36d11ba9d510b5bd2fc02a4bcb02</macroponent>
+        <name>Handle action button clicked</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+    switch (event.elementId) {
+        case 'button_publish':
+            helpers.snHttp('/api/sn_shift_planning/shift_planning/publish_schedule', {
+                method: 'POST',
+                body: {
+                    scheduleSysId: api.context.props.sysId
+                }
+            }).then(resp => {
+                api.emit('SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS', {items: [{
+                    status: 'info',
+                    action: { type: 'dismiss' },
+                    content: resp.response.result.message
+                }]});
+                api.emit('SCHEDULE_PLAN_SIDEBAR#REFRESH_CALENDAR');
+            }).catch(resp => {
+                if (!!resp.error) {
+                    try {
+                        api.emit('SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS', {items: [{
+                            status: 'critical',
+                            action: { type: 'dismiss' },
+                            content: resp.error.data.result.message,
+                        }]});
+                        console.log("Publish failed: " + JSON.stringify(resp.error));
+                    }
+                    catch (e) {
+                        console.log("Publish failed, could not provide details");
+                    }
+                }
+            });
+            break;
+        case 'button_duplicate':
+            api.setState('isLoading', true);
+
+            helpers.snHttp('/api/sn_shift_planning/shift_planning/duplicate_schedule', {
+                method: 'POST',
+                body: {
+                    scheduleSysId: api.context.props.sysId,
+                    generatePreview: true
+                }
+            }).then(resp => {
+                api.emit('SCHEDULE_PLAN_SIDEBAR#GO_TO_EDIT_VIEW', {
+                    sysId: resp.response.result.newScheduleSysId
+                });
+            }).catch(resp => {
+                if(!!resp.error) {
+                    try {
+                        api.emit('SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS', {items: [{
+                            status: 'critical',
+                            action: { type: 'dismiss' },
+                            content: resp.error.data.result.message,
+                        }]});                        
+                        console.log("Duplicate failed: " + JSON.stringify(resp.error));
+                    }
+                    catch (e) {
+                        console.log("Duplicate failed, could not provide details");
+                    }
+                    api.setState('isLoading', false);
+                }
+            });
+            break;
+        case 'button_unpublish':
+            helpers.snHttp('/api/sn_shift_planning/shift_planning/unpublish_schedule', {
+                method: 'POST',
+                body: {
+                    scheduleSysId: api.context.props.sysId
+                }
+            }).then(resp => {
+                api.data.fetch_schedule_plan_details.refresh();
+                api.emit('SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS', {items: [{
+                    status: 'info',
+                    action: { type: 'dismiss' },
+                    content: resp.response.result.message
+                }]});
+                api.setState('canUnpublishSchedule', false);
+                api.emit('SCHEDULE_PLAN_SIDEBAR#REFRESH_CALENDAR');
+            }).catch(resp => {
+                if(!!resp.error) {
+                    try {
+                        api.emit('SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS', {items: [{
+                            status: 'critical',
+                            action: { type: 'dismiss' },
+                            content: resp.error.data.result.message,
+                        }]});                        
+                        console.log("Unpublish failed: " + JSON.stringify(resp.error));
+                    }
+                    catch (e) {
+                        console.log("Unpublish failed, could not provide details");
+                    }
+                }
+            });
+            break;
+        case 'schedule_delete_confirm':
+            if (event.name === 'NOW_CONFIRM_DESTROY_MODAL#CONFIRM_CLICKED') {
+                helpers.snHttp('/api/now/table/sn_shift_planning_schedule_plan/' + api.context.props.sysId, {
+                    method: 'DELETE'
+                }).then(resp => {
+                    api.emit('SCHEDULE_PLAN_SIDEBAR#GO_TO_LIST_VIEW_RELAY_0e327a42eb5130100b721ff5b552289b');
+                    api.emit('SCHEDULE_PLAN_SIDEBAR#REFRESH_CALENDAR');
+                }).catch(resp => {
+                    if(!!resp.error) {
+                        try {
+                            api.emit('SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS', {items: [{
+                                status: 'critical',
+                                action: { type: 'dismiss' },
+                                content: resp.error.data.error.detail,
+                            }]});                        
+                            console.log("Delete failed: " + JSON.stringify(resp.error));
+                        }
+                        catch (e) {
+                            console.log("Delete failed, could not provide details");
+                        }
+                    }
+                });
+            }
+            break;
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:04</sys_created_on>
+        <sys_id>9f1d76d11ba9d510b5bd2fc02a4bcb44</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Handle action button clicked</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_9f1d76d11ba9d510b5bd2fc02a4bcb44</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:04</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

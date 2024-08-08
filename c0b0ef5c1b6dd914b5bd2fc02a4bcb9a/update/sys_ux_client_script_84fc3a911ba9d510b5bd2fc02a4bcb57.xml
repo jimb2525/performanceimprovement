@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes>68f69a6deb1230100b721ff5b552289f</includes>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>handleEditIconClicked</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+async function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    api.setState('isWorkShiftEditModalOpen', true);
+    const openModal = helpers.modal.open;
+    const popoverTemplateEvent = api.state.popoverTemplate && api.state.popoverTemplate.event;
+    const eventType = popoverTemplateEvent && popoverTemplateEvent.schedule && popoverTemplateEvent.schedule.eventType;
+    const category = (popoverTemplateEvent && popoverTemplateEvent.category) ? popoverTemplateEvent.category : {};
+    const sysId = (eventType && eventType.sysId) ? eventType.sysId : '';
+    const name = (eventType && eventType.name) ? eventType.name : '';
+    const editEventSelectedObject = {
+        "categoryId": category,
+        "id": sysId,
+        "label": name
+    };
+    const WORK_SHIFT_CATEGORY = '07e433f449a11010f877de942e7c1d18';
+    let modalId = '';
+    if (category === WORK_SHIFT_CATEGORY || category === api.state.timeWorkedEvent.category) {
+        modalId = 'edit_workshift_modal';
+    } else {
+        const {
+            bootstrapEventModal
+        } = imports['sn_shift_planning.Shift Planning Utils']();
+        const newOrEditEventSelected = editEventSelectedObject;
+        const operation = 'edit';
+
+        await bootstrapEventModal({
+            api,
+            helpers,
+            newOrEditEventSelected,
+            operation
+        });
+    }
+    helpers.modal.open(`[component-id$='${modalId}']`, {
+        bare: true
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:18</sys_created_on>
+        <sys_id>84fc3a911ba9d510b5bd2fc02a4bcb57</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleEditIconClicked</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_84fc3a911ba9d510b5bd2fc02a4bcb57</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:18</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

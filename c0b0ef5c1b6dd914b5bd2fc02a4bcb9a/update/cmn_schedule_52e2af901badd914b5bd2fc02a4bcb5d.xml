@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="cmn_schedule">
+    <cmn_schedule action="INSERT_OR_UPDATE">
+        <calendar_name>7.5 Hour</calendar_name>
+        <description/>
+        <document/>
+        <document_key/>
+        <is_legacy_schedule>true</is_legacy_schedule>
+        <label>7.5 Hour</label>
+        <name>7.5 Hour</name>
+        <parent/>
+        <plural_label/>
+        <read_only>false</read_only>
+        <sys_class_name>cmn_schedule</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-22 16:38:42</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>52e2af901badd914b5bd2fc02a4bcb5d</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>7.5 Hour</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>cmn_schedule_52e2af901badd914b5bd2fc02a4bcb5d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-22 16:41:18</sys_updated_on>
+        <time_zone>US/Central</time_zone>
+        <type/>
+    </cmn_schedule>
+</record_update>

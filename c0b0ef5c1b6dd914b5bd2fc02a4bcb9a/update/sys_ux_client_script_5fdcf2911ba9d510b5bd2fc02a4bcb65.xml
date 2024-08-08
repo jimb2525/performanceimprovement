@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>handleIntialDataFetch</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+async function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    const DAY_LABEL = await helpers.translate("Day");
+    const WEEK_LABEL = await helpers.translate("Week");
+
+    let output = api.data.initialize_team_calendar_1.output;
+
+    let managedGroups = output.managedGroups.join();
+    let managerTimezone = output.managerTimezone;
+    let eventTypes = output.eventTypes;
+    let eventCategories = output.eventCategories;
+    let defaultContextDate = output.defaultContextDate;
+    let defaultStartDate = output.defaultStartDate;
+    let defaultEndDate = output.defaultEndDate;
+    let defaultEventCategories = output.defaultEventCategories;
+    let loadOrder = JSON.parse(output.loadOrder);
+    let newEventChoices = [];
+    eventTypes.forEach(eventType => {
+        if (eventType.manager_access === "1") {
+            newEventChoices.push({
+                id: eventType.sys_id,
+                categoryId: eventType.category,
+                label: eventType.label
+            });
+        }
+    });
+    api.setState('newEventChoices', newEventChoices);
+    api.setState('managedGroups', managedGroups);
+    api.setState('managerTimezone', managerTimezone);
+    api.setState('eventTypes', eventTypes);
+    api.setState('eventCategories', eventCategories);
+    api.setState('defaultEventCategories', defaultEventCategories);
+    api.setState('loadOrder', loadOrder);
+    api.setState('startDate', defaultStartDate);
+    api.setState('endDate', defaultEndDate);
+    api.setState('isLoading', true);
+
+    api.setState('availableViews', [
+        {
+        "view": "TIMELINE_DAY",
+        "viewProvider": "TIMELINE_DAY",
+        "label": DAY_LABEL,
+        "type": "Timeline"
+        },
+        {
+        "view": "TIMELINE_WEEK",
+        "viewProvider": "TIMELINE_WEEK",
+        "label": WEEK_LABEL,
+        "type": "Timeline"
+        }
+    ]);
+   
+    //Fetch Work shifts
+    api.emit('TEAM_CALENDAR#INITIAL_DATA_FETCH_SUCCEEDED', {});
+
+    //Load Swap Viewport
+    api.emit('MACROPONENT_VIEWPORT_LOAD_REQUESTED', {
+            viewportElementId: 'viewport_vzz', // modal port on landing page.
+            route: 'shift-swap-page-default', // route of the modal page we want to open.
+            fields: {}
+        });
+
+    //Load workshift edit viewport
+    api.emit('MACROPONENT_VIEWPORT_LOAD_REQUESTED', {
+            viewportElementId: 'viewport_dhd', // modal port on landing page.
+            route: 'edit-workshift-page', // route of the modal page we want to open.
+            fields: {}
+     });
+    
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:25:59</sys_created_on>
+        <sys_id>5fdcf2911ba9d510b5bd2fc02a4bcb65</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleIntialDataFetch</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_5fdcf2911ba9d510b5bd2fc02a4bcb65</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:25:59</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

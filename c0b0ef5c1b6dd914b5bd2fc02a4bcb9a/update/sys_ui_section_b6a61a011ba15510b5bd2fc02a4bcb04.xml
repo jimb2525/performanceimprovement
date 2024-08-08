@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="" section_id="b6a61a011ba15510b5bd2fc02a4bcb04" sys_domain="global" table="x_snc_integrated_1_m2m_claim_queues_claims_resou" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>0</position>
+            <sys_created_by>trevor.roberts</sys_created_by>
+            <sys_created_on>2022-08-24 19:00:37</sys_created_on>
+            <sys_id>36a61a011ba15510b5bd2fc02a4bcb95</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_integrated_1_m2m_claim_queues_claims_resou" sys_domain="global" view="Default view">b6a61a011ba15510b5bd2fc02a4bcb04</sys_ui_section>
+            <sys_updated_by>trevor.roberts</sys_updated_by>
+            <sys_updated_on>2022-08-24 19:00:37</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>claims_resource</element>
+            <position>1</position>
+            <sys_created_by>trevor.roberts</sys_created_by>
+            <sys_created_on>2022-08-24 19:00:37</sys_created_on>
+            <sys_id>bea61a011ba15510b5bd2fc02a4bcb95</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_integrated_1_m2m_claim_queues_claims_resou" sys_domain="global" view="Default view">b6a61a011ba15510b5bd2fc02a4bcb04</sys_ui_section>
+            <sys_updated_by>trevor.roberts</sys_updated_by>
+            <sys_updated_on>2022-08-24 19:00:37</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>2</position>
+            <sys_created_by>trevor.roberts</sys_created_by>
+            <sys_created_on>2022-08-24 19:00:37</sys_created_on>
+            <sys_id>b2a61a011ba15510b5bd2fc02a4bcb96</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_integrated_1_m2m_claim_queues_claims_resou" sys_domain="global" view="Default view">b6a61a011ba15510b5bd2fc02a4bcb04</sys_ui_section>
+            <sys_updated_by>trevor.roberts</sys_updated_by>
+            <sys_updated_on>2022-08-24 19:00:37</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>claim_queue</element>
+            <position>3</position>
+            <sys_created_by>trevor.roberts</sys_created_by>
+            <sys_created_on>2022-08-24 19:00:37</sys_created_on>
+            <sys_id>b6a61a011ba15510b5bd2fc02a4bcb96</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_integrated_1_m2m_claim_queues_claims_resou" sys_domain="global" view="Default view">b6a61a011ba15510b5bd2fc02a4bcb04</sys_ui_section>
+            <sys_updated_by>trevor.roberts</sys_updated_by>
+            <sys_updated_on>2022-08-24 19:00:37</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>4</position>
+            <sys_created_by>trevor.roberts</sys_created_by>
+            <sys_created_on>2022-08-24 19:00:37</sys_created_on>
+            <sys_id>baa61a011ba15510b5bd2fc02a4bcb96</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_integrated_1_m2m_claim_queues_claims_resou" sys_domain="global" view="Default view">b6a61a011ba15510b5bd2fc02a4bcb04</sys_ui_section>
+            <sys_updated_by>trevor.roberts</sys_updated_by>
+            <sys_updated_on>2022-08-24 19:00:37</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>x_snc_integrated_1_m2m_claim_queues_claims_resou</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>trevor.roberts</sys_created_by>
+            <sys_created_on>2022-08-24 19:00:37</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b6a61a011ba15510b5bd2fc02a4bcb04</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_snc_integrated_1_m2m_claim_queues_claims_resou</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+            <sys_update_name>sys_ui_section_b6a61a011ba15510b5bd2fc02a4bcb04</sys_update_name>
+            <sys_updated_by>trevor.roberts</sys_updated_by>
+            <sys_updated_on>2022-08-24 19:00:37</sys_updated_on>
+            <sys_user/>
+            <title>true</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

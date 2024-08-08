@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_m2m_workspace_view_rule_ux_view_rule_config">
+    <sys_ux_m2m_workspace_view_rule_ux_view_rule_config action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_ux_m2m_workspace_view_rule_ux_view_rule_config</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:10:49</sys_created_on>
+        <sys_id>ef867aae1b695150b5bd2fc02a4bcb36</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Claims Resource View.Claims Resource</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_m2m_workspace_view_rule_ux_view_rule_config_ef867aae1b695150b5bd2fc02a4bcb36</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:10:49</sys_updated_on>
+        <view_rules_configuration display_value="Claims Resource">a4867aae1b695150b5bd2fc02a4bcbca</view_rules_configuration>
+        <workspace_view_rule display_value="Claims Resource View">27a4766a1b695150b5bd2fc02a4bcb1d</workspace_view_rule>
+    </sys_ux_m2m_workspace_view_rule_ux_view_rule_config>
+</record_update>

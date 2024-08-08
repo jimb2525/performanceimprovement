@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="1d1e082c1b251d14b5bd2fc02a4bcb39" label="Claims Resource Efficiency" max_length="40" name="x_snc_integrated_1_claims_resource_efficiency" type="collection">
+        <element label="Below Benchmark" max_length="40" name="below_benchmark" type="boolean"/>
+        <element label="Claims Resource" max_length="32" name="claims_resource" reference="x_snc_integrated_1_claims_resource" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Date" max_length="40" name="date" type="glide_date"/>
+        <element label="Items Per Day" max_length="40" name="items_per_day" type="integer"/>
+        <element label="Items Per Hour" max_length="40" name="items_per_hour" type="integer"/>
+        <element label="Minutes Per Item" max_length="38" name="minutes_per_item" type="decimal"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Queue" max_length="32" name="queue" reference="x_snc_integrated_1_claim_queue" type="reference"/>
+        <index name="index">
+            <element name="claims_resource"/>
+        </index>
+        <index name="index2">
+            <element name="queue"/>
+        </index>
+    </element>
+</database>

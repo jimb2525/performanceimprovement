@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Edit Workshift Page">884d7ed11ba9d510b5bd2fc02a4bcb86</macroponent>
+        <name>handleSave</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+async function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    const {
+        NowDateTime
+    } = imports['sn_uxf.core_libraries']();
+    const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+
+    let popoverTemplate = api.context.props.popoverTemplate;
+    let breakTitle = await helpers.translate("Break");
+    let requestPayload = {};
+    let editShiftState = api.state.editShiftControls;
+    requestPayload.eventCategory = popoverTemplate.event.category;
+    requestPayload.agentScheduleSysId = popoverTemplate.event.schedule.sysId;
+    requestPayload.timezone = popoverTemplate.event.readInTimezone;
+    requestPayload.eventType = popoverTemplate.event.schedule.eventType.sysId;
+    requestPayload.startDateTime = NowDateTime.tz(popoverTemplate.event.start, DEFAULT_DATETIME_FORMAT, popoverTemplate.event.readInTimezone).utc().format(DEFAULT_DATETIME_FORMAT);
+    requestPayload.editInDisplayTimezone = true;
+    requestPayload.attendees = [{
+        id: popoverTemplate.event.user.sysId,
+        name: popoverTemplate.event.user.name
+    }];
+
+    let workEvent = {};
+    workEvent.startDateTime = NowDateTime.tz(editShiftState.workshiftStartDateTimeDisplayValue, DEFAULT_DATETIME_FORMAT, popoverTemplate.event.readInTimezone).utc().format(DEFAULT_DATETIME_FORMAT);
+    workEvent.endDateTime = NowDateTime.tz(editShiftState.workshiftEndDateTimeDisplayValue, DEFAULT_DATETIME_FORMAT, popoverTemplate.event.readInTimezone).utc().format(DEFAULT_DATETIME_FORMAT);
+    workEvent.isChildEvent = false;
+    workEvent.spanId = popoverTemplate.event.record_id;
+    workEvent.title = popoverTemplate.event.title;
+    requestPayload.workEvent = workEvent;
+    requestPayload.breaks = [];
+
+    let showOverLapError = false;
+    let showInvalidClockInOutError = false;
+    const checkIfDatetimesAreOverlapping = breaks => {
+        let interval = [];
+        breaks.map(childEvent => {
+            interval.push({
+                start: NowDateTime.tz(childEvent.breakStartDateTimeDisplayValue, popoverTemplate.event.readInTimezone),
+                end: NowDateTime.tz(childEvent.breakEndDateTimeDisplayValue, popoverTemplate.event.readInTimezone)
+            });
+        });
+        interval.sort((first, second) => {
+            return first.start.diff(second.start);
+        });
+        for (let i = 1; i < interval.length; i++) {
+            if (interval[i - 1].end.isAfter(interval[i].start))
+                return true;
+        }
+        return false;
+    };
+
+    const checkIfInvalidClockInOut = breaks => {
+        let invalid = false;
+        breaks.forEach((breakObj) => {
+            if (!invalid) {
+                let newbreakStartDateObj = NowDateTime.tz(breakObj.breakStartDateTimeDisplayValue, popoverTemplate.event.readInTimezone);
+                let newbreakEndDateObj = NowDateTime.tz(breakObj.breakEndDateTimeDisplayValue, popoverTemplate.event.readInTimezone);
+                if (newbreakEndDateObj.isBefore(newbreakStartDateObj)) {
+                    invalid = true;
+
+                }
+
+            }
+        });
+        return invalid;
+    };
+
+    if (editShiftState.breakInfo && editShiftState.breakInfo.breaks.length > 0) {
+        if (requestPayload.eventCategory === api.state.actualWorkEvent.actualWorkCategorySysId) {
+            showOverLapError = checkIfDatetimesAreOverlapping(editShiftState.breakInfo.breaks);
+            showInvalidClockInOutError = checkIfInvalidClockInOut(editShiftState.breakInfo.breaks);
+            if (showInvalidClockInOutError) {
+                let invalidClockInOutError = helpers.translate('Clock In times must be before Clock Out times.').then((val) => {
+                    api.setState('editShiftControls', ({
+                        currentValue
+                    }) => {
+                        return {
+                            ...currentValue,
+                            errorMsg: val
+                        };
+                    });
+                });
+                return;
+            } else if (showOverLapError) {
+                let overLapError = helpers.translate('Please ensure there is no overlap between Clock In and Clock Out times.').then((val) => {
+                    api.setState('editShiftControls', ({
+                        currentValue
+                    }) => {
+                        return {
+                            ...currentValue,
+                            errorMsg: val
+                        };
+                    });
+
+                });
+                return;
+            }
+        }
+        editShiftState.breakInfo.breaks.forEach((breakObj) => {
+            if (breakObj.breakEventType !== api.state.actualWorkEvent.inProgressEventSysId) {
+                let newbreak = {};
+                newbreak.startDateTime = NowDateTime.tz(breakObj.breakStartDateTimeDisplayValue, popoverTemplate.event.readInTimezone).utc().format(DEFAULT_DATETIME_FORMAT);
+                newbreak.endDateTime = NowDateTime.tz(breakObj.breakEndDateTimeDisplayValue, popoverTemplate.event.readInTimezone).utc().format(DEFAULT_DATETIME_FORMAT);
+
+                newbreak.title = breakTitle;
+                newbreak.isChildEvent = true;
+                newbreak.spanId = breakObj.breakRecordId;
+                if (breakObj.hasOwnProperty("invalidStart")) {
+                    newbreak.timeFormat = "HH:mm";
+                    newbreak["new-start"] = breakObj.breakStartTime;
+                    newbreak["invalid-start"] = breakObj.invalidStart;
+                }
+                if (breakObj.hasOwnProperty("invalidEnd")) {
+                    newbreak.timeFormat = "HH:mm";
+                    newbreak["new-end"] = breakObj.breakEndTime;
+                    newbreak["invalid-end"] = breakObj.invalidEnd;
+                }
+                requestPayload.breaks.push(newbreak);
+            }
+        });
+    }
+
+    helpers.snHttp("/api/sn_shift_planning/shift_planning/edit_schedule", {
+        method: "POST",
+        body: requestPayload
+    }).then((editResponse) => {
+        helpers.modal.close("[component-id$='edit_workshift_modal']");
+        if (requestPayload.eventCategory === api.state.actualWorkEvent.actualWorkCategorySysId) {
+            api.emit('TEAM_CALENDAR#TIME_WORKED_UPDATE_SUCCESS', {
+                userName: requestPayload.attendees[0].name,
+                userId: requestPayload.attendees[0].id
+            });
+        }
+        api.emit('TEAM_CALENDAR#REFRESH_REQUESTED');
+        api.setState("editShiftControls", ({
+            currentValue
+        }) => {
+            return {
+                ...currentValue,
+                formDirty: false
+            };
+        });
+    }).catch((errorResponse) => {
+        let errorMsg = errorResponse.error.data.error.detail;
+        api.setState('editShiftControls', ({
+            currentValue
+        }) => {
+            return {
+                ...currentValue,
+                errorMsg
+            };
+        });
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:42</sys_created_on>
+        <sys_id>e44d7ed11ba9d510b5bd2fc02a4bcbef</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleSave</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_e44d7ed11ba9d510b5bd2fc02a4bcbef</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:42</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

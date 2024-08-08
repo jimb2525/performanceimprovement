@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>calendar_1_events</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+  // @state.calendarControls.events
+  const sections = api.state.calendarControls.sections.map(section => {
+    const clonedSection = JSON.parse(JSON.stringify(section));
+    const groupId = clonedSection.id;
+    clonedSection.children = clonedSection.children.map(child => {
+      const clonedChild = JSON.parse(JSON.stringify(child));
+      clonedChild.agent_id = clonedChild.id;
+      clonedChild.id = `${groupId}_${clonedChild.id}`;
+      return clonedChild;
+    });
+    return clonedSection;
+  });
+  const events = api.state.calendarControls.events;
+  /**
+     * DEF0262758:
+     * As per changes in the internal calendar logic,
+     * we need to do one final mapping of the events to ensure that
+     * if an agent belongs to 2 or more groups the corresponding Event.group 
+     * value will use a composite id of "group_id" + "agent_id";
+     * In such cases we need to ensure that the final eventArray that the now-calendar
+     * uses will have duplicated event entries but with this unique composited id,
+     * This will ensure that if an Agent A, belongs to groups X and Y,
+     * Children sections X.A and Y.A will show all events for that particular agent
+     * @param {Array<object>} sections 
+     * @param {Array<object>} events 
+     * @returns {Array<object>} eventArray 
+     */
+    const eventGroupMapping = (sections, events) => {
+      let eventArray = [];
+      let agentToGroups = {};
+      sections.forEach(section => {
+          section.children.forEach(children => {
+              const agentId = children.agent_id;
+              if(agentToGroups[agentId] === undefined) {
+                  agentToGroups[agentId] = [section.id];
+              } else {
+                  agentToGroups[agentId].push(section.id);
+              }
+          }, this);
+      }, this);
+      events.forEach(event => {
+          const agentId = event.group;
+          const groupsAgentBelongs = agentToGroups[agentId];
+          groupsAgentBelongs.forEach(grpId => {
+              const clonedEvent = JSON.parse(JSON.stringify(event));
+              clonedEvent.agent_id = agentId;
+              clonedEvent.id = event.id + grpId;
+              clonedEvent.group = `${grpId}_${clonedEvent.group}`;
+              eventArray.push(clonedEvent);
+          }, this);
+      }, this);
+      return eventArray;
+  };
+  
+  const mappedEvents = eventGroupMapping(sections, events);
+	return mappedEvents;
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:25:52</sys_created_on>
+        <sys_id>b1dc72911ba9d510b5bd2fc02a4bcbdf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>calendar_1_events</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_b1dc72911ba9d510b5bd2fc02a4bcbdf</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:25:52</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+</record_update>

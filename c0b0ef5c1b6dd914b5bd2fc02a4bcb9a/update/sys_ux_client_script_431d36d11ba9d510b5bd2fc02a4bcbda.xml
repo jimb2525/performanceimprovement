@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Details view">011d36d11ba9d510b5bd2fc02a4bcb02</macroponent>
+        <name>Handle schedule plan definition fetched</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+    const {NowDateTime} = imports['sn_uxf.core_libraries']();
+    const {schedulePlanStates} = api.state;
+    const {result = {}} = api.data.fetch_schedule_plan_details;
+    const {default_start_date = {}, default_end_date = {}, state = {}} = result;
+
+    // move calendar context date to schedule plan start date
+    api.emit('SCHEDULE_PLAN_SIDEBAR#CHANGE_CALENDAR_CONTEXT_DATE', {newContextDate: default_start_date.value});
+
+    // set value for canUnpublishSchedule flag
+    if (state.value === schedulePlanStates.PUBLISHED) {
+        const endDate = NowDateTime(default_end_date.value, 'YYYY-MM-DD');
+        const tomorrow = NowDateTime().add(1, 'day');
+        api.setState('canUnpublishSchedule', endDate.isAfter(tomorrow, 'day'));
+    } else {
+        api.setState('canUnpublishSchedule', false);
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:02</sys_created_on>
+        <sys_id>431d36d11ba9d510b5bd2fc02a4bcbda</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Handle schedule plan definition fetched</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_431d36d11ba9d510b5bd2fc02a4bcbda</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:02</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

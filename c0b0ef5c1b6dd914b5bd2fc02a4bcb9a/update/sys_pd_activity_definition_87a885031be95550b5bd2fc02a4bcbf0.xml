@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_pd_activity_definition">
+    <sys_pd_activity_definition action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <activity_type display_value="Record">e12af577871333003058d1a936cb0ba4</activity_type>
+        <badge/>
+        <category/>
+        <description/>
+        <experience_display_preferences/>
+        <input_display_preferences/>
+        <inputs/>
+        <label>Create Teams Meeting</label>
+        <name>create_teams_meeting</name>
+        <outputs/>
+        <source>f83805cf1ba95550b5bd2fc02a4bcb4e</source>
+        <source_type>sys_hub_flow</source_type>
+        <sys_class_name>sys_pd_activity_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-30 18:28:15</sys_created_on>
+        <sys_id>87a885031be95550b5bd2fc02a4bcbf0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Create Teams Meeting</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_pd_activity_definition_87a885031be95550b5bd2fc02a4bcbf0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 18:28:15</sys_updated_on>
+        <system_level>false</system_level>
+        <table>x_snc_integrated_1_performance_improvement</table>
+        <type_vals/>
+        <wait_for_completion>true</wait_for_completion>
+    </sys_pd_activity_definition>
+    <sys_variable_value action="delete_multiple" query="document_key=87a885031be95550b5bd2fc02a4bcbf0"/>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_input_f83805cf1ba95550b5bd2fc02a4bcb4e^id=87a885031be95550b5bd2fc02a4bcbf0"/>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_flow_output_f83805cf1ba95550b5bd2fc02a4bcb4e^id=87a885031be95550b5bd2fc02a4bcbf0"/>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_pd_activity_type_prop_e12af577871333003058d1a936cb0ba4^id=87a885031be95550b5bd2fc02a4bcbf0"/>
+</record_update>

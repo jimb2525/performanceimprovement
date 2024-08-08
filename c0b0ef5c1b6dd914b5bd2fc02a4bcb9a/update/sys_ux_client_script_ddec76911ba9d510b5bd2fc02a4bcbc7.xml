@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes>62fffe100f1330100026c562ff767e75</includes>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>Convert event timezones</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+    const {NowDateTime} = imports['sn_uxf.core_libraries']();
+    const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+
+    const MANAGER_DATE_FORMAT = api.data.initialize_team_calendar_1.output.managerDateFormat;
+    const MANAGER_TIME_FORMAT = api.data.initialize_team_calendar_1.output.managerTimeFormat;
+
+    const convertTimezone = function(time, fromTZ, toTZ) {
+        return NowDateTime.tz(time, DEFAULT_DATETIME_FORMAT, fromTZ)
+            .tz(toTZ)
+            .format(DEFAULT_DATETIME_FORMAT);
+    };
+
+    let events = api.state.calendarControls.events;
+    const newTZ = event.payload.to;
+
+    for(let i in events) {
+        let ev = events[i];
+        ev.startTimeConverted = convertTimezone(ev.startTimeConverted, ev.readInTimezone, newTZ);
+        ev.start = ev.startTimeConverted + '';
+        ev.startTimeDisplayValue = NowDateTime(ev.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+        ev.startDateConvertedDisplay = NowDateTime(ev.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT);
+        ev.startTimeConvertedDisplay = NowDateTime(ev.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_TIME_FORMAT);
+
+        ev.endTimeConverted = convertTimezone(ev.endTimeConverted, ev.readInTimezone, newTZ);
+        ev.end = ev.endTimeConverted + '';
+        ev.endTimeDisplayValue = NowDateTime(ev.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+        ev.endDateConvertedDisplay = NowDateTime(ev.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT);
+        ev.endTimeConvertedDisplay = NowDateTime(ev.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_TIME_FORMAT);
+
+        ev.readInTimezone = newTZ;
+
+        if(ev.childEvents) {
+            for(let b in ev.childEvents) {
+                let br = ev.childEvents[b];
+                br.startTimeConverted = convertTimezone(br.startTimeConverted, br.readInTimezone, newTZ);
+                br.start = br.startTimeConverted + '';
+                br.startTimeDisplayValue = NowDateTime(br.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+                    .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+                br.startDateConvertedDisplay = NowDateTime(br.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+                    .format(MANAGER_DATE_FORMAT);
+                br.startTimeConvertedDisplay = NowDateTime(br.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+                    .format(MANAGER_TIME_FORMAT);
+                
+                br.endTimeConverted = convertTimezone(br.endTimeConverted, br.readInTimezone, newTZ);
+                br.end = br.endTimeConverted + '';
+                br.endTimeDisplayValue = NowDateTime(br.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+                    .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+                br.endDateConvertedDisplay = NowDateTime(br.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+                    .format(MANAGER_DATE_FORMAT);
+                br.endTimeConvertedDisplay = NowDateTime(br.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+                    .format(MANAGER_TIME_FORMAT);
+
+                br.readInTimezone = newTZ;
+                ev.childEvents[b] = br;
+            }
+        }
+
+        events[i] = ev;
+    }
+
+    api.setState('managerTimezone', ({
+        currentValue
+    }) => {
+        return newTZ;
+    });
+
+    let newSections = api.state.calendarControls &&
+             api.state.calendarControls.sections? api.state.calendarControls.sections : [];
+    const covergeCalculator = imports['sn_shift_planning.CoverageCalculator']();
+    const currentCalendarView = api.state.calendarControls.currentView;
+    const currentViewConfig = currentCalendarView ? api.state[currentCalendarView] : "TIMELINE_DAY";
+    
+    for (let n = 0; n < newSections.length; n++) {
+        if (covergeCalculator.CALENDAR_VIEWS_TIMELINE_DAY === currentCalendarView) {
+            newSections[n].runtimeData.set(covergeCalculator.coverageKeyDay,
+                covergeCalculator.getCoverage({ ...currentViewConfig, xSize: 24, xStep: 60, xUnitName: 'minutes' }, events, api.state.startDate, newSections, newTZ, newSections[n]));
+        }
+        if (covergeCalculator.CALENDAR_VIEWS_TIMELINE_WEEK === currentCalendarView) {
+            newSections[n].runtimeData.set(covergeCalculator.coverageKeyWeek, 
+                covergeCalculator.getCoverage({ ...currentViewConfig, xSize: 7, xStep: 1, xUnitName: 'days' }, events, api.state.startDate, newSections, newTZ, newSections[n]));
+            let dailyCoverageForWeek = {};
+            const coverageConfig = { ...currentViewConfig, currentCalendarView: covergeCalculator.CALENDAR_VIEWS_TIMELINE_DAY, xSize: 24, xStep: 60, xUnitName: 'minutes' };
+            let startDateTime = NowDateTime(api.state.startDate, "YYYY-MM-DD").startOf("day");
+            startDateTime.subtract(1, 'd');
+            for(var i = 0; i < 8; i++){
+                const key = startDateTime.format(DEFAULT_DATETIME_FORMAT);
+                dailyCoverageForWeek[key] = covergeCalculator.getCoverage(coverageConfig, events, key, newSections, newTZ, newSections[n]);
+                startDateTime = startDateTime.add(1,'d');
+            }
+            newSections[n].runtimeData.set(covergeCalculator.coverageKeyDay, dailyCoverageForWeek);
+        }
+    }
+
+    api.setState('calendarControls', ({
+        currentValue
+    }) => {
+        return {
+            ...currentValue,
+            events: events,
+            sections: newSections
+        };
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:06</sys_created_on>
+        <sys_id>ddec76911ba9d510b5bd2fc02a4bcbc7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Convert event timezones</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_ddec76911ba9d510b5bd2fc02a4bcbc7</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:06</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

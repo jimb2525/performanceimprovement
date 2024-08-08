@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes>e610649b48d2c510f87762bb6630f0fe</includes>
+        <macroponent display_value="Schedule plans">0a0dbe911ba9d510b5bd2fc02a4bcbfa</macroponent>
+        <name>Handle filter applied</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+    let filter = event.payload.activeFilter;
+    let table = event.payload.table;
+    let field = event.payload.field;
+    let filters = event.payload.availableFilters;
+    api.setState("availableFilters", filters);
+
+    if(!table || !field){
+        api.setState('scheduleFilters', {});
+        api.setState('filterQuery', null);
+        const schedulePlanListState= {...api.state.schedulePlanListState, savedScheduleFilters: {}, savedFilterQuery: null, pageNumber: 0 };
+        api.emit("SCHEDULE_PLAN_SIDEBAR#SAVE_LIST_VIEW_STATE", {
+            "schedulePlanListState": schedulePlanListState
+        });
+        return;
+    }
+
+    const {
+        constructActiveFiltersObject
+    } = imports['sn_shift_planning.shiftPlanningSidebarClientUtils']();
+
+    const activeFilters = constructActiveFiltersObject({
+        event,
+        table,
+        field
+    });
+
+    api.setState('scheduleFilters', activeFilters);
+    
+    // Construct filter query
+    var schedulePlan = activeFilters.sn_shift_planning_schedule_plan ? activeFilters.sn_shift_planning_schedule_plan : {};
+    var stateFilter = schedulePlan.state ? schedulePlan.state : [];
+    var dateFilter = schedulePlan.default_start_date ? schedulePlan.default_start_date : [];
+    var filterQuery = "";
+    if (stateFilter.length > 0){
+        filterQuery += "schedule.stateIN" + stateFilter;
+    }
+    if (dateFilter.length > 0 ){
+        filterQuery +=  "^" + "schedule.default_start_date>=" + dateFilter[0] + "^" + "schedule.default_end_date<=" + dateFilter[1];
+    }
+    api.setState("filterQuery", filterQuery);
+    const schedulePlanListState= {...api.state.schedulePlanListState, savedScheduleFilters: activeFilters, savedFilterQuery: filterQuery, pageNumber: 0 };
+    api.emit("SCHEDULE_PLAN_SIDEBAR#SAVE_LIST_VIEW_STATE", {
+        "schedulePlanListState": schedulePlanListState
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:44</sys_created_on>
+        <sys_id>d20dfe911ba9d510b5bd2fc02a4bcb8a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Handle filter applied</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_d20dfe911ba9d510b5bd2fc02a4bcb8a</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:44</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

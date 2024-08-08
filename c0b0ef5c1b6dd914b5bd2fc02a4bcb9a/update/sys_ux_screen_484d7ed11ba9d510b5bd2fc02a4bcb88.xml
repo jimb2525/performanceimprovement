@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_screen">
+    <sys_ux_screen action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <app_config display_value="WFO Config">065b64df73332010dd6131ff2ef6a726</app_config>
+        <description/>
+        <disable_auto_reflow>false</disable_auto_reflow>
+        <event_mappings>[ {
+  "eventMappingId" : "ckxixffaccwaabbeekddfggvbbmhhctccj",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.TEAM_CALENDAR#TIME_WORKED_UPDATE_SUCCESS",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.TEAM_CALENDAR#TIME_WORKED_UPDATE_SUCCESS",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.TEAM_CALENDAR#TIME_WORKED_UPDATE_SUCCESS",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "userName" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "userName" ]
+            }
+          },
+          "userId" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "userId" ]
+            }
+          }
+        }
+      },
+      "sysId" : "977190a27320011022139a1ee2f6a7fc"
+    },
+    "operation" : null,
+    "targetId" : "ckxixffaccwaabbeelddfggveddaaswqmp",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "ckwpraaszbaaeexffddeggwuwaagaacchc",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.TEAM_CALENDAR#REFRESH_REQUESTED",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.TEAM_CALENDAR#REFRESH_REQUESTED",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.TEAM_CALENDAR#REFRESH_REQUESTED",
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : "f35976d373513010565db0a8d4f6a727"
+    },
+    "operation" : null,
+    "targetId" : "ckwpraaszbaaeexeeddeggwgghhehtddhhh",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "cksxkpmqhaaaabboddhiiddvggznytyq",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.MODAL_SELECTED_RELAY_f3912fff73023010565db0a8d4f6a77c",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.MODAL_SELECTED_RELAY_f3912fff73023010565db0a8d4f6a77c",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_canvas_core.MODAL_SELECTED",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "modalId" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "modalId" ]
+            }
+          },
+          "showModal" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "showModal" ]
+            }
+          },
+          "displayOptions" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "displayOptions" ]
+            }
+          },
+          "bare" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "bare" ]
+            }
+          },
+          "viewportElementId" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "viewportElementId" ]
+            }
+          },
+          "viewportRoute" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "viewportRoute" ]
+            }
+          },
+          "viewportFields" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "viewportFields" ]
+            }
+          }
+        }
+      },
+      "sysId" : "882eed4091382d3a41f1bb3f382ae089"
+    },
+    "operation" : null,
+    "targetId" : "cksxkpmqhaaaabbnddhiiddffddbkheetff",
+    "type" : "EVENT"
+  } ]
+} ]</event_mappings>
+        <macroponent display_value="Edit Workshift Page">884d7ed11ba9d510b5bd2fc02a4bcb86</macroponent>
+        <macroponent_config>{
+  "isWorkShiftEditModalOpen" : {
+    "type" : "STATE_BINDING",
+    "binding" : {
+      "address" : [ "isWorkShiftEditModalOpen" ]
+    }
+  },
+  "popoverTemplate" : {
+    "type" : "STATE_BINDING",
+    "binding" : {
+      "address" : [ "popoverTemplate" ]
+    }
+  },
+  "label" : {
+    "type" : "TRANSLATION_LITERAL",
+    "value" : {
+      "code" : null,
+      "message" : "",
+      "comment" : ""
+    }
+  },
+  "bare" : {
+    "type" : "JSON_LITERAL",
+    "value" : true
+  },
+  "scrollable" : {
+    "type" : "JSON_LITERAL",
+    "value" : "y"
+  },
+  "headerLevel" : {
+    "type" : "JSON_LITERAL",
+    "value" : "1"
+  },
+  "headingOnlyVisibleToScreenReaders" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  },
+  "interceptNotifications" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  },
+  "propagateNotifications" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  }
+}</macroponent_config>
+        <name>Edit Workshift Page default</name>
+        <order>100</order>
+        <parent_macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</parent_macroponent>
+        <required_translations>[ ]</required_translations>
+        <rollback_screen/>
+        <screen_condition/>
+        <screen_type display_value="Edit Workshift Page">3f3d7ed11ba9d510b5bd2fc02a4bcb59</screen_type>
+        <sys_class_name>sys_ux_screen</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:40</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>484d7ed11ba9d510b5bd2fc02a4bcb88</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Edit Workshift Page default</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_screen_484d7ed11ba9d510b5bd2fc02a4bcb88</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:40</sys_updated_on>
+    </sys_ux_screen>
+    <sys_translated_text action="delete_multiple" query="documentkey=484d7ed11ba9d510b5bd2fc02a4bcb88"/>
+</record_update>

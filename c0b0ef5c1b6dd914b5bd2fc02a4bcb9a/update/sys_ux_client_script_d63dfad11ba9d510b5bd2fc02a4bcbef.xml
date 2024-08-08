@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="List view">e93dbad11ba9d510b5bd2fc02a4bcb9d</macroponent>
+        <name>transformEvamData</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+async function handler({ api, event, helpers, imports }) {
+    const { schedulePlans } = api.context.props;
+
+    if (!Array.isArray(schedulePlans) || !schedulePlans.length) {
+        return;
+    }
+
+    const labels = {
+        startDate: await helpers.translate('Start date'),
+        endDate: await helpers.translate('End date'),
+        state: await helpers.translate('State')
+    };
+
+    const translateStateToColor = function(state) {
+        if (state === '4') { // ready for review
+            return 'info';
+        }
+        if (state === '5') { // published
+            return 'positive';
+        }
+        return 'low';
+    };
+
+    const transformSchedulePlanProps = schedulePlan => ({
+        sysId: schedulePlan.sys_id.value,
+        heading: schedulePlan.name.displayValue,
+        fields: JSON.stringify([{
+            label: labels.startDate,
+            value: {
+                type: 'string',
+                value: schedulePlan.default_start_date.displayValue
+            }
+        }, {
+            label: labels.endDate,
+            value: {
+                type: 'string',
+                value: schedulePlan.default_end_date.displayValue
+            }
+        }, {
+            separator: true // add a linebreak after start date and end date
+        }, {
+            label: labels.state,
+            value: {
+                type: "highlighted-value",
+                label: schedulePlan.state.displayValue,
+                status: translateStateToColor(schedulePlan.state.value),
+            },
+        }])
+    });
+
+    const evamDataRow = {
+        items: schedulePlans.map(sp => ({
+            template: 'sn-shift-planning-1st-level-shift-card',
+            propValues: transformSchedulePlanProps(sp)
+        }))
+    };
+
+    api.setState('evamDataRow', evamDataRow);
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:32</sys_created_on>
+        <sys_id>d63dfad11ba9d510b5bd2fc02a4bcbef</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>transformEvamData</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_d63dfad11ba9d510b5bd2fc02a4bcbef</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:32</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

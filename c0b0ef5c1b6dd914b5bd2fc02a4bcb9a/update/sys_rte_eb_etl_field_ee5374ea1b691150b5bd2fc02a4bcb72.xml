@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rte_eb_etl_field">
+    <sys_rte_eb_etl_field action="INSERT_OR_UPDATE">
+        <coalesce>false</coalesce>
+        <coercion_action>create</coercion_action>
+        <field>claim_queue</field>
+        <name>Claim Queue</name>
+        <sys_class_name>sys_rte_eb_etl_field</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 03:37:35</sys_created_on>
+        <sys_id>ee5374ea1b691150b5bd2fc02a4bcb72</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Claim Queue</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_rte_eb_definition display_value="Import Claims Resource Time Worked_etl_ihub">265334ea1b691150b5bd2fc02a4bcb5b</sys_rte_eb_definition>
+        <sys_rte_eb_entity display_value="Target_x_snc_integrated_1_claim_resource_time_worked">225374ea1b691150b5bd2fc02a4bcb71</sys_rte_eb_entity>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_rte_eb_etl_field_ee5374ea1b691150b5bd2fc02a4bcb72</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 03:37:35</sys_updated_on>
+    </sys_rte_eb_etl_field>
+</record_update>

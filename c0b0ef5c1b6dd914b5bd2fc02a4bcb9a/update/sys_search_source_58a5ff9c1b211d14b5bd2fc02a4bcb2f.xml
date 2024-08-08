@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_search_source">
+    <sys_search_source action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition table="x_snc_integrated_1_claim_work_items_processed">active=true</condition>
+        <group/>
+        <name>Integrated Staff Production Workspace - x_snc_inte</name>
+        <roles/>
+        <source_table>x_snc_integrated_1_claim_work_items_processed</source_table>
+        <sys_class_name>sys_search_source</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-22 18:00:03</sys_created_on>
+        <sys_id>58a5ff9c1b211d14b5bd2fc02a4bcb2f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Integrated Staff Production Workspace - x_snc_inte</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_search_source_58a5ff9c1b211d14b5bd2fc02a4bcb2f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-22 18:00:03</sys_updated_on>
+    </sys_search_source>
+    <sys_translated_text action="delete_multiple" query="documentkey=58a5ff9c1b211d14b5bd2fc02a4bcb2f"/>
+</record_update>

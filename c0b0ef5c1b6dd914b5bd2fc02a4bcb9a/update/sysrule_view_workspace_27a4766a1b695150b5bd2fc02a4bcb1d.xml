@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysrule_view_workspace">
+    <sysrule_view_workspace action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <default_tab_focus>Details</default_tab_focus>
+        <default_tab_order>true</default_tab_order>
+        <description/>
+        <disable_section_collapse>false</disable_section_collapse>
+        <experience_restricted>true</experience_restricted>
+        <hide_details>false</hide_details>
+        <hide_journal_input_fields>false</hide_journal_input_fields>
+        <hide_section_menu>false</hide_section_menu>
+        <name>Claims Resource View</name>
+        <order>100</order>
+        <roles/>
+        <sys_class_name>sysrule_view_workspace</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:04:26</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>27a4766a1b695150b5bd2fc02a4bcb1d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Claims Resource View</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sysrule_view_workspace_27a4766a1b695150b5bd2fc02a4bcb1d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:04:26</sys_updated_on>
+        <table>x_snc_integrated_1_claims_resource</table>
+        <tabs_order>[{"label":"Details","value":"Details"}]</tabs_order>
+        <view display_value="Claims Resource View" name="Claims_Resource_View">f9f4f2aa1b695150b5bd2fc02a4bcb5a</view>
+        <workspace/>
+    </sysrule_view_workspace>
+</record_update>

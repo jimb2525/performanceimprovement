@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-24 18:33:39</sys_created_on>
+        <sys_id>e26056051b615510b5bd2fc02a4bcbf6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.snc_internal</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_security_acl display_value="d39f8a811b615510b5bd2fc02a4bcb02">7c6016051b615510b5bd2fc02a4bcbfa</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_e26056051b615510b5bd2fc02a4bcbf6</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-24 18:33:39</sys_updated_on>
+        <sys_user_role display_value="snc_internal" name="snc_internal">7fcaa702933002009c8579b4f47ffbde</sys_user_role>
+    </sys_security_acl_role>
+</record_update>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_app_route">
+    <sys_ux_app_route action="INSERT_OR_UPDATE">
+        <app_config display_value="WFO Config">065b64df73332010dd6131ff2ef6a726</app_config>
+        <description/>
+        <extension_point/>
+        <fields/>
+        <icon/>
+        <name>Shift Swap Page Default</name>
+        <optional_parameters/>
+        <order>0</order>
+        <parent_macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</parent_macroponent>
+        <parent_macroponent_composition_element_id>viewport_vzz</parent_macroponent_composition_element_id>
+        <route_type>shift-swap-page-default</route_type>
+        <screen_type display_value="Shift Swap Page Default">b23d3ed11ba9d510b5bd2fc02a4bcb92</screen_type>
+        <sys_class_name>sys_ux_app_route</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:38</sys_created_on>
+        <sys_id>633d3ed11ba9d510b5bd2fc02a4bcbfb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Shift Swap Page Default</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_app_route_633d3ed11ba9d510b5bd2fc02a4bcbfb</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:38</sys_updated_on>
+    </sys_ux_app_route>
+    <sys_translated_text action="delete_multiple" query="documentkey=633d3ed11ba9d510b5bd2fc02a4bcbfb"/>
+</record_update>

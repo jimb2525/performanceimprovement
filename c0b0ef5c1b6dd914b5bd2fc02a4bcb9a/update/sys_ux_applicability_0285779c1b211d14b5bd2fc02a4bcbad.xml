@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_applicability">
+    <sys_ux_applicability action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <api_name>x_snc_integrated_1.Audience for appIntegrated Staff Production Workspace</api_name>
+        <description/>
+        <name>Audience for appIntegrated Staff Production Workspace</name>
+        <role_names/>
+        <roles>c0b0239c1b6dd914b5bd2fc02a4bcb14,40b0239c1b6dd914b5bd2fc02a4bcb11,80b0239c1b6dd914b5bd2fc02a4bcb17,2831a114c611228501d4ea6c309d626d</roles>
+        <sys_class_name>sys_ux_applicability</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-22 17:59:38</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>0285779c1b211d14b5bd2fc02a4bcbad</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Audience for appIntegrated Staff Production Workspace</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_applicability_0285779c1b211d14b5bd2fc02a4bcbad</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-22 17:59:38</sys_updated_on>
+    </sys_ux_applicability>
+</record_update>

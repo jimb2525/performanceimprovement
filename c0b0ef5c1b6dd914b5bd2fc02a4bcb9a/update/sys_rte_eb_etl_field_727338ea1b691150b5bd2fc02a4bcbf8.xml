@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rte_eb_etl_field">
+    <sys_rte_eb_etl_field action="INSERT_OR_UPDATE">
+        <coalesce>false</coalesce>
+        <coercion_action>create</coercion_action>
+        <field>sn_ihub_target_time_worked</field>
+        <name>sn_ihub_target_time_worked</name>
+        <sys_class_name>sys_rte_eb_etl_field</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 03:38:09</sys_created_on>
+        <sys_id>727338ea1b691150b5bd2fc02a4bcbf8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_ihub_target_time_worked</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_rte_eb_definition display_value="Import Claims Resource Time Worked_etl_ihub">265334ea1b691150b5bd2fc02a4bcb5b</sys_rte_eb_definition>
+        <sys_rte_eb_entity display_value="IHUB_TARGET_TEMP_x_snc_integrated_1_claim_resource_time_worked">7a7374ea1b691150b5bd2fc02a4bcb7f</sys_rte_eb_entity>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_rte_eb_etl_field_727338ea1b691150b5bd2fc02a4bcbf8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 03:38:09</sys_updated_on>
+    </sys_rte_eb_etl_field>
+</record_update>

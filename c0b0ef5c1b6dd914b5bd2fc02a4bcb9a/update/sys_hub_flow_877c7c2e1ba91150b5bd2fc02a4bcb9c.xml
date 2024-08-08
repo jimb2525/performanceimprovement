@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>false</active>
+        <annotation/>
+        <attributes/>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <compiler_build/>
+        <copied_from>9a41b6c2ff12101088e94ee9453bf1a4</copied_from>
+        <copied_from_name>FlowTemplate_Empty</copied_from_name>
+        <description/>
+        <internal_name>calculate_claims_resource_efficiency</internal_name>
+        <label_cache>[{"name":"07c75dfc-daf9-4269-9ada-4765b239e245.__dont_treat_as_error__","label":"1 - Look Up Records➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"uiType":"boolean","visible_in_ui":"false","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"07c75dfc-daf9-4269-9ada-4765b239e245.__action_status__","label":"1 - Look Up Records➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"uiType":"object","co_type_name":"FDACTIONSTATUS","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"07c75dfc-daf9-4269-9ada-4765b239e245.Count","label":"1 - Look Up Records➛Count","reference_display":"Count","type":"integer","base_type":"integer","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"07c75dfc-daf9-4269-9ada-4765b239e245.Table","label":"1 - Look Up Records➛Claims Resource Table","reference":"x_snc_integrated_1_claims_resource","reference_display":"Claims Resource Table","type":"table_name","base_type":"table_name","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"07c75dfc-daf9-4269-9ada-4765b239e245.Records","label":"1 - Look Up Records➛Claims Resource Records","reference":"x_snc_integrated_1_claims_resource","reference_display":"Claims Resource Records","type":"records","base_type":"records","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"1e74c1eb-f9e7-44aa-91ed-a6c9f9d1f4e6.__dont_treat_as_error__","label":"1 - Look up Records (Before Paris Version)➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"boolean","visible_in_ui":"false","action_error_output":"true"}},{"name":"1e74c1eb-f9e7-44aa-91ed-a6c9f9d1f4e6.__action_status__","label":"1 - Look up Records (Before Paris Version)➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"co_type_name":"FDACTIONSTATUS","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"object","action_error_output":"true"}},{"name":"1e74c1eb-f9e7-44aa-91ed-a6c9f9d1f4e6.error_message","label":"1 - Look up Records (Before Paris Version)➛Error Message","reference_display":"Error Message","type":"string","base_type":"string","attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","pwd2droppable":"true","uiType":"string","uiUniqueId":"e0e9a7fa-ebee-4da1-a80d-ca339ccb6a59"}},{"name":"1e74c1eb-f9e7-44aa-91ed-a6c9f9d1f4e6.status","label":"1 - Look up Records (Before Paris Version)➛Status","reference_display":"Status","type":"choice","base_type":"choice","choices":[{"label":"Success","value":"Success","order":0.0},{"label":"Error","value":"Error","order":1.0}],"attributes":{"uiTypeLabel":"Choice","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"choice","uiUniqueId":"38d4f267-7ae4-407e-acfa-84c2e9194830"}},{"name":"1e74c1eb-f9e7-44aa-91ed-a6c9f9d1f4e6.number_of_records_found","label":"1 - Look up Records (Before Paris Version)➛Number Of Records Found","reference_display":"Number Of Records Found","type":"string","base_type":"string","attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","pwd2droppable":"true","uiType":"string","uiUniqueId":"b4a7fcad-f7ff-4d50-ac63-93d60d340ee4"}},{"name":"1e74c1eb-f9e7-44aa-91ed-a6c9f9d1f4e6.records","label":"1 - Look up Records (Before Paris Version)➛Records","reference_display":"Records","type":"array.object","base_type":"array.object","attributes":{"uiTypeLabel":"Array.Object","co_type_name":"FDec65c94d8ca000107066eed6e10ba23f","child_label":"Record","child_type_label":"Object","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.object","child_type":"object","child_name":"record","child_uiUniqueId":"31b19e70-ef02-46df-a356-c8eed155f4cd","uiUniqueId":"eaf2354a-96a8-4f52-9c6d-377248e0a2d5"}},{"name":"eacbc6c9-4d4a-486c-82e8-7313b8747cf9.item","label":"2 - For Each➛Claims Resource Record","reference":"x_snc_integrated_1_claims_resource","reference_display":"Claims Resource Record","type":"reference","base_type":"reference","attributes":{"pills_draggable_inside_block":"true","pills_draggable_outside_block":"false"}},{"name":"4bc12930-f370-4da1-abc6-ccafcda88b57.__action_status__","label":"3 - Generate Resource Efficiency➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"co_type_name":"FDf9cd3cee2aa911501a2cd9f2e62035ed","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"object","action_error_output":"true"}},{"name":"4bc12930-f370-4da1-abc6-ccafcda88b57.__dont_treat_as_error__","label":"3 - Generate Resource Efficiency➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"boolean","visible_in_ui":"false","action_error_output":"true"}}]</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Calculate Claims Resource Efficiency</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id/>
+        <run_as>user</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:17:28</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>877c7c2e1ba91150b5bd2fc02a4bcb9c</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Calculate Claims Resource Efficiency</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_hub_flow_877c7c2e1ba91150b5bd2fc02a4bcb9c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:23:57</sys_updated_on>
+        <type>flow</type>
+    </sys_hub_flow>
+    <sys_translated_text action="delete_multiple" query="documentkey=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_variable_value action="delete_multiple" query="document_key=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_hub_trigger_instance action="delete_multiple" query="flow=877c7c2e1ba91150b5bd2fc02a4bcb9c^sys_idNOT IN095db8ae1ba91150b5bd2fc02a4bcb45"/>
+    <sys_hub_trigger_instance action="INSERT_OR_UPDATE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Calculate Claims Resource Efficiency">877c7c2e1ba91150b5bd2fc02a4bcb9c</flow>
+        <name>Daily</name>
+        <remote_sys_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:21:10</sys_created_on>
+        <sys_id>095db8ae1ba91150b5bd2fc02a4bcb45</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:23:57</sys_updated_on>
+        <trigger_definition display_value="Daily">89142dc0c32222002841b63b12d3ae8a</trigger_definition>
+        <trigger_inputs/>
+        <trigger_outputs/>
+        <trigger_type>daily</trigger_type>
+    </sys_hub_trigger_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=095db8ae1ba91150b5bd2fc02a4bcb45"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_trigger_instance</document>
+        <document_key>095db8ae1ba91150b5bd2fc02a4bcb45</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:21:10</sys_created_on>
+        <sys_id>455db8ae1ba91150b5bd2fc02a4bcb47</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:21:10</sys_updated_on>
+        <value>1970-01-01 06:00:00</value>
+        <variable display_value="Time">3ad4edc0c32222002841b63b12d3aee5</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_trigger_input_89142dc0c32222002841b63b12d3ae8a^id=095db8ae1ba91150b5bd2fc02a4bcb45"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=877c7c2e1ba91150b5bd2fc02a4bcb9c^sys_idNOT IN8b7c7c2e1ba91150b5bd2fc02a4bcb9e"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>877c7c2e1ba91150b5bd2fc02a4bcb9c</id>
+        <name>Calculate Claims Resource Efficiency</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:17:28</sys_created_on>
+        <sys_id>8b7c7c2e1ba91150b5bd2fc02a4bcb9e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:17:28</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=8b7c7c2e1ba91150b5bd2fc02a4bcb9e"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_hub_action_instance action="delete_multiple" query="flow=877c7c2e1ba91150b5bd2fc02a4bcb9c^sys_idNOT IN0d5db8ae1ba91150b5bd2fc02a4bcb4e,71fdb4221be91150b5bd2fc02a4bcb5b"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_type display_value="Look Up Records">43400a1587003300663ca1bb36cb0b4b</action_type>
+        <action_type_parent/>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Calculate Claims Resource Efficiency">877c7c2e1ba91150b5bd2fc02a4bcb9c</flow>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:21:11</sys_created_on>
+        <sys_id>0d5db8ae1ba91150b5bd2fc02a4bcb4e</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:23:57</sys_updated_on>
+        <ui_id>07c75dfc-daf9-4269-9ada-4765b239e245</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=0d5db8ae1ba91150b5bd2fc02a4bcb4e"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>0d5db8ae1ba91150b5bd2fc02a4bcb4e</document_key>
+        <order>0</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:21:11</sys_created_on>
+        <sys_id>555db8ae1ba91150b5bd2fc02a4bcb51</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:21:11</sys_updated_on>
+        <value>x_snc_integrated_1_claims_resource</value>
+        <variable display_value="Table">8f400a1587003300663ca1bb36cb0b4b</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_action_input_43400a1587003300663ca1bb36cb0b4b^id=0d5db8ae1ba91150b5bd2fc02a4bcb4e"/>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=0d5db8ae1ba91150b5bd2fc02a4bcb4e"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=0d5db8ae1ba91150b5bd2fc02a4bcb4e"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_type display_value="Generate Resource Efficiency">b5cd3cee1ba91150b5bd2fc02a4bcbe9</action_type>
+        <action_type_parent/>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Calculate Claims Resource Efficiency">877c7c2e1ba91150b5bd2fc02a4bcb9c</flow>
+        <order>3</order>
+        <parent_ui_id>eacbc6c9-4d4a-486c-82e8-7313b8747cf9</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:23:57</sys_created_on>
+        <sys_id>71fdb4221be91150b5bd2fc02a4bcb5b</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:23:57</sys_updated_on>
+        <ui_id>4bc12930-f370-4da1-abc6-ccafcda88b57</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=71fdb4221be91150b5bd2fc02a4bcb5b"/>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=71fdb4221be91150b5bd2fc02a4bcb5b"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=71fdb4221be91150b5bd2fc02a4bcb5b"/>
+    <sys_hub_sub_flow_instance action="delete_multiple" query="flow=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_hub_flow_logic action="delete_multiple" query="flow=877c7c2e1ba91150b5bd2fc02a4bcb9c^sys_idNOT IN595db8ae1ba91150b5bd2fc02a4bcb52"/>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">d95db8ae1ba91150b5bd2fc02a4bcb51</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Calculate Claims Resource Efficiency">877c7c2e1ba91150b5bd2fc02a4bcb9c</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="For Each">098e1dc5c3e232002841b63b12d3ae33</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:21:11</sys_created_on>
+        <sys_id>595db8ae1ba91150b5bd2fc02a4bcb52</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:23:57</sys_updated_on>
+        <ui_id>eacbc6c9-4d4a-486c-82e8-7313b8747cf9</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=595db8ae1ba91150b5bd2fc02a4bcb52"/>
+    <sys_element_mapping action="delete_multiple" query="id=595db8ae1ba91150b5bd2fc02a4bcb52"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>items</field>
+        <id>595db8ae1ba91150b5bd2fc02a4bcb52</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 04:21:11</sys_created_on>
+        <sys_id>915db8ae1ba91150b5bd2fc02a4bcb56</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 04:21:11</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_098e1dc5c3e232002841b63b12d3ae33</table>
+        <value>{{07c75dfc-daf9-4269-9ada-4765b239e245.Records}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic_ext_input action="delete_multiple" query="model=595db8ae1ba91150b5bd2fc02a4bcb52"/>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=595db8ae1ba91150b5bd2fc02a4bcb52"/>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_hub_flow_variable action="delete_multiple" query="model=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_input_877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_output_877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_flow_trigger_plan action="delete_multiple" query="plan_id=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+    <sys_flow_subflow_plan action="delete_multiple" query="plan_id=877c7c2e1ba91150b5bd2fc02a4bcb9c"/>
+</record_update>

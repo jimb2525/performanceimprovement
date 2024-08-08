@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_macroponent">
+    <sys_ux_macroponent action="INSERT_OR_UPDATE">
+        <associated_types/>
+        <bundles/>
+        <category>page</category>
+        <component_dependencies/>
+        <composition>[ {
+  "elementId" : "avatar_1",
+  "elementLabel" : "Avatar 1",
+  "propertyValues" : {
+    "availableFilters" : {
+      "type" : "CONTEXT_BINDING",
+      "binding" : {
+        "address" : [ "availableFilters" ],
+        "category" : "props"
+      }
+    },
+    "backButtonLabel" : {
+      "type" : "CONTEXT_BINDING",
+      "binding" : {
+        "address" : [ "backButtonLabel" ],
+        "category" : "props"
+      }
+    },
+    "titleLabel" : {
+      "type" : "CONTEXT_BINDING",
+      "binding" : {
+        "address" : [ "titleLabel" ],
+        "category" : "props"
+      }
+    },
+    "activeFilter" : {
+      "type" : "CONTEXT_BINDING",
+      "binding" : {
+        "address" : [ "activeFilter" ],
+        "category" : "props"
+      }
+    },
+    "label" : {
+      "type" : "TRANSLATION_LITERAL",
+      "value" : {
+        "code" : null,
+        "message" : "",
+        "comment" : ""
+      }
+    },
+    "bare" : {
+      "type" : "JSON_LITERAL",
+      "value" : true
+    },
+    "scrollable" : {
+      "type" : "JSON_LITERAL",
+      "value" : "y"
+    },
+    "headerLevel" : {
+      "type" : "JSON_LITERAL",
+      "value" : "1"
+    },
+    "headingOnlyVisibleToScreenReaders" : {
+      "type" : "JSON_LITERAL",
+      "value" : false
+    },
+    "interceptNotifications" : {
+      "type" : "JSON_LITERAL",
+      "value" : false
+    },
+    "propagateNotifications" : {
+      "type" : "JSON_LITERAL",
+      "value" : false
+    }
+  },
+  "eventMappings" : [ {
+    "eventMappingId" : "claaueechhtiiaabbggeddfggymkfhhplddjj",
+    "isConfiguration" : false,
+    "offRowStorageId" : null,
+    "sourceEventApiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#FILTER_APPLIED",
+    "sourceEventCorrelationId" : null,
+    "sourceEventDefinition" : {
+      "apiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#FILTER_APPLIED",
+      "id" : null,
+      "type" : "UXEVENT"
+    },
+    "sourceEventSysId" : null,
+    "targets" : [ {
+      "broker" : null,
+      "clientScript" : null,
+      "conditional" : null,
+      "declarativeAction" : null,
+      "event" : {
+        "apiName" : "sn_shift_planning.APPLY_FILTER_PAGE#HANDLE_FILTER_APPLIED_RELAY_67330cf03b120110063c4ee1f3efc482",
+        "payload" : {
+          "type" : "MAP_CONTAINER",
+          "container" : {
+            "activeFilter" : {
+              "type" : "EVENT_PAYLOAD_BINDING",
+              "binding" : {
+                "address" : [ "activeFilter" ]
+              }
+            },
+            "availableFilters" : {
+              "type" : "EVENT_PAYLOAD_BINDING",
+              "binding" : {
+                "address" : [ "availableFilters" ]
+              }
+            },
+            "selectedIds" : {
+              "type" : "EVENT_PAYLOAD_BINDING",
+              "binding" : {
+                "address" : [ "selectedIds" ]
+              }
+            },
+            "table" : {
+              "type" : "EVENT_PAYLOAD_BINDING",
+              "binding" : {
+                "address" : [ "table" ]
+              }
+            },
+            "field" : {
+              "type" : "EVENT_PAYLOAD_BINDING",
+              "binding" : {
+                "address" : [ "field" ]
+              }
+            }
+          }
+        },
+        "sysId" : "6a0b31513b120110063c4ee1f3efc488"
+      },
+      "operation" : null,
+      "targetId" : "claaueechhtjjaabbggfddfggyiihuebmy",
+      "type" : "EVENT"
+    } ]
+  }, {
+    "eventMappingId" : "claaueebwekaabbggcddfggylbbstpdaaq",
+    "isConfiguration" : false,
+    "offRowStorageId" : null,
+    "sourceEventApiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#BACK_BUTTON_CLICKED",
+    "sourceEventCorrelationId" : null,
+    "sourceEventDefinition" : {
+      "apiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#BACK_BUTTON_CLICKED",
+      "id" : null,
+      "type" : "UXEVENT"
+    },
+    "sourceEventSysId" : null,
+    "targets" : [ {
+      "broker" : null,
+      "clientScript" : null,
+      "conditional" : null,
+      "declarativeAction" : null,
+      "event" : {
+        "apiName" : "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_LIST_VIEW_RELAY_67330cf03b120110063c4ee1f3efc482",
+        "payload" : {
+          "type" : "JSON_LITERAL",
+          "value" : { }
+        },
+        "sysId" : "e60b31513b120110063c4ee1f3efc47b"
+      },
+      "operation" : null,
+      "targetId" : "claaueebwekaabbggdddfggyhrufbbvjk",
+      "type" : "EVENT"
+    } ]
+  } ],
+  "slot" : null,
+  "definition" : {
+    "id" : "6e87b303e8ca0110f8778f749b94a823",
+    "type" : "MACROPONENT"
+  },
+  "overrides" : null,
+  "isHidden" : {
+    "type" : "JSON_LITERAL",
+    "value" : null
+  },
+  "isHero" : false,
+  "isNonDestructive" : false,
+  "styles" : {
+    "width" : "400px"
+  }
+} ]</composition>
+        <da_relay_models/>
+        <data>[ ]</data>
+        <description/>
+        <dispatched_events>e60b31513b120110063c4ee1f3efc47b,6a0b31513b120110063c4ee1f3efc488</dispatched_events>
+        <ext_controller_dep/>
+        <extends display_value="Page Template">19be392623033300f4b4c50947bf65ba</extends>
+        <extension_point/>
+        <handled_events/>
+        <interactions/>
+        <interfaces/>
+        <internal_event_mappings>{ }</internal_event_mappings>
+        <layout>{
+  "default" : {
+    "children" : null,
+    "isInline" : null,
+    "items" : [{"element_id":"avatar_1","styles":{}}],
+    "root" : null,
+    "rules" : null,
+    "styles" : {"flex-direction":"column","width":"400px"},
+    "templateId" : "5832fd4d53c31010e6bcddeeff7b12db",
+    "type" : "flex"
+  },
+  "version" : "3.0.0"
+}</layout>
+        <macroponent_dependencies/>
+        <name>Filters view</name>
+        <output_prop_mapping/>
+        <props>[ {
+  "name" : "activeFilter",
+  "label" : "activeFilter",
+  "fieldType" : "json",
+  "typeMetadata" : null,
+  "valueType" : "string",
+  "mandatory" : false,
+  "defaultValue" : null,
+  "description" : "",
+  "readOnly" : false,
+  "selectable" : false,
+  "disabled" : false
+}, {
+  "name" : "availableFilters",
+  "label" : "availableFilters",
+  "fieldType" : "json",
+  "typeMetadata" : null,
+  "valueType" : "string",
+  "mandatory" : false,
+  "defaultValue" : null,
+  "description" : "",
+  "readOnly" : false,
+  "selectable" : false,
+  "disabled" : false
+}, {
+  "name" : "backButtonLabel",
+  "label" : "backButtonLabel",
+  "fieldType" : "string",
+  "typeMetadata" : null,
+  "valueType" : "string",
+  "mandatory" : false,
+  "defaultValue" : null,
+  "description" : "",
+  "readOnly" : false,
+  "selectable" : false,
+  "disabled" : false
+}, {
+  "name" : "titleLabel",
+  "label" : "titleLabel",
+  "fieldType" : "string",
+  "typeMetadata" : null,
+  "valueType" : "string",
+  "mandatory" : false,
+  "defaultValue" : null,
+  "description" : "",
+  "readOnly" : false,
+  "selectable" : false,
+  "disabled" : false
+}, {
+  "name" : "schedulePlanListState",
+  "label" : "schedulePlanListState",
+  "fieldType" : "string",
+  "typeMetadata" : null,
+  "valueType" : "string",
+  "mandatory" : false,
+  "defaultValue" : "",
+  "description" : null,
+  "readOnly" : true,
+  "selectable" : false,
+  "disabled" : false
+} ]</props>
+        <required_translations>[ ]</required_translations>
+        <root_component/>
+        <root_component_config>{ }</root_component_config>
+        <root_component_definition/>
+        <schema_version>1.0.0</schema_version>
+        <state_properties>[ ]</state_properties>
+        <sys_class_name>sys_ux_macroponent</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:15</sys_created_on>
+        <sys_id>4e2df6d11ba9d510b5bd2fc02a4bcbb0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Filters view</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_macroponent_4e2df6d11ba9d510b5bd2fc02a4bcbb0</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:15</sys_updated_on>
+    </sys_ux_macroponent>
+</record_update>

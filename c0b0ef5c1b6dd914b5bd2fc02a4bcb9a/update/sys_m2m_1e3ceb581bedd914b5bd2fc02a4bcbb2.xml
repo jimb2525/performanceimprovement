@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_m2m">
+    <sys_m2m action="INSERT_OR_UPDATE">
+        <from_table>x_snc_integrated_1_claims_resource</from_table>
+        <m2m_from_field>claims_resource</m2m_from_field>
+        <m2m_from_label>Claim Queues</m2m_from_label>
+        <m2m_table>x_snc_integrated_1_m2m_claim_queues_claims_resou</m2m_table>
+        <m2m_to_field>claim_queue</m2m_to_field>
+        <m2m_to_label>Claims Resources</m2m_to_label>
+        <sys_class_name>sys_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-22 17:19:27</sys_created_on>
+        <sys_id>1e3ceb581bedd914b5bd2fc02a4bcbb2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_snc_integrated_1_m2m_claim_queues_claims_resou</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_m2m_1e3ceb581bedd914b5bd2fc02a4bcbb2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-22 17:19:27</sys_updated_on>
+        <to_table>x_snc_integrated_1_claim_queue</to_table>
+    </sys_m2m>
+</record_update>

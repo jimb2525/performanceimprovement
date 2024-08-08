@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="295c67581bedd914b5bd2fc02a4bcbab" label="Integrated 1 M2m Claim Queues Claims Resou" max_length="40" name="x_snc_integrated_1_m2m_claim_queues_claims_resou" text_index="true" type="collection">
+        <element attributes="encode_utf8=false" label="Claims Resource" max_length="32" name="claims_resource" reference="x_snc_integrated_1_claims_resource" type="reference"/>
+        <element attributes="encode_utf8=false" label="Claim Queue" max_length="32" name="claim_queue" reference="x_snc_integrated_1_claim_queue" type="reference"/>
+        <index name="index">
+            <element name="claim_queue"/>
+        </index>
+        <index name="index2">
+            <element name="claims_resource"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_screen">
+    <sys_ux_screen action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <app_config display_value="WFO Config">065b64df73332010dd6131ff2ef6a726</app_config>
+        <description/>
+        <disable_auto_reflow>false</disable_auto_reflow>
+        <event_mappings>[ {
+  "eventMappingId" : "claaueefiieenaabbjjjddfggycyercdew",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_LIST_VIEW_RELAY_67330cf03b120110063c4ee1f3efc482",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_LIST_VIEW_RELAY_67330cf03b120110063c4ee1f3efc482",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_LIST_VIEW",
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : "1e7b7c37ebd130100b721ff5b55228ab"
+    },
+    "operation" : null,
+    "targetId" : "claaueefiieenaabbjjiddfggyggzqigbeedd",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "claaueefhhzeeaabbjjhddfggydxibrhxii",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_shift_planning.APPLY_FILTER_PAGE#HANDLE_FILTER_APPLIED_RELAY_67330cf03b120110063c4ee1f3efc482",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_shift_planning.APPLY_FILTER_PAGE#HANDLE_FILTER_APPLIED_RELAY_67330cf03b120110063c4ee1f3efc482",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.APPLY_FILTER_PAGE#HANDLE_FILTER_APPLIED",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "activeFilter" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "activeFilter" ]
+            }
+          },
+          "availableFilters" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "availableFilters" ]
+            }
+          },
+          "selectedIds" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "selectedIds" ]
+            }
+          },
+          "table" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "table" ]
+            }
+          },
+          "field" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "field" ]
+            }
+          }
+        }
+      },
+      "sysId" : "9fe21dc5fd524510f877cbc4f8d9a228"
+    },
+    "operation" : null,
+    "targetId" : "claaueefhhzeeaabbjjgddfggytjdunwsi",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "claaswmpraaaabbggaaddfggytfwkiewii",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#FILTER_APPLIED",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#FILTER_APPLIED",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.APPLY_FILTER_PAGE#HANDLE_FILTER_APPLIED",
+      "payload" : {
+        "type" : "MAP_CONTAINER",
+        "container" : {
+          "activeFilter" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "activeFilter" ]
+            }
+          },
+          "availableFilters" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "availableFilters" ]
+            }
+          },
+          "selectedIds" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "selectedIds" ]
+            }
+          },
+          "table" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "table" ]
+            }
+          },
+          "field" : {
+            "type" : "EVENT_PAYLOAD_BINDING",
+            "binding" : {
+              "address" : [ "field" ]
+            }
+          }
+        }
+      },
+      "sysId" : "9fe21dc5fd524510f877cbc4f8d9a228"
+    },
+    "operation" : null,
+    "targetId" : "claaswmpraaaabbggbbddfggywwskjjblw",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "claasffffhheeaaeejsddfggybrjdjjjiiq",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#BACK_BUTTON_CLICKED",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#BACK_BUTTON_CLICKED",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : "sn_shift_planning.SCHEDULE_PLAN_SIDEBAR#GO_TO_LIST_VIEW",
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : "1e7b7c37ebd130100b721ff5b55228ab"
+    },
+    "operation" : null,
+    "targetId" : "claasfffjjjdaaeejuddfggyzflaadqffs",
+    "type" : "EVENT"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "claasfffncjaaeejvddfggyiieepjkmgk",
+    "type" : "EVENT"
+  }, {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "claasfqdxtaaeekhhddfggyjhhjjcclccaal",
+    "type" : "EVENT"
+  } ]
+}, {
+  "eventMappingId" : "claasfffeiigaaeejqddfggyofddkzvffj",
+  "isConfiguration" : false,
+  "offRowStorageId" : null,
+  "sourceEventApiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#BACK_BUTTON_CLICKED",
+  "sourceEventCorrelationId" : null,
+  "sourceEventDefinition" : {
+    "apiName" : "sn_wfo_cfg_ws.APPLY_FILTER_PAGE#BACK_BUTTON_CLICKED",
+    "id" : null,
+    "type" : "UXEVENT"
+  },
+  "sourceEventSysId" : null,
+  "targets" : [ {
+    "broker" : null,
+    "clientScript" : null,
+    "conditional" : null,
+    "declarativeAction" : null,
+    "event" : {
+      "apiName" : null,
+      "payload" : {
+        "type" : "JSON_LITERAL",
+        "value" : { }
+      },
+      "sysId" : null
+    },
+    "operation" : null,
+    "targetId" : "claasfffeiigaaeejrddfggykegwdaaii",
+    "type" : "EVENT"
+  } ]
+} ]</event_mappings>
+        <macroponent display_value="Filters view">4e2df6d11ba9d510b5bd2fc02a4bcbb0</macroponent>
+        <macroponent_config>{
+  "activeFilter" : {
+    "type" : "STATE_BINDING",
+    "binding" : {
+      "address" : [ "scheduleFilters" ]
+    }
+  },
+  "availableFilters" : {
+    "type" : "STATE_BINDING",
+    "binding" : {
+      "address" : [ "availableFilters" ]
+    }
+  },
+  "schedulePlanListState" : {
+    "type" : "JSON_LITERAL",
+    "value" : ""
+  },
+  "label" : {
+    "type" : "TRANSLATION_LITERAL",
+    "value" : {
+      "code" : null,
+      "message" : "",
+      "comment" : ""
+    }
+  },
+  "bare" : {
+    "type" : "JSON_LITERAL",
+    "value" : true
+  },
+  "scrollable" : {
+    "type" : "JSON_LITERAL",
+    "value" : "y"
+  },
+  "headerLevel" : {
+    "type" : "JSON_LITERAL",
+    "value" : "1"
+  },
+  "headingOnlyVisibleToScreenReaders" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  },
+  "interceptNotifications" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  },
+  "propagateNotifications" : {
+    "type" : "JSON_LITERAL",
+    "value" : false
+  }
+}</macroponent_config>
+        <name>Filters view default</name>
+        <order>100</order>
+        <parent_macroponent display_value="Schedule plans">0a0dbe911ba9d510b5bd2fc02a4bcbfa</parent_macroponent>
+        <required_translations>[ ]</required_translations>
+        <rollback_screen/>
+        <screen_condition/>
+        <screen_type display_value="Filters view">612db6d11ba9d510b5bd2fc02a4bcbf6</screen_type>
+        <sys_class_name>sys_ux_screen</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:15</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>c22df6d11ba9d510b5bd2fc02a4bcbbf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Filters view default</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_screen_c22df6d11ba9d510b5bd2fc02a4bcbbf</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:15</sys_updated_on>
+    </sys_ux_screen>
+    <sys_translated_text action="delete_multiple" query="documentkey=c22df6d11ba9d510b5bd2fc02a4bcbbf"/>
+</record_update>

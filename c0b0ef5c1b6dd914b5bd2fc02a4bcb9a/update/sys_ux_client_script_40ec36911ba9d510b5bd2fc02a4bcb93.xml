@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>handlePopoverOpened</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ */
+async function handler({api, event, helpers, imports}) {
+    const {NowDateTime} = imports['sn_uxf.core_libraries']();
+    const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+
+    const MANAGER_DATE_FORMAT = api.data.initialize_team_calendar_1.output.managerDateFormat;
+    const MANAGER_TIME_FORMAT = api.data.initialize_team_calendar_1.output.managerTimeFormat;
+    
+    const WORK_SHIFT_CATEGORY = '07e433f449a11010f877de942e7c1d18';
+    const ON_CALL_CATEGORY = '72dac1553bd02010e81a4ee1f3efc481';
+    const BREAK_CATEGORY = 'f8e6b3f449a11010f877de942e7c1db9';
+    const TIME_WORKED_CATEGORY = '224c81c90f262010fe85fb8585767e70';
+    const ON_CALL_POPOVER_HEADING = await helpers.translate('On-Call shift');
+
+    const convertTimezone = function(time, fromTZ, toTZ) {
+        return NowDateTime.tz(time, DEFAULT_DATETIME_FORMAT, fromTZ)
+            .tz(toTZ)
+            .format(DEFAULT_DATETIME_FORMAT);
+    };
+    const getDurationString = (start, end) => {
+        const startTime = NowDateTime(start).valueOf();
+        const endTime = NowDateTime(end).valueOf();
+
+        let diffInSeconds = Math.floor((endTime - startTime) / 1000);
+
+        let numberOfDays = Math.floor(diffInSeconds / (60 * 60 * 24));
+        diffInSeconds = diffInSeconds - numberOfDays * (60 * 60 * 24);
+        if (numberOfDays > 0) {
+            numberOfDays = numberOfDays == 1 ? numberOfDays + ' ' + 'Day' : numberOfDays + ' ' + 'Days';
+        } else {
+            numberOfDays = '';
+        }
+
+        let numberOfHours = Math.floor(diffInSeconds / (60 * 60));
+        diffInSeconds = diffInSeconds - numberOfHours * (60 * 60);
+        if (numberOfHours > 0) {
+            numberOfHours = numberOfHours == 1 ? numberOfHours + ' ' + 'Hour' : numberOfHours + ' ' + 'Hours';
+        } else {
+            numberOfHours = '';
+        }
+
+        let numberOfMinutes = Math.floor(diffInSeconds / (60));
+        diffInSeconds = diffInSeconds - numberOfMinutes * (60);
+        if (numberOfMinutes > 0) {
+            numberOfMinutes = numberOfMinutes == 1 ? numberOfMinutes + ' ' + 'Minute' : numberOfMinutes + ' ' + 'Minutes';
+        } else {
+            numberOfMinutes = '';
+        }
+
+        let numberofSeconds = diffInSeconds;
+        if (numberofSeconds > 0) {
+            numberofSeconds = numberofSeconds == 1 ? numberofSeconds + ' ' + 'Second' : numberofSeconds + ' ' + 'Seconds';
+        } else {
+            numberofSeconds = '';
+        }
+
+        const durationString = numberOfDays + ' ' + numberOfHours + ' ' + numberOfMinutes + ' ' + numberofSeconds;
+        return durationString;
+    };
+    const convertChildEvent = function(childEvent) {
+        let br = JSON.parse(JSON.stringify(childEvent));
+        let newTz = api.state.managerTimezone;
+        
+        br.startTimeConverted = convertTimezone(br.startTimeConverted, br.readInTimezone, newTz);
+        br.start = br.startTimeConverted;
+        br.startTimeDisplayValue = NowDateTime(br.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+        br.startDateConvertedDisplay = NowDateTime(br.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT);
+        br.startTimeConvertedDisplay = NowDateTime(br.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_TIME_FORMAT.replace(':ss', '').replace('.ss', ''));
+        
+        br.endTimeConverted = convertTimezone(br.endTimeConverted, br.readInTimezone, newTz);
+        br.end = br.endTimeConverted;
+        br.endTimeDisplayValue = NowDateTime(br.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+        br.endDateConvertedDisplay = NowDateTime(br.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_DATE_FORMAT);
+        br.endTimeConvertedDisplay = NowDateTime(br.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+            .format(MANAGER_TIME_FORMAT.replace(':ss', '').replace('.ss', ''));
+
+        br.readInTimezone = newTz;
+        br.durationString = getDurationString(br.start, br.end);
+        return br;
+    };
+
+    const { payload } = event;
+    let calendarEvent = JSON.parse(JSON.stringify(payload.event));
+    const { user, category } = calendarEvent;
+
+    //Ensure that event start/end datetimes are properly converted
+    calendarEvent.startTimeConverted = convertTimezone(calendarEvent.startTimeConverted, calendarEvent.readInTimezone, api.state.managerTimezone);
+    calendarEvent.start = calendarEvent.startTimeConverted;
+    calendarEvent.startTimeDisplayValue = NowDateTime(calendarEvent.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+    calendarEvent.startDateConvertedDisplay = NowDateTime(calendarEvent.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_DATE_FORMAT);
+    calendarEvent.startTimeConvertedDisplay = NowDateTime(calendarEvent.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_TIME_FORMAT.replace(':ss', '').replace('.ss', ''));
+    calendarEvent.startTimeConvertedDisplayOnModal = NowDateTime(calendarEvent.startTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_TIME_FORMAT);
+
+    calendarEvent.endTimeConverted = convertTimezone(calendarEvent.endTimeConverted, calendarEvent.readInTimezone, api.state.managerTimezone);
+    calendarEvent.end = calendarEvent.endTimeConverted;
+    calendarEvent.endTimeDisplayValue = NowDateTime(calendarEvent.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_DATE_FORMAT + ' ' + MANAGER_TIME_FORMAT);
+    calendarEvent.endDateConvertedDisplay = NowDateTime(calendarEvent.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_DATE_FORMAT);
+    calendarEvent.endTimeConvertedDisplay = NowDateTime(calendarEvent.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_TIME_FORMAT.replace(':ss', '').replace('.ss', ''));
+    calendarEvent.endTimeConvertedDisplayOnModal = NowDateTime(calendarEvent.endTimeConverted, DEFAULT_DATETIME_FORMAT)
+        .format(MANAGER_TIME_FORMAT);
+
+    calendarEvent.readInTimezone = api.state.managerTimezone;
+    calendarEvent.durationStrinng = getDurationString(calendarEvent.star, calendarEvent.end);
+    if(calendarEvent.childEvents) {
+        let convertedChildren = [];
+
+        try {
+            for(let b in calendarEvent.childEvents) {
+                convertedChildren.push(convertChildEvent(calendarEvent.childEvents[b]));
+            }
+        } catch (e) {
+            console.log("Error in timezone conversion for child event when opening popover.")
+        }
+
+        calendarEvent.childEvents = convertedChildren;
+    }
+
+    if (category != ON_CALL_CATEGORY) {
+        const {
+            showAgentRequestIcons,
+            maxAttendeesToShow
+        } = api.state.popoverProps;
+        let currentUserSysId = api.context.session.user.sys_id;
+        const isEventForCurrentUser = currentUserSysId === user.sysId;
+
+        let showTimeOffRequestIcon =
+            showAgentRequestIcons &&
+            isEventForCurrentUser &&
+            category === WORK_SHIFT_CATEGORY;
+        let showShiftSwapRequestIcon = category === WORK_SHIFT_CATEGORY && calendarEvent.isPublished;
+        let popoverShowDeleteButton = (category !== BREAK_CATEGORY) && (category !== TIME_WORKED_CATEGORY);
+        let popoverShowEditButton = category !== BREAK_CATEGORY;
+        
+        let popoverTemplate = {
+            popoverState: {
+                value: 'ready',
+                id: calendarEvent.id,
+                timestamp: payload.timestamp
+            },
+            event: calendarEvent,
+            showTimeOffRequestIcon,
+            showShiftSwapRequestIcon,
+            popoverShowEditButton,
+            popoverShowDeleteButton,
+            isOnCall: false
+        };
+
+        api.setState ('popoverTemplate', popoverTemplate);
+    } else {
+        helpers.snHttp('/api/sn_shift_planning/shift_planning/retrieve_on_call_details',
+        {
+            method: 'POST',
+            body: event.payload.event
+        }).then(({response}) => {
+            const {groupId, oncallParent, groupName} = response.result.schedule;
+            let popoverTemplate = {
+                popoverState: {
+                    value: 'ready',
+                    id: calendarEvent.id,
+                    timestamp: payload.timestamp
+                },
+                event: {
+                    ...calendarEvent,
+                    title: ON_CALL_POPOVER_HEADING
+                },
+                showTimeOffRequestIcon: false,
+                showShiftSwapRequestIcon: false,
+                popoverShowEditButton: false,
+                popoverShowDeleteButton: false,
+                groupId,
+                oncallParent,
+                groupName,
+                isOnCall: true
+            };
+            api.setState ('popoverTemplate', popoverTemplate);
+        });
+    }
+    
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:02</sys_created_on>
+        <sys_id>40ec36911ba9d510b5bd2fc02a4bcb93</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handlePopoverOpened</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_40ec36911ba9d510b5bd2fc02a4bcb93</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:02</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

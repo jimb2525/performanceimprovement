@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_list_category">
+    <sys_ux_list_category action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <configuration display_value="Integrated Staff Production Workspace_menu_config">9285779c1b211d14b5bd2fc02a4bcbe7</configuration>
+        <description/>
+        <order>200</order>
+        <sys_class_name>sys_ux_list_category</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-22 17:59:39</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>9685779c1b211d14b5bd2fc02a4bcbe9</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Claim Queue</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_list_category_9685779c1b211d14b5bd2fc02a4bcbe9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 12:31:28</sys_updated_on>
+        <title>Claim Queue</title>
+    </sys_ux_list_category>
+</record_update>

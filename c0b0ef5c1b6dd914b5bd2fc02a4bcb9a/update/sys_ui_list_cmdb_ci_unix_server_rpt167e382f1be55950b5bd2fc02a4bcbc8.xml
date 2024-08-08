@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="cmdb_ci_unix_server" version="2" view="RPT167e382f1be55950b5bd2fc02a4bcbc8">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>cpu_speed</element>
+            <list_id display_value="cmdb_ci_unix_server" element="NULL" name="cmdb_ci_unix_server" parent="NULL" relationship="NULL" sys_domain="global" view="e67e782f1be55950b5bd2fc02a4bcb25">6a7e782f1be55950b5bd2fc02a4bcb26</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-09-01 07:00:07</sys_created_on>
+            <sys_id>ae7e782f1be55950b5bd2fc02a4bcb27</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-09-01 07:00:07</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>ram</element>
+            <list_id display_value="cmdb_ci_unix_server" element="NULL" name="cmdb_ci_unix_server" parent="NULL" relationship="NULL" sys_domain="global" view="e67e782f1be55950b5bd2fc02a4bcb25">6a7e782f1be55950b5bd2fc02a4bcb26</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-09-01 07:00:07</sys_created_on>
+            <sys_id>2a7e782f1be55950b5bd2fc02a4bcb28</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-09-01 07:00:07</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>cpu_core_count</element>
+            <list_id display_value="cmdb_ci_unix_server" element="NULL" name="cmdb_ci_unix_server" parent="NULL" relationship="NULL" sys_domain="global" view="e67e782f1be55950b5bd2fc02a4bcb25">6a7e782f1be55950b5bd2fc02a4bcb26</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-09-01 07:00:07</sys_created_on>
+            <sys_id>2e7e782f1be55950b5bd2fc02a4bcb28</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-09-01 07:00:07</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>cmdb_ci_unix_server</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-09-01 07:00:07</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>6a7e782f1be55950b5bd2fc02a4bcb26</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>cmdb_ci_unix_server</sys_name>
+            <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+            <sys_update_name>sys_ui_list_cmdb_ci_unix_server_RPT167e382f1be55950b5bd2fc02a4bcbc8</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-09-01 07:00:07</sys_updated_on>
+            <sys_user/>
+            <view display_value="Rpt167e382f1be55950b5bd2fc02a4bcbc8" name="RPT167e382f1be55950b5bd2fc02a4bcbc8">e67e782f1be55950b5bd2fc02a4bcb25</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

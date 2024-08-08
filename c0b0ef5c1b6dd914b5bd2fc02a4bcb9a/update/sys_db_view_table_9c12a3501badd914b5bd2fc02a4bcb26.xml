@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_view_table">
+    <sys_db_view_table action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <left_join>false</left_join>
+        <order>100</order>
+        <sys_class_name>sys_db_view_table</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-22 16:34:35</sys_created_on>
+        <sys_id>9c12a3501badd914b5bd2fc02a4bcb26</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>awa_queue</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_db_view_table_9c12a3501badd914b5bd2fc02a4bcb26</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-22 16:34:35</sys_updated_on>
+        <table>awa_queue</table>
+        <variable_prefix>q</variable_prefix>
+        <view display_value="u_awa_92e12f101badd914b5bd2fc02a4bcbec_work_item">401263501badd914b5bd2fc02a4bcbf5</view>
+        <where_clause>q_service_channel = '92e12f101badd914b5bd2fc02a4bcbec'</where_clause>
+    </sys_db_view_table>
+</record_update>

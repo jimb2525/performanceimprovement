@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>calendar_1_sections</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+	const sections = [];
+  api.state.calendarControls.sections.forEach(section => {
+    const currentSection = sections.filter(sec => sec.id === section.id);
+    // Check if section already exists
+    // if so, just mutate existing section otherwise add it to
+    // sections array
+    const isExisting = currentSection.length > 0;
+    const clonedSection =  isExisting ?
+      currentSection[0]:
+      JSON.parse(JSON.stringify(section));
+    const groupId = clonedSection.id;
+    // We need to re-assign runtimeData
+    clonedSection.runtimeData = section.runtimeData;
+    const children = [];
+    clonedSection.children.forEach(child => {
+      // const isExistingChildArray = clonedSection.children.filter(ch => !child.agent_id && ch.agent_id === child.id);
+      // const childExist = isExistingChildArray.length > 0;
+
+      if (!child.agent_id) {
+        const clonedChild = JSON.parse(JSON.stringify(child));
+        clonedChild.agent_id = clonedChild.id;
+        clonedChild.id = `${groupId}_${clonedChild.id}`;
+        children.push(clonedChild);
+      }
+      
+    }, this);
+    if (!isExisting) {
+      clonedSection.children = children;
+      sections.push(clonedSection);
+    } else {
+      children.forEach(child => {
+        const isExistingChildArray = clonedSection.children.filter(
+          ch => ch.agent_id === child.agent_id);
+        const childExist = isExistingChildArray.length > 0;
+        if (!childExist) {
+          clonedSection.children.push(child);
+        }
+      }, this);
+      
+    }
+  }, this);
+  return sections;
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:23</sys_created_on>
+        <sys_id>19fc7a911ba9d510b5bd2fc02a4bcb79</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>calendar_1_sections</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_19fc7a911ba9d510b5bd2fc02a4bcb79</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:23</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+</record_update>

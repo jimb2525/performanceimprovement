@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Schedule plans">0a0dbe911ba9d510b5bd2fc02a4bcbfa</macroponent>
+        <name>Show session notifications</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({ api, event, helpers, imports }) {
+    const { output } = api.data.fetch_session_message;
+    const notifications = output && output.data ? output.data.GlideDomain_Query.session.notifications : [];
+    const items = notifications.map(({ type, text }, idx) => ({
+        type,
+        message: text
+    }));
+
+    if (items.length > 0) {
+        api.emit('SCHEDULE_PLAN_SIDEBAR#SHOW_NOTIFICATIONS', { items });
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:44</sys_created_on>
+        <sys_id>520dfe911ba9d510b5bd2fc02a4bcb93</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Show session notifications</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_520dfe911ba9d510b5bd2fc02a4bcb93</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:44</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

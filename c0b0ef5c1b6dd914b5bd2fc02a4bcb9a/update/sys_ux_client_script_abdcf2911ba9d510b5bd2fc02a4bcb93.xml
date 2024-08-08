@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>handleNewEditEventModalControls</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({ api, event, helpers, imports }) {
+    const {NowDateTime} = imports['sn_uxf.core_libraries']();
+    const TIME_OFF_CATEGORY_ID = "066c33f849a11010f877de942e7c1d4b";
+    const {newOrEditEventSelected, newAndEditEventModal} = api.state;
+    const {modalSchema, operation, formData} = newAndEditEventModal;
+    const userTimeFormat = api.context.session.user.timeFormat;
+
+    const setFieldData = (field, value) => {
+        api.setState('newAndEditEventModal', ({currentValue}) => {
+            return {
+                ...currentValue,
+                formData: {
+                    ...currentValue.formData,
+                    [field]: value
+                }
+            };
+        });
+    };
+
+    const setSelectorData = (table, value) => {
+        const additionalSelector = modalSchema.additionalSelectors.find(as => as.table === table);
+
+        if (additionalSelector) {
+            const {field} = additionalSelector;
+
+            api.setState('newAndEditEventModal', ({currentValue}) => {
+                return {
+                    ...currentValue,
+                    formData: {
+                        ...currentValue.formData,
+                        additionalSelectors: {
+                            ...currentValue.formData.additionalSelectors,
+                            [table]: {
+                                [field]: value
+                            }
+                        }
+                    }
+                };
+            });
+        }
+    };
+
+    const setFieldInvalid = (field, value) => {
+        api.setState('newAndEditEventModal', ({currentValue}) => {
+            return {
+                ...currentValue,
+                modalSchema: {
+                    ...currentValue.modalSchema,
+                    [field]: {
+                        ...currentValue.modalSchema[field],
+                        invalid: value
+                    }
+                }
+            };
+        });
+    };
+
+    const setSelectorInvalid = (table, value) => {
+        api.setState('newAndEditEventModal', ({currentValue}) => {
+            return {
+                ...currentValue,
+                modalSchema: {
+                    ...currentValue.modalSchema,
+                    additionalSelectors: currentValue.modalSchema.additionalSelectors.map(as => {
+                        if (as.table !== table) {
+                            return as;
+                        }
+                        return {
+                            ...as,
+                            invalid: value
+                        };
+                    })
+                }
+            };
+        });
+    };
+
+    const setFormError = (message) => {
+        api.setState('newAndEditEventModal', ({currentValue}) => {
+            return {
+                ...currentValue,
+                formError: message
+            };
+        });
+    };    
+
+    const setLoading = (value) => {
+        api.setState('newAndEditEventModal', ({currentValue}) => {
+            return {
+                ...currentValue,
+                loading: value
+            };
+        });
+    };    
+
+    const fetchAttendees = (searchKeyword) => {
+        api.setState('newAndEditEventModal', ({currentValue}) => ({
+            ...currentValue,
+            attendeesSearchKeyword: searchKeyword
+        }));
+        if (modalSchema.attendees.allowAllUsers) {
+            api.data.fetch_all_attendees.refresh();
+        } else {
+            api.data.fetch_attendees_in_my_groups.refresh();
+        }
+    };
+
+    const handleAttendeesTypeaheadValueSet = (value) => {
+        if (!value || !value.trim() || value.trim() === '^') return;
+
+        api.setState('attendees_typeahead_timerId', ({ currentValue }) => {
+            helpers.timing.clearTimeout(currentValue);
+            return helpers.timing.setTimeout(() => {
+                const cleanValue = value.trim().replace(/\^/g, '^^');
+                fetchAttendees(cleanValue);
+            }, 500);
+        });
+    };
+
+    const handleAllDayToggle = (checked) => {
+        api.setState('newAndEditEventModal', ({ currentValue }) => {
+            // Set start and end time value when all day option is chosen. Remove am pm string from it, and hardcode am for startTime and pm for endTime
+            let startTime = (currentValue.formData.startTime).replace(/[^\d.-:]/g, '');
+            let endTime = (currentValue.formData.endTime).replace(/[^\d.-:]/g, '');
+            // Updates to time when the all day toggle is selected, depending on if the user time format is 12hr or 24hr
+            const dayEndBasedOnHourFormat = currentValue.timeTwentyFourHourFormat ? "23": "11";
+            const dayStartBasedOnHourFormat = currentValue.timeTwentyFourHourFormat ? "00": "12";
+            const amForStartTime = currentValue.timeTwentyFourHourFormat ? "" : " am";
+            const pmForEndTime = currentValue.timeTwentyFourHourFormat ? "" : " pm";
+            startTime = dayStartBasedOnHourFormat + (startTime.substr(2, startTime.length)).replace(/(\d+)/g, '00') + amForStartTime;
+            endTime = dayEndBasedOnHourFormat + (endTime.substr(2, endTime.length)).replace(/(\d+)/g, '59') + pmForEndTime;
+            if (checked) {
+                return {
+                    ...currentValue,
+                    formData: {
+                        ...currentValue.formData,
+                        startTime: startTime,
+                        endTime: endTime
+                    },
+                    modalSchema: {
+                        ...currentValue.modalSchema,
+                        startTime: {
+                            ...currentValue.modalSchema.startTime,
+                            invalid: false
+                        },
+                        endTime: {
+                            ...currentValue.modalSchema.endTime,
+                            invalid: false
+                        }
+                    },
+                    allDayEvent: checked
+                };                
+            }
+
+            return {
+                ...currentValue,
+                allDayEvent: checked
+            };    
+        });
+    };
+
+    const submitForm = async () => {
+        const startDate = NowDateTime(NowDateTime(formData.startDate, newAndEditEventModal.dateFormat)).format("YYYY-MM-DD");
+        const endDate = NowDateTime(NowDateTime(formData.endDate, newAndEditEventModal.dateFormat)).format("YYYY-MM-DD");
+        const startTime = NowDateTime(formData.startTime, userTimeFormat).format("HH:mm:ss");
+        const endTime = NowDateTime(formData.endTime, userTimeFormat).format("HH:mm:ss");
+
+        const startDateTime = new Date(`${startDate}T${startTime}`);
+        const endDateTime = new Date(`${endDate}T${endTime}`);
+
+        if (endDateTime <= startDateTime) {
+            setFormError(await helpers.translate('Start date time must be before end date time.'));
+            return;
+        }
+
+        setLoading(true);
+
+        const userTimezone = api.context.session.user.timeZone;
+        const pageTimezone = api.state.managerTimezone || userTimezone;
+
+        const payload = {};
+        payload.allDayEvent = newAndEditEventModal.allDayEvent;
+        payload.eventCategory = newOrEditEventSelected.categoryId;
+        payload.eventType = newOrEditEventSelected.id;
+        payload.readInTimezone = pageTimezone;
+        payload.group = '';
+        payload.requestor = api.context.session.user.sys_id;
+        payload.mode = operation;
+        payload.context = 'manager_workspace';
+
+        payload.title = formData.title;
+        payload.attendees = formData.attendees;
+        payload.startDate = startDate;
+        payload.endDate = endDate;
+        payload.startDateTime = `${startDate} ${startTime}`;
+        payload.endDateTime = `${endDate} ${endTime}`;
+        payload.description = formData.description;
+        payload.additionalSelectors = formData.additionalSelectors;
+        
+        if (operation === 'edit'){
+            if (newOrEditEventSelected.categoryId === TIME_OFF_CATEGORY_ID){
+                payload.recordId = (api.state.popoverTemplate && api.state.popoverTemplate.event && api.state.popoverTemplate.event.record_id) ? api.state.popoverTemplate.event.record_id : '';
+            } else {
+                payload.recordId = (api.state.popoverTemplate && api.state.popoverTemplate.event && api.state.popoverTemplate.event.schedule && api.state.popoverTemplate.event.schedule.workSchedule && api.state.popoverTemplate.event.schedule.workSchedule.sysId ) ? api.state.popoverTemplate.event.schedule.workSchedule.sysId: '';
+            }
+            helpers.snHttp('/api/sn_shift_planning/shift_planning/edit_schedule', {
+                method: 'POST',
+                body: payload
+            }).then(async resp => {
+                api.setState('popoverTemplate', {
+                    "popoverState": {
+                        value: "destroyed"
+                    },
+                    "event": {
+                        "title": "",
+                        "isPublished": true,
+                        "start": "",
+                        "end": "",
+                        "description": "",
+                        "childEvents": [],
+                        "user": {
+                            "name": ""
+                        },
+                        "participants": [{
+                            "name": ""
+                        }]
+                    },
+                    "showTimeOffRequestIcon": false,
+                    "showShiftSwapRequestIcon": false,
+                    "popoverShowEditButton": false,
+                    "popoverShowDeleteButton": false
+                });
+                api.emit('TEAM_CALENDAR#REFRESH_REQUESTED');
+                helpers.modal.close("[component-id$='new_and_edit_event_modal']");
+            }).catch(async resp => {
+                const error = resp.error ? resp.error.data.error : null;
+                if (error) {
+                    setFormError(error.detail || error.message);
+                } else {
+                    setFormError(await helpers.translate('Unknown error occurred while editing event'));
+                }
+                setLoading(false);
+                console.error('Error occurred while editing event', error);
+            }); 
+        } else {
+            helpers.snHttp('/api/sn_shift_planning/shift_planning/create_events', {
+                method: 'POST',
+                body: payload
+            }).then(async resp => {
+                api.emit('TEAM_CALENDAR#REFRESH_REQUESTED');
+
+                // show notification when a time off request is created
+                // DEF0159714 We should show confirmation for successful time off submissions as it goes through a workflow process. 
+                if (operation === 'create' && newOrEditEventSelected.categoryId === '066c33f849a11010f877de942e7c1d4b') {
+                    api.emit('TEAM_CALENDAR#SHOW_CHILD_NOTIFICATIONS', {
+                        items: [{
+                            id: 'new-time-off-created',
+                            status: 'info',
+                            icon: 'info-circle-outline',
+                            action: { type: 'dismiss' },
+                            autoHide: true,
+                            content: await helpers.translate('Time Off request submitted successfully')
+                        }]
+                    });
+                }
+                helpers.modal.close("[component-id$='new_and_edit_event_modal']");
+            }).catch(async resp => {
+                const error = resp.error ? resp.error.data.error : null;
+                if (error) {
+                    setFormError(error.detail || error.message);
+                } else {
+                    setFormError(await helpers.translate('Unknown error occurred while creating new event'));
+                }
+                setLoading(false);
+                console.error('Error occurred while creating new event', error);
+            });
+        }
+    };
+
+    switch (event.elementId) {
+        case 'title_input':
+            if (event.name === 'NOW_INPUT#INPUT') {
+                setFieldData(event.payload.name, event.payload.fieldValue);
+            }
+            break;
+        case 'attendees_typeahead':
+            if (event.name === 'NOW_TYPEAHEAD_MULTI#VALUE_SET') {
+                handleAttendeesTypeaheadValueSet(event.payload.value);
+            } else if (event.name === 'NOW_TYPEAHEAD_MULTI#SELECTED_ITEMS_SET') {
+                setFieldData('attendees', event.payload.value);
+            }
+            break;
+        case 'start_date_picker':
+        case 'end_date_picker':
+        case 'start_time_picker':
+        case 'end_time_picker':
+            if (event.name === 'SN_RECORD_DATE_PICKER_WRAPPER#VALUE_CHANGED' || event.name === 'SN_RECORD_TIME_WRAPPER#VALUE_CHANGED') {
+                const {name:field, error, value} = event.payload;
+                if (error) {
+                    setFieldInvalid(event.payload.name, true);
+                    setFormError(error.message);
+                } else {
+                    setFieldInvalid(event.payload.name, false);
+                    setFormError(null);
+                }
+                setFieldData(field, value);
+            }
+            break;
+        case 'start_time_all_day_toggle':
+            if (event.name === 'NOW_TOGGLE#CHECKED_SET') {
+                handleAllDayToggle(event.payload.value);
+            }
+            break;
+        case 'description_textarea':
+            if (event.name === 'NOW_TEXTAREA#INPUT') {
+                setFieldData('description', event.payload.fieldValue);
+            }
+            break;
+        case 'additional_selector_typeahead':
+            if (event.name === 'NOW_TYPEAHEAD#SELECTED_ITEM_SET') {
+                setSelectorData(event.payload.name, event.payload.value);
+            }
+            break;
+        case 'new_event_modal_alert':
+            if (event.name === 'NOW_ALERT#ACTION_CLICKED' && event.payload.action.type === 'dismiss') {
+                setFormError(null);
+            }
+            break;
+        case 'new_event_modal_save_button':
+            submitForm();
+            break;
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:25:59</sys_created_on>
+        <sys_id>abdcf2911ba9d510b5bd2fc02a4bcb93</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleNewEditEventModalControls</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_abdcf2911ba9d510b5bd2fc02a4bcb93</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:25:59</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

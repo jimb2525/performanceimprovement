@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>handleLoad/ReloadCalendarEventsData</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+async function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+
+    const {
+        NowDateTime
+    } = imports['sn_uxf.core_libraries']();
+
+    const managedGroups = api.state.managedGroups ? api.state.managedGroups : "";
+    const defaultEventCategories = api.state.defaultEventCategories;
+    const loadOrder = api.state.loadOrder;
+    const fastLoadCategories =
+        loadOrder && loadOrder.fastLoad ? loadOrder.fastLoad : [];
+    const demandHeader = await helpers.translate("Total coverage/demand");
+    const coverageHeader = await helpers.translate("Total coverage");
+    //Remove stale event data 
+    api.setState('calendarControls', ({
+        currentValue
+    }) => {
+        return {
+            ...currentValue,
+            events: []
+        };
+    });
+
+    //DEF0230409 : Do not show loader icon on subsequent refreshes
+    //api.setState('isLoading', true);
+
+    const fastLoadPromises = fastLoadCategories.map(fastCategory => {
+
+        let payload = makeCategoryPayload(managedGroups, fastCategory);
+        return helpers.snHttp("/api/sn_shift_planning/shift_planning/agent_schedules", {
+            method: "POST",
+            body: payload
+        });
+    });
+
+
+    Promise.all(fastLoadPromises).then(responses => {
+        api.emit("TEAM_CALENDAR#UPDATE_SCHEDULE_SPANS", {
+            eventPayload: responses,
+            operation: "replace",
+        });
+
+        ///Separate for each lazy category
+        let lazyCategories = defaultEventCategories.filter((defaultCategory) => {
+            return !fastLoadCategories.includes(defaultCategory);
+        });
+
+        const lazyLoadPromises = lazyCategories.map(lazyCategory => {
+            let lazyLoadPayload = makeCategoryPayload(managedGroups, lazyCategory);
+
+            return helpers.snHttp("/api/sn_shift_planning/shift_planning/agent_schedules", {
+                method: "POST",
+                body: lazyLoadPayload
+            });
+        });
+
+        getAndSetForecast(helpers, api, managedGroups, demandHeader, coverageHeader, NowDateTime);
+
+        if (lazyCategories.length > 0)
+            Promise.all(lazyLoadPromises).then(lazyResponses => {
+                api.emit("TEAM_CALENDAR#UPDATE_SCHEDULE_SPANS", {
+                    eventPayload: lazyResponses,
+                    operation: "append",
+                });
+            });
+    });
+
+
+
+    function makeCategoryPayload(managedGroups, categoryId) {
+        let payload = {};
+        let groupsAllowed = [];
+        api.state.eventCategories.forEach(category => {
+            if (categoryId === category.sys_id) {
+                groupsAllowed = category.groupsAllowed;
+            }
+        }, this);
+        payload.assignmentGroups = groupsAllowed.join();
+        payload.published = api.state.published;
+        payload.startDate = api.state.startDate;
+        payload.endDate = api.state.endDate;
+        payload.eventCategories = [categoryId];
+        payload.forceGet = false;
+        payload.filter = api.state.eventFilters.filter;
+        payload.timezone = (!api.state.managerTimezone) ?
+            api.data.initialize_team_calendar_1.output.managerTimezone :
+            api.state.managerTimezone;
+
+        return payload;
+    }
+
+    function getAndSetForecast(helpers, api, managedGroups, demandHeader, coverageHeader, NowDateTime) {
+        const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+        const forecastPromise = helpers.snHttp("/api/sn_shift_planning/shift_planning/forecast", {
+            method: "POST",
+            body: {
+                assignmentGroups: managedGroups,
+                startDate: NowDateTime(api.state.startDate + " " + "00:00:00").subtract(1, 'd').format(DEFAULT_DATETIME_FORMAT),
+                endDate: NowDateTime(api.state.endDate + " " + "23:59:59").add(1, 'd').format(DEFAULT_DATETIME_FORMAT)
+            }
+        });
+
+        forecastPromise.then(forecastResponse => {
+            let forecastData = forecastResponse.response.result;
+            if (!forecastData)
+                forecastData = [];
+
+            const fail = () => {
+                api.setState('forecastData', {});
+                api.setState('coverageHeading', coverageHeader);
+            };
+
+            if (forecastData.length <= 0)
+                fail();
+            else {
+                api.setState('coverageHeading', demandHeader);
+                const assignmentGroups = api.state.managedGroups.split(',');
+                const forecastByGroup = {};
+                for (let k = 0; k < assignmentGroups.length; k++) {
+                    const groupId = assignmentGroups[k];
+                    if (!forecastByGroup[groupId]) forecastByGroup[groupId] = {};
+                }
+
+
+                for (const {
+                        timestamp,
+                        ...groupForecastMap
+                    } of forecastData) {
+                    /*TODO: Once there's an easy way to convert timestamps between timezones, do so
+                    const timestampInCalendar = convertEventTimeToCalendarTimeZone(
+                        timestamp,
+                        'UTC',
+                        state.properties.timezone
+                    );*/
+                    const timestampInCalendar = timestamp;
+                    for (let i = 0; i < assignmentGroups.length; i++) {
+                        // when forecast API failed to return forecast data for a certain group on the Calendar
+                        // we fail this parsing process
+                        const groupId = assignmentGroups[i];
+                        if (!groupForecastMap.hasOwnProperty(groupId)) {
+                            continue;
+                        }
+
+                        let forecastNumber = groupForecastMap[groupId].forecast;
+                        if (!forecastNumber)
+                            forecastNumber = 0;
+
+                        if (!forecastByGroup[groupId]) forecastByGroup[groupId] = {};
+                        forecastByGroup[groupId][timestampInCalendar] = forecastNumber;
+                    }
+                }
+                api.setState('forecastData', forecastByGroup);
+            }
+        });
+    }
+
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:25:51</sys_created_on>
+        <sys_id>d1dc72911ba9d510b5bd2fc02a4bcb6d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleLoad/ReloadCalendarEventsData</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_d1dc72911ba9d510b5bd2fc02a4bcb6d</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:25:51</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

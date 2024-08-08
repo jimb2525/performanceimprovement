@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Home">0185779c02211d143f65824f46781e2d</macroponent>
+        <name>calendar_1_viewSettings</name>
+        <preset/>
+        <required_translations>[ ]</required_translations>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {TransformApiHelpers} params.helpers
+ */
+function evaluateProperty({
+    api,
+    helpers,
+    imports
+}) {
+
+    var json = {
+        "DAY": {
+            "snapGranularity": 15,
+            "splitRow": 2
+        },
+        "WEEK": {
+            "snapGranularity": 15,
+            "splitRow": 2
+        },
+        "work_week": {
+            "snapGranularity": 15,
+            "numberOfDays": 5,
+            "splitRow": 2
+        },
+        "TIMELINE_DAY": {
+            "eventHeight": 20,
+            "xStep": 60,
+            "xSize": 24,
+            "xStart": 0,
+            "xUnitName": "minutes",
+            "titleWidth": 240,
+            "viewName": "TIMELINE_DAY",
+            "groupBy": "group",
+            "scrollDebounceTime": 100,
+            "noScrolling": false,
+            "eventMinWidthMS": 300000,
+            "animation": false,
+            "snapGranularity": 15,
+            "splitRow": 2,
+            "timeRowSpan": 60,
+            "numberOfDays": 1,
+            "viewLabel": "Day",
+        },
+        "TIMELINE_WEEK": {
+            "eventHeight": 20,
+            "xStep": 1,
+            "xSize": 7,
+            "xStart": 0,
+            "xUnitName": "days",
+            "titleWidth": 240,
+            "viewName": "TIMELINE_WEEK",
+            "groupBy": "group",
+            "scrollDebounceTime": 100,
+            "noScrolling": false,
+            "eventMinWidthMS": 3600000,
+            "animation": false,
+            "hideAgendaView": true,
+            "hideSidebarOnLoad": true,
+            "snapGranularity": "480",
+            "splitRow": 1,
+            "showCoverageRow": true,
+            "showForecast": false,
+            "forecastData": [{
+                "CLM-CE BC65:dc97271c1badd914b5bd2fc02a4bcbd9": {
+                    "2022-08-24 00:00:00": 0,
+                    "2022-08-24 01:00:00": 0,
+                    "2022-08-24 02:00:00": 0,
+                    "2022-08-24 03:00:00": 0,
+                    "2022-08-24 04:00:00": 0,
+                    "2022-08-24 05:00:00": 0,
+                    "2022-08-24 06:00:00": 0,
+                    "2022-08-24 07:00:00": 2,
+                    "2022-08-24 08:00:00": 2,
+                    "2022-08-24 09:00:00": 2,
+                    "2022-08-24 10:00:00": 2,
+                    "2022-08-24 11:00:00": 2,
+                    "2022-08-24 12:00:00": 2,
+                    "2022-08-24 13:00:00": 7,
+                    "2022-08-24 14:00:00": 4,
+                    "2022-08-24 15:00:00": 3,
+                    "2022-08-24 16:00:00": 3,
+                    "2022-08-24 17:00:00": 3,
+                    "2022-08-24 18:00:00": 2,
+                    "2022-08-24 19:00:00": 2,
+                    "2022-08-24 20:00:00": 2,
+                    "2022-08-24 21:00:00": 2,
+                    "2022-08-24 22:00:00": 2,
+                    "2022-08-24 23:00:00": 1,
+                    "2022-08-25 00:00:00": 0,
+                    "2022-08-25 01:00:00": 0,
+                    "2022-08-25 02:00:00": 0,
+                    "2022-08-25 03:00:00": 0,
+                    "2022-08-25 04:00:00": 0,
+                    "2022-08-25 05:00:00": 0,
+                    "2022-08-25 06:00:00": 0,
+                    "2022-08-25 07:00:00": 0,
+                    "2022-08-25 08:00:00": 0,
+                    "2022-08-25 09:00:00": 0,
+                    "2022-08-25 10:00:00": 0,
+                    "2022-08-25 11:00:00": 1,
+                    "2022-08-25 12:00:00": 0,
+                    "2022-08-25 13:00:00": 3,
+                    "2022-08-25 14:00:00": 3,
+                    "2022-08-25 15:00:00": 2,
+                    "2022-08-25 16:00:00": 2,
+                    "2022-08-25 17:00:00": 2,
+                    "2022-08-25 18:00:00": 6,
+                    "2022-08-25 19:00:00": 4,
+                    "2022-08-25 20:00:00": 4,
+                    "2022-08-25 21:00:00": 6,
+                    "2022-08-25 22:00:00": 1,
+                    "2022-08-25 23:00:00": 0,
+                    "2022-08-26 00:00:00": 0,
+                    "2022-08-26 01:00:00": 0,
+                    "2022-08-26 02:00:00": 0,
+                    "2022-08-26 03:00:00": 0,
+                    "2022-08-26 04:00:00": 0,
+                    "2022-08-26 05:00:00": 0,
+                    "2022-08-26 06:00:00": 0,
+                    "2022-08-26 07:00:00": 0,
+                    "2022-08-26 08:00:00": 0,
+                    "2022-08-26 09:00:00": 0,
+                    "2022-08-26 10:00:00": 0,
+                    "2022-08-26 11:00:00": 0,
+                    "2022-08-26 12:00:00": 0,
+                    "2022-08-26 13:00:00": 3,
+                    "2022-08-26 14:00:00": 3,
+                    "2022-08-26 15:00:00": 3,
+                    "2022-08-26 16:00:00": 4,
+                    "2022-08-26 17:00:00": 4,
+                    "2022-08-26 18:00:00": 4,
+                    "2022-08-26 19:00:00": 5,
+                    "2022-08-26 20:00:00": 4,
+                    "2022-08-26 21:00:00": 3,
+                    "2022-08-26 22:00:00": 1,
+                    "2022-08-26 23:00:00": 2
+                }
+            }],
+            "templates": {
+                "timeScaleGrid": {
+                    "type": "component",
+                    "value": "sn-shift-planning-time-scale-grid"
+                },
+                "sectionHeadBody": {
+                    "type": "component",
+                    "value": "sn-shift-planning-section-head-body"
+                },
+                // "eventBody": {
+                //     "type": "component",
+                //     "value": "sn-shift-planning-event-body"
+                // },
+                "rowTitle": {
+                    "type": "component",
+                    "value": "sn-shift-planning-row-title"
+                },
+                "sectionHeadTitle": {
+                    "type": "component",
+                    "value": "sn-shift-planning-section-head-title"
+                },
+                "timestampBody": {
+                    "type": "component",
+                    "value": "sn-now-calendar-timestamp-view"
+                },
+                "mainGrid": {
+                    "type": "",
+                    "value": ""
+                },
+                "rowBody": {
+                    "type": "",
+                    "value": ""
+                }
+            },
+            "numberOfDays": 7,
+            "viewLabel": "Week",
+            "trackConfig": {
+                "normal": {
+                    "style": {},
+                    "paddingTop": 2,
+                    "paddingBottom": 2,
+                    "eventHeight": 20
+                },
+                "priority": {
+                    "style": {},
+                    "paddingTop": 2,
+                    "paddingBottom": 2,
+                    "eventHeight": 20
+                }
+            },
+            "isReadonly": false,
+            "rowHeightBottomPaddingInLines": 1,
+            "sectionHeaderHeight": 40,
+            "minimumEventSpan": 1,
+            "eventAreaClientHeight": 1102,
+            "eventAreaScrollHeight": 1102,
+            "eventAreaClientWidth": 1480,
+            "scrollbarWidth": 15,
+            "scrollbarHeight": 15.28125,
+            "offsetX": 0,
+            "offsetY": 0,
+            "left": 0,
+            "top": 0,
+            "layoutVersion": 2
+        }
+    };
+
+console.log('viewSettings', json)
+    return json;
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 15:36:33</sys_created_on>
+        <sys_id>93817ad91b29d510b5bd2fc02a4bcb99</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>calendar_1_viewSettings</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_93817ad91b29d510b5bd2fc02a4bcb99</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-29 03:45:24</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+</record_update>

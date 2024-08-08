@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>Get child event durations</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.imports
+ */
+function evaluateProperty({
+    api
+}) {
+    const {
+        childEvents
+    } = api.state.popoverTemplate.event;
+    const getDurationString = (start, end) => {
+        const startTime = new Date(('' + start).replace(/-/g, "/"));
+        const endTime = new Date(('' + end).replace(/-/g, "/"));
+
+        let diffInSeconds = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
+
+        let numberOfDays = Math.floor(diffInSeconds / (60 * 60 * 24));
+        diffInSeconds = diffInSeconds - numberOfDays * (60 * 60 * 24);
+        if (numberOfDays > 0) {
+            numberOfDays = numberOfDays == 1 ? numberOfDays + ' ' + 'Day' : numberOfDays + ' ' + 'Days';
+        } else {
+            numberOfDays = '';
+        }
+
+        let numberOfHours = Math.floor(diffInSeconds / (60 * 60));
+        diffInSeconds = diffInSeconds - numberOfHours * (60 * 60);
+        if (numberOfHours > 0) {
+            numberOfHours = numberOfHours == 1 ? numberOfHours + ' ' + 'Hour' : numberOfHours + ' ' + 'Hours';
+        } else {
+            numberOfHours = '';
+        }
+
+        let numberOfMinutes = Math.floor(diffInSeconds / (60));
+        diffInSeconds = diffInSeconds - numberOfMinutes * (60);
+        if (numberOfMinutes > 0) {
+            numberOfMinutes = numberOfMinutes == 1 ? numberOfMinutes + ' ' + 'Minute' : numberOfMinutes + ' ' + 'Minutes';
+        } else {
+            numberOfMinutes = '';
+        }
+
+        let numberofSeconds = diffInSeconds;
+        if (numberofSeconds > 0) {
+            numberofSeconds = numberofSeconds == 1 ? numberofSeconds + ' ' + 'Second' : numberofSeconds + ' ' + 'Seconds';
+        } else {
+            numberofSeconds = '';
+        }
+
+        const durationString = numberOfDays + ' ' + numberOfHours + ' ' + numberOfMinutes + ' ' + numberofSeconds;
+
+        return durationString;
+    };
+
+    const items = [];
+    childEvents.forEach(event => {
+        const {
+            title,
+            start,
+            end
+        } = event;
+
+        if(!!start && !!end && start !== "" && end !== "") {
+            const durationString = getDurationString(start, end).trim();
+            items.push({
+                label: "",
+                value: {
+                    type: 'highlighted-value',
+                    label: durationString,
+                    color: "gray",
+                    variant: "tertiary"
+                }
+            });
+        }
+    });
+    return items;
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:08</sys_created_on>
+        <sys_id>b1ecb6911ba9d510b5bd2fc02a4bcb43</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Get child event durations</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_b1ecb6911ba9d510b5bd2fc02a4bcb43</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:08</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+</record_update>

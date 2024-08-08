@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Team Calendar">2cdc72911ba9d510b5bd2fc02a4bcb28</macroponent>
+        <name>handleDeleteConfirmClicked</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    const WORK_SHIFT_CATEGORY = '07e433f449a11010f877de942e7c1d18';
+    const TIME_OFF_CATEGORY = '066c33f849a11010f877de942e7c1d4b';
+    let eventSpanDetails = api.state && api.state.popoverTemplate && api.state.popoverTemplate.event ? api.state.popoverTemplate.event : {};
+    if (eventSpanDetails && eventSpanDetails.category) {
+        const attendees = {"id": eventSpanDetails.user.sysId };
+        let recordId = "";
+        switch(eventSpanDetails.category){
+            case WORK_SHIFT_CATEGORY: 
+                recordId = eventSpanDetails.schedule.sysId;
+                break;
+            case TIME_OFF_CATEGORY: 
+                recordId = eventSpanDetails.record_id;
+                break;
+            default: 
+                recordId = eventSpanDetails.schedule.workSchedule.sysId;
+        }
+        let payload = {
+            "eventCategory": eventSpanDetails.category,
+            "startDate": eventSpanDetails.start,
+            "recordId": recordId,
+            "attendees": [attendees],
+            "attendeesToUpdate": [eventSpanDetails.user],
+            "originalReadInTimezone": eventSpanDetails.readInTimezone
+        };
+        
+        helpers.snHttp("/api/sn_shift_planning/shift_planning/delete_event", {
+            method: "POST",
+            body: payload
+        }).then((deleteResponse) => {
+            if (deleteResponse.response.result.status == "success") {
+                //Reset event popover
+                api.setState('popoverTemplate', {
+                    "popoverState": {
+                        value: "destroyed"
+                    },
+                    "event": {
+                        "title": "",
+                        "isPublished": true,
+                        "start": "",
+                        "end": "",
+                        "description": "",
+                        "childEvents": [],
+                        "user": {
+                            "name": ""
+                        },
+                        "participants": [{
+                            "name": ""
+                        }]
+                    },
+                    "showTimeOffRequestIcon": false,
+                    "showShiftSwapRequestIcon": false,
+                    "popoverShowEditButton": false,
+                    "popoverShowDeleteButton": false
+                });
+                api.emit('TEAM_CALENDAR#REFRESH_REQUESTED');
+            }
+        });
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:25:57</sys_created_on>
+        <sys_id>8bdcf2911ba9d510b5bd2fc02a4bcb19</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleDeleteConfirmClicked</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_8bdcf2911ba9d510b5bd2fc02a4bcb19</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:25:57</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="03be23501b211d14b5bd2fc02a4bcb4f" label="Claim Work Items Processed" max_length="40" name="x_snc_integrated_1_claim_work_items_processed" text_index="true" type="collection">
+        <element label="Claims Resource" max_length="32" name="claims_resource" reference="x_snc_integrated_1_claims_resource" type="reference"/>
+        <element label="Claim Queue" max_length="32" name="claim_queue" reference="x_snc_integrated_1_claim_queue" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Date" max_length="40" name="date" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Number of Items Processed" max_length="40" name="number_of_items_processed" type="integer"/>
+        <index name="index">
+            <element name="claim_queue"/>
+        </index>
+        <index name="index2">
+            <element name="claims_resource"/>
+        </index>
+    </element>
+</database>

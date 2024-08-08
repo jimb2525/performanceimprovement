@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Edit Workshift Page">884d7ed11ba9d510b5bd2fc02a4bcb86</macroponent>
+        <name>handlePropertyChanges</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+async function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    try {
+        let popoverTemplate = api.context.props.popoverTemplate;
+        let labelSameDay = await helpers.translate("End Shift"),
+            labelNextDay = await helpers.translate("End Shift (+1 Day)");
+        let labelSameDayClockOut = await helpers.translate("Clock-out"),
+            labelNextDayClockOut = await helpers.translate("Clock-out (+1 Day)");
+        let labelSameDayEndBreak = await helpers.translate("End Break"),
+            labelNextDayEndBreak = await helpers.translate("End Break (+1 Day)");
+        const {
+            NowDateTime
+        } = imports['sn_uxf.core_libraries']();
+        const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+        if ("MACROPONENT_PROPERTY_CHANGED" === event.name && event.payload.name === "isWorkShiftEditModalOpen" && !event.payload.value) {
+            api.setState('editShiftControls', ({
+                currentValue
+            }) => {
+                return {
+                    ...currentValue,
+                    errorMsg: ''
+                };
+            });
+        }
+        if ("MACROPONENT_PROPERTY_CHANGED" === event.name && event.payload.name === "isWorkShiftEditModalOpen" && event.payload.value) {
+            let glideTimeFormat = api.context.session.user.timeFormat;
+            let glideDateTimeFormat = api.context.session.user.dateTimeFormat;
+            glideDateTimeFormat = glideDateTimeFormat.split(" ");
+            glideDateTimeFormat[0] = glideDateTimeFormat[0].toUpperCase();
+            glideDateTimeFormat = glideDateTimeFormat.join(" ");
+
+            let meridianMarker = glideTimeFormat.indexOf('a');
+            let timeFormat = meridianMarker === -1 ? 'HH:mm' : 'hh:mm a'; //Timepicker time format
+            //Use users' timezone instead of browser timezone
+
+            api.setState('userTimeFormat', timeFormat);
+
+            let workshiftStartDateTimeDisplayValue = popoverTemplate.event.start;
+            //let startTime = popoverTemplate.event.startTimeDisplayValue.split(" ")[1].split(":").slice(0, -1).join(":");
+            let startTime = NowDateTime(popoverTemplate.event.startTimeDisplayValue, glideDateTimeFormat).format(timeFormat);
+
+
+            let workshiftEndDateTimeDisplayValue = popoverTemplate.event.end;
+            //let endTime = popoverTemplate.event.endTimeDisplayValue.split(" ")[1].split(":").slice(0, -1).join(":");
+            let endTime = NowDateTime(popoverTemplate.event.endTimeDisplayValue, glideDateTimeFormat).format(timeFormat);
+            let breaks = popoverTemplate.event.childEvents ? popoverTemplate.event.childEvents : [];
+            let breakInfo = {
+                nBreaks: 0,
+                breaks: []
+            };
+
+            const BREAK_EVENT_CATEGORY = "f8e6b3f449a11010f877de942e7c1db9";
+            const ACTUAL_WORK_CATEGORY = api.state.actualWorkEvent.actualWorkCategorySysId;
+            const TIME_WORKED_EVENT = api.state.actualWorkEvent.timeWorkedEventSysId;
+            const IN_PROGRESS_EVENT = api.state.actualWorkEvent.inProgressEventSysId;
+
+            breaks.forEach(breakEvent => {
+                let breakEventCondn = (popoverTemplate.event.category === ACTUAL_WORK_CATEGORY) ? (breakEvent.schedule.eventType.sysId === TIME_WORKED_EVENT || breakEvent.schedule.eventType.sysId === IN_PROGRESS_EVENT) : (breakEvent.category === BREAK_EVENT_CATEGORY);
+                if (breakEventCondn) {
+                    let breakInfoObj = {};
+                    // let breakStartTimeStamp = breakEvent.start.split(" ")[1];
+                    // breakStartTimeStamp = breakStartTimeStamp.split(":");
+                    // breakStartTimeStamp.pop();
+                    // breakInfoObj.breakStartTime = breakStartTimeStamp.join(":");
+                    // breakInfoObj.breakStartDateTimeDisplayValue = breakEvent.start;
+
+                    let breakStartTimeStamp = NowDateTime(breakEvent.start).format(timeFormat);
+                    breakInfoObj.breakStartTime = breakStartTimeStamp;
+                    breakInfoObj.breakStartDateTimeDisplayValue = breakEvent.start;
+
+                    let breakEndTimeStamp = NowDateTime(breakEvent.end).format(timeFormat);
+                    breakInfoObj.breakEndTime = breakEndTimeStamp;
+                    breakInfoObj.breakEndDateTimeDisplayValue = breakEvent.end;
+
+                    // let breakEndTimeStamp = breakEvent.end.split(" ")[1];
+                    // breakEndTimeStamp = breakEndTimeStamp.split(":");
+                    // breakEndTimeStamp.pop();
+                    // breakInfoObj.breakEndTime = breakEndTimeStamp.join(":");
+                    // breakInfoObj.breakEndDateTimeDisplayValue = breakEvent.end;
+
+                    let multiDayBreak = false,
+                        breakEventEndLabel;
+                    if (breakEvent.startDateConvertedDisplay != breakEvent.endDateConvertedDisplay)
+                        multiDayBreak = true;
+
+                    if (breakEvent.category === ACTUAL_WORK_CATEGORY) {
+                        if (multiDayBreak)
+                            breakEventEndLabel = labelNextDayClockOut;
+                        else
+                            breakEventEndLabel = labelSameDayClockOut;
+                    } else {
+                        if (multiDayBreak)
+                            breakEventEndLabel = labelNextDayEndBreak;
+                        else
+                            breakEventEndLabel = labelSameDayEndBreak;
+                    }
+
+                    breakInfoObj.breakEventEndLabel = breakEventEndLabel;
+                    breakInfoObj.breakEventType = breakEvent.schedule.eventType.sysId;
+                    breakInfoObj.breakRecordId = breakEvent.record_id;
+                    breakInfo.breaks.push(breakInfoObj);
+                    breakInfo.nBreaks++;
+                }
+
+            });
+
+            let multiDay = false,
+                currentShiftStartHourAndMinutes = NowDateTime(workshiftStartDateTimeDisplayValue).format("HH:mm").split(":"),
+                currentShiftEndHourAndMinutes = NowDateTime(workshiftEndDateTimeDisplayValue).format("HH:mm").split(":"),
+                workshiftEndLabel;
+            if (parseInt(currentShiftStartHourAndMinutes[0]) > parseInt(currentShiftEndHourAndMinutes[0]))
+                multiDay = true;
+            else if (parseInt(currentShiftEndHourAndMinutes[0]) > parseInt(currentShiftStartHourAndMinutes[0]))
+                multiDay = false;
+            else if ((parseInt(currentShiftStartHourAndMinutes[0]) === parseInt(currentShiftEndHourAndMinutes[0])) && (parseInt(currentShiftStartHourAndMinutes[1]) > parseInt(currentShiftEndHourAndMinutes[1])))
+                multiDay = true;
+
+            if (multiDay) {
+                workshiftEndLabel = labelNextDay;
+            } else {
+                workshiftEndLabel = labelSameDay;
+            }
+            api.setState("editShiftControls", ({
+                currentValue
+            }) => {
+                return {
+                    ...currentValue,
+                    shiftStartTime: startTime,
+                    shiftEndTime: endTime,
+                    workshiftStartDateTimeDisplayValue,
+                    workshiftEndDateTimeDisplayValue,
+                    workshiftEndLabel,
+                    multiDay,
+                    errorMsg: '',
+                    workshiftStartInvalid: false,
+                    workshiftEndInvalid: false,
+                    breakInfo,
+                    formDirty: false
+                };
+            });
+        } else if ("shift_start_time" === event.elementId) {
+            let newValue, payload = event.payload;
+            if (payload.value && !payload.error) {
+                newValue = payload.value;
+                newValue = NowDateTime('1/1/1 ' + payload.value).format('HH:mm');
+                //newValue = newValue.split(" ")[0]; //Remove AM/PM if 12hour
+                let invalid = false;
+                let shiftStartDateTimeDisplayValue = popoverTemplate.event.start;
+                shiftStartDateTimeDisplayValue = popoverTemplate.event.start.split(" ");
+                shiftStartDateTimeDisplayValue[1] = newValue;
+                shiftStartDateTimeDisplayValue = shiftStartDateTimeDisplayValue.join(" ");
+                api.setState("editShiftControls", ({
+                    currentValue
+                }) => {
+                    return {
+                        ...currentValue,
+                        shiftStartTime: payload.value,
+                        workshiftStartDateTimeDisplayValue: shiftStartDateTimeDisplayValue + ":00",
+                        workshiftStartInvalid: invalid,
+                        formDirty: true
+                    };
+                });
+            } else if (payload.error) {
+                let errorMessage = payload.error.message;
+                let invalid = true;
+                api.setState("editShiftControls", ({
+                    currentValue
+                }) => {
+                    return {
+                        ...currentValue,
+                        workshiftStartInvalid: invalid,
+                        errorMsg: errorMessage,
+                        formDirty: true
+                    };
+                });
+            }
+        } else if ("shift_end_time" === event.elementId) {
+            let newValue, payload = event.payload,
+                workshiftEndLabel = api.state.editShiftControls.workshiftEndLabel;
+            if (payload.value && !payload.error) {
+                newValue = payload.value;
+                newValue = NowDateTime('1/1/1 ' + payload.value).format('HH:mm');
+                //newValue = newValue.split(" ")[0]; //Remove AM/PM if 12hour
+                let invalid = false;
+                //check if raw time value is greater than start date ? Use same date as start date eg. 6pm to 11:59 pm
+                //If less than start date, make the event overflow to next date
+                let shiftEndDateTimeDisplayValue = popoverTemplate.event.start;
+                shiftEndDateTimeDisplayValue = popoverTemplate.event.start.split(" ");
+                //Set Time to the new Value from Time picker
+                shiftEndDateTimeDisplayValue[1] = newValue;
+
+
+                //let currentShiftStartTime = api.state.editShiftControls.shiftStartTime;
+                let currentShiftStartTime = NowDateTime(api.state.editShiftControls.workshiftStartDateTimeDisplayValue).format("HH:mm");
+                let currentShiftStartHourAndMinutes = currentShiftStartTime.split(":");
+
+
+
+                let currentShiftEndHourAndMinutes = NowDateTime('1/1/1 ' + payload.value).format('HH:mm').split(":");
+                let multiDay = false;
+                if (parseInt(currentShiftStartHourAndMinutes[0]) > parseInt(currentShiftEndHourAndMinutes[0]))
+                    multiDay = true;
+                else if (parseInt(currentShiftEndHourAndMinutes[0]) > parseInt(currentShiftStartHourAndMinutes[0]))
+                    multiDay = false;
+                else if ((parseInt(currentShiftStartHourAndMinutes[0]) === parseInt(currentShiftEndHourAndMinutes[0])) && (parseInt(currentShiftStartHourAndMinutes[1]) > parseInt(currentShiftEndHourAndMinutes[1])))
+                    multiDay = true;
+
+                if (multiDay) {
+
+                    shiftEndDateTimeDisplayValue = shiftEndDateTimeDisplayValue.join(" ");
+                    shiftEndDateTimeDisplayValue = NowDateTime(shiftEndDateTimeDisplayValue).add(1, 'day').format(DEFAULT_DATETIME_FORMAT);
+                    workshiftEndLabel = labelNextDay;
+                } else {
+                    shiftEndDateTimeDisplayValue = NowDateTime(shiftEndDateTimeDisplayValue.join(" ")).format(DEFAULT_DATETIME_FORMAT);
+                    workshiftEndLabel = labelSameDay;
+                }
+
+                api.setState("editShiftControls", ({
+                    currentValue
+                }) => {
+                    return {
+                        ...currentValue,
+                        shiftEndTime: payload.value,
+                        workshiftEndDateTimeDisplayValue: shiftEndDateTimeDisplayValue,
+                        multiDay: multiDay,
+                        workshiftEndInvalid: invalid,
+                        workshiftEndLabel,
+                        formDirty: true
+                    };
+                });
+            } else if (payload.error) {
+                let errorMessage = payload.error.message;
+                let invalid = true;
+                api.setState("editShiftControls", ({
+                    currentValue
+                }) => {
+                    return {
+                        ...currentValue,
+                        workshiftEndInvalid: invalid,
+                        errorMsg: errorMessage,
+                        formDirty: true
+                    };
+                });
+
+            }
+        }
+    } catch (err) {
+        console.log("Caught err in client script propertychanges" + err);
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:45</sys_created_on>
+        <sys_id>5d4dbed11ba9d510b5bd2fc02a4bcb89</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handlePropertyChanges</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_5d4dbed11ba9d510b5bd2fc02a4bcb89</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:45</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

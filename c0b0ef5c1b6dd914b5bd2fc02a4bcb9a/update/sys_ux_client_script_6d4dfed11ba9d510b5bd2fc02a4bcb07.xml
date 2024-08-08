@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Edit Workshift Page">884d7ed11ba9d510b5bd2fc02a4bcb86</macroponent>
+        <name>handleDynamicBreaksValueChanged</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    try {
+        const {
+            NowDateTime
+        } = imports['sn_uxf.core_libraries']();
+        const DEFAULT_DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+        let popoverTemplate = api.context.props.popoverTemplate;
+        let invalid = false,
+            errorMsg = '';
+        let updatedBreakIndex = event.context.item.index;
+        let currentBreaks = [...api.state.editShiftControls.breakInfo.breaks];
+        let breakToUpdate = { ...currentBreaks[updatedBreakIndex]};
+        let workshiftStartDateTimeDisplayValue = api.state.editShiftControls.workshiftStartDateTimeDisplayValue;
+        let workshiftEndDateTimeDisplayValue = api.state.editShiftControls.workshiftEndDateTimeDisplayValue;
+        let multiDayWorkshift = api.state.editShiftControls.multiDay;
+
+        if (event.payload.error) {
+            invalid = true;
+            errorMsg = event.payload.error.message;
+            event.elementId === 'd_break_start' ? breakToUpdate['invalidStart'] = invalid : breakToUpdate['invalidEnd'] = invalid;
+            currentBreaks[updatedBreakIndex] = breakToUpdate;
+        } else {
+            let newValue = event.payload.value;
+            let newValueParts = NowDateTime('1/1/1 '+newValue).format('HH:mm').split(":"),
+                workshiftStartDateTimeParts = workshiftStartDateTimeDisplayValue.split(" "),
+                workshiftEndDateTimeParts = workshiftEndDateTimeDisplayValue.split(" ");
+
+            let breakDateTimeDisplayValue = workshiftStartDateTimeDisplayValue;
+            breakDateTimeDisplayValue = breakDateTimeDisplayValue.split(" ");
+            breakDateTimeDisplayValue[1] = NowDateTime('1/1/1 '+newValue).format('HH:mm');
+            breakDateTimeDisplayValue = breakDateTimeDisplayValue.join(" ");
+            if ("d_break_start" === event.elementId) {
+                breakToUpdate['breakStartTime'] = newValue;
+                let breakStartDateTimeDisplayValue;
+
+                if(popoverTemplate.event.category === api.state.actualWorkEvent.actualWorkCategorySysId) {
+                breakStartDateTimeDisplayValue = breakToUpdate["breakStartDateTimeDisplayValue"].split(" ")[0]+" "+newValue;
+                } else {
+                breakStartDateTimeDisplayValue = breakDateTimeDisplayValue;
+                }
+
+                if (multiDayWorkshift) {
+                    //breakstart falls within same date as workstart
+                    if (newValueParts[0] >= workshiftStartDateTimeParts[1].split(":")[0]) {
+                        //TODO
+                    } else if (newValueParts[0] < workshiftStartDateTimeParts[1].split(":")[0]) {
+                        breakStartDateTimeDisplayValue = breakDateTimeDisplayValue.split(" ");
+                        breakStartDateTimeDisplayValue[0] = workshiftEndDateTimeParts[0];
+                        breakStartDateTimeDisplayValue = breakStartDateTimeDisplayValue.join(" ");
+                    }
+                }
+                breakToUpdate['breakStartDateTimeDisplayValue'] = breakStartDateTimeDisplayValue;
+                breakToUpdate['invalidStart'] = invalid;
+                errorMsg = '';
+            } else if ("d_break_end" === event.elementId) {
+                breakToUpdate['breakEndTime'] = newValue;
+                let breakEndDateTimeDisplayValue;
+
+                if(popoverTemplate.event.category === api.state.actualWorkEvent.actualWorkCategorySysId) {
+                breakEndDateTimeDisplayValue = breakToUpdate["breakEndDateTimeDisplayValue"].split(" ")[0]+" "+newValue;
+                } else {
+                breakEndDateTimeDisplayValue = breakDateTimeDisplayValue;
+                }
+                
+                if (multiDayWorkshift) {
+                    //breakstart falls within same date as workstart
+                    if (newValueParts[0] >= workshiftStartDateTimeParts[1].split(":")[0]) {
+                        //TODO
+                    } else if (newValueParts[0] < workshiftStartDateTimeParts[1].split(":")[0]) {
+                        breakEndDateTimeDisplayValue = breakDateTimeDisplayValue.split(" ");
+                        breakEndDateTimeDisplayValue[0] = workshiftEndDateTimeDisplayValue.split(" ")[0];
+                        breakEndDateTimeDisplayValue = breakEndDateTimeDisplayValue.join(" ");
+                    }
+                }
+                breakToUpdate['breakEndDateTimeDisplayValue'] = breakEndDateTimeDisplayValue;
+                breakToUpdate['invalidEnd'] = invalid;
+                errorMsg = '';
+            }
+            currentBreaks[updatedBreakIndex] = breakToUpdate;
+        }
+        api.setState("editShiftControls", ({
+            currentValue
+        }) => {
+            return {
+                ...currentValue,
+                errorMsg,
+                breakInfo: {
+                    ...currentValue.breakInfo,
+                    breaks: currentBreaks
+                },
+                formDirty: true
+            };
+        });
+    } catch (err) {
+        console.log("Error updating breaks" + err);
+    }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:45</sys_created_on>
+        <sys_id>6d4dfed11ba9d510b5bd2fc02a4bcb07</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleDynamicBreaksValueChanged</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_6d4dfed11ba9d510b5bd2fc02a4bcb07</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:45</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

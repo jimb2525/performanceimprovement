@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_package_dependency_m2m">
+    <sys_package_dependency_m2m action="INSERT_OR_UPDATE">
+        <dependency display_value="System Import Sets" source="com.glide.system_import_set">b787deb387120110a702fc08cebb3547</dependency>
+        <min_version>1.0.0</min_version>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 03:38:20</sys_created_on>
+        <sys_id>a583f8ea1b691150b5bd2fc02a4bcb8f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 03:38:20</sys_updated_on>
+    </sys_package_dependency_m2m>
+</record_update>

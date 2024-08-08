@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes>8f0ec3492c5f441781f1f44f36351242</includes>
+        <macroponent display_value="Filters">780d7e911ba9d510b5bd2fc02a4bcba4</macroponent>
+        <name>handleFilterApplied</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+	const {appliedFilters = []} = event.payload;
+	const {apply_to = []} = (appliedFilters.length > 0) ? appliedFilters[0] : [];
+	const tableField = (apply_to.length > 0) ? apply_to[0].split(".") : [];
+	let table = "";
+	let field = "";
+	if (tableField.length > 1){
+		const [first, ...rest] = tableField;
+		table = first;
+		field = rest.join(".");
+	}
+	
+	// If date type filter, set the appliedItems as an array with first element as start and second as end
+	let appliedItems = [];
+	const {type = ""} = (appliedFilters.length > 0) ? appliedFilters[0] : [];
+	const DATE = "date";
+	if (type === DATE){
+		const start = appliedFilters[0].start;
+		const end = appliedFilters[0].end;
+		appliedItems = (start && end) ? [start, end] : [];
+	} else {
+		const {values = []} = (appliedFilters.length > 0) ? appliedFilters[0] : [];
+		appliedItems = values;
+	}
+	const filter = api.state.filter;
+	const filterConfig = api.state.filterConfig;
+	let tableAndField = table + '.' + field;
+
+	if(!table || !field) return;
+	//If applied filters of a specific prop are cleared, delete that prop itself
+	if (!appliedItems || appliedItems.length === 0) {
+		// Delete that specific property
+		let newFilter = Object.keys(filter).reduce((nf, t) => {
+			if (t !== table) {
+				nf[t] = filter[t];
+			} else {
+				let fieldCount = 0;
+				nf[t] = Object.keys(filter[t]).reduce((reduced, f) => {
+					if (f != field) {
+						reduced[f] = filter[t][f];
+						fieldCount += 1;
+					}
+					return reduced;
+				}, {});
+				//Remove table if there are no fields to filter on
+				if (fieldCount <= 0) delete nf[t];
+			}
+			return nf;
+		}, {});
+
+		// Delete specific prop from filter config object as well
+		const newFilterConfig = { ...filterConfig };
+		delete newFilterConfig[tableAndField];
+		api.setState('filter', newFilter);
+		api.setState('filterConfig', newFilterConfig);
+	} 
+	else {
+		api.setState('filter', { ...api.state.filter,
+            [table]: {
+					...filter[table],
+					[field]: appliedItems
+				}
+        });
+
+		api.setState('filterConfig', { ...filterConfig,
+				[tableAndField]: appliedItems
+        });
+	}
+
+	let filters = api.state.filters;	
+	// Get the index of the correct filter that has been applied. Modify the parFilters array for that filter.
+	const label = appliedFilters[0].label;
+	const filterNames = filters.map(i => {
+		return i.filterName;
+	});
+	const index = filterNames.indexOf(label);
+	const parFilter = imports['global.mergePARFilters']()(filters[index].parFilters, appliedFilters);
+	filters[index].parFilters = parFilter;
+	api.setState("filters", filters);
+
+	api.emit('TEAM_CALENDAR#APPLY_FILTER', {
+		selectedIds: appliedItems,
+		table: table,
+		field: field,
+		filters: filters
+	});
+	
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:26:39</sys_created_on>
+        <sys_id>910d7e911ba9d510b5bd2fc02a4bcbff</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>handleFilterApplied</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_910d7e911ba9d510b5bd2fc02a4bcbff</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:26:39</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

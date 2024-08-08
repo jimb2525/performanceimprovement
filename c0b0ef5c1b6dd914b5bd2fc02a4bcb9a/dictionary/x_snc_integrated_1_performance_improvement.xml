@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element audit="true" db_object_id="34029c871be15550b5bd2fc02a4bcb85" extends="task" label="Performance Improvement" max_length="40" name="x_snc_integrated_1_performance_improvement" text_index="true" type="collection">
+        <element label="Claims Resource" max_length="32" name="claims_resource" reference="x_snc_integrated_1_claims_resource" type="reference"/>
+        <element label="Skill to Improve" max_length="32" name="skill" reference="x_snc_integrated_1_claim_queue" type="reference"/>
+    </element>
+</database>

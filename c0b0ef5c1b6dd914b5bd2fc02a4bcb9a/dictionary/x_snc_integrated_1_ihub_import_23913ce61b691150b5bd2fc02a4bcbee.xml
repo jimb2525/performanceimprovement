@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="d983f8ea1b691150b5bd2fc02a4bcb71" extends="sys_import_set_row" label="Import Claims Resource Time Worked" max_length="40" name="x_snc_integrated_1_ihub_import_23913ce61b691150b5bd2fc02a4bcbee" type="collection">
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Claim Queue" label="Claim Queue" max_length="40" name="u_claim_queue" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Claim Resource" label="Claim Resource" max_length="40" name="u_claim_resource" type="string"/>
+        <element attributes="edge_encryption_enabled=true,import_attribute_name=Date" label="Date" max_length="40" name="u_date" type="glide_date"/>
+        <element attributes="import_attribute_name=Time Worked" label="Time Worked" max_length="40" name="u_time_worked" type="integer"/>
+    </element>
+</database>

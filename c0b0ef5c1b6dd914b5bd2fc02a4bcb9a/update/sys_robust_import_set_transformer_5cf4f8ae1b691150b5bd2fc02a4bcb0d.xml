@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_robust_import_set_transformer">
+    <sys_robust_import_set_transformer action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <batch_size>10</batch_size>
+        <description>RTE definition for Import Claim Work Items Processed</description>
+        <name>Import Claim Work Items Processed_rte_ihub</name>
+        <properties/>
+        <robust_transform_engine display_value="Import Claim Work Items Processed_etl_ihub">98f438ae1b691150b5bd2fc02a4bcb9d</robust_transform_engine>
+        <source_table>x_snc_integrated_1_ihub_import_c7b470ae1b691150b5bd2fc02a4bcb60</source_table>
+        <sys_class_name>sys_robust_import_set_transformer</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 03:44:31</sys_created_on>
+        <sys_id>5cf4f8ae1b691150b5bd2fc02a4bcb0d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Import Claim Work Items Processed_rte_ihub</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_robust_import_set_transformer_5cf4f8ae1b691150b5bd2fc02a4bcb0d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 03:44:31</sys_updated_on>
+        <verbose>false</verbose>
+    </sys_robust_import_set_transformer>
+</record_update>

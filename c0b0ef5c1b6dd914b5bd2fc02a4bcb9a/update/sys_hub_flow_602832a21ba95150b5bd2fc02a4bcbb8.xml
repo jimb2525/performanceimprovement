@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>false</active>
+        <annotation/>
+        <attributes/>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <compiler_build/>
+        <copied_from/>
+        <copied_from_name/>
+        <description/>
+        <internal_name>create_coaching_opportunity_for_claims_resource</internal_name>
+        <label_cache>[{"name":"f80c5c1a-68cb-4779-b25f-20d8a9a7674a.item.course_item","label":"2 - For Each➛Course Item Skills Record➛Course item","reference":"sn_lc_course_item","reference_display":"Learning Course Item","type":"reference","base_type":"reference","parent_table_name":"sn_lc_course_item_m2m_cmn_skill","column_name":"course_item"},{"name":"Updated_1.current.claims_resource","label":"Trigger - Record Updated➛Claims Resource Efficiency Record➛Claims Resource","reference":"x_snc_integrated_1_claims_resource","reference_display":"Claims Resource","type":"reference","base_type":"reference","parent_table_name":"x_snc_integrated_1_claims_resource_efficiency","column_name":"claims_resource"},{"name":"d90b6f4e-a280-4a54-b7eb-cbf1691932fa.__dont_treat_as_error__","label":"4 - Create Record➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"uiType":"boolean","visible_in_ui":"false","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"d90b6f4e-a280-4a54-b7eb-cbf1691932fa.__action_status__","label":"4 - Create Record➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"uiType":"object","co_type_name":"FDACTIONSTATUS","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"d90b6f4e-a280-4a54-b7eb-cbf1691932fa.table_name","label":"4 - Create Record➛Learning Task Table","reference":"sn_lc_learning_task","reference_display":"Learning Task Table","type":"table_name","base_type":"table_name","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"d90b6f4e-a280-4a54-b7eb-cbf1691932fa.record","label":"4 - Create Record➛Learning Task Record","reference":"sn_lc_learning_task","reference_display":"Learning Task Record","type":"reference","base_type":"reference","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"f80c5c1a-68cb-4779-b25f-20d8a9a7674a.item.course_item.title","label":"2 - For Each➛Course Item Skills Record➛Course item➛Title","reference":"","reference_display":"Title","type":"string","base_type":"string","parent_table_name":"sn_lc_course_item","column_name":"title"},{"name":"3ad3d21c-76b6-4e15-bc42-805a36ef2065.__dont_treat_as_error__","label":"3 - Log➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"uiType":"boolean","visible_in_ui":"false","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"3ad3d21c-76b6-4e15-bc42-805a36ef2065.__action_status__","label":"3 - Log➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"uiType":"object","co_type_name":"FDACTIONSTATUS","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"f80c5c1a-68cb-4779-b25f-20d8a9a7674a.item","label":"2 - For Each➛Course Item Skills Record","reference":"sn_lc_course_item_m2m_cmn_skill","reference_display":"Course Item Skills Record","type":"reference","base_type":"reference","attributes":{"pills_draggable_inside_block":"true","pills_draggable_outside_block":"false"}},{"name":"1258afb1-fe3c-4f63-ba14-af2d1059cd27.records","label":"1 - Look up Records (Before Paris Version)➛Records","reference_display":"Records","type":"array.object","base_type":"array.object","attributes":{"uiTypeLabel":"Array.Object","co_type_name":"FDec65c94d8ca000107066eed6e10ba23f","child_label":"Record","child_type_label":"Object","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.object","child_type":"object","child_name":"record","child_uiUniqueId":"31b19e70-ef02-46df-a356-c8eed155f4cd","uiUniqueId":"eaf2354a-96a8-4f52-9c6d-377248e0a2d5"}},{"name":"1258afb1-fe3c-4f63-ba14-af2d1059cd27.number_of_records_found","label":"1 - Look up Records (Before Paris Version)➛Number Of Records Found","reference_display":"Number Of Records Found","type":"string","base_type":"string","attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","pwd2droppable":"true","uiType":"string","uiUniqueId":"b4a7fcad-f7ff-4d50-ac63-93d60d340ee4"}},{"name":"1258afb1-fe3c-4f63-ba14-af2d1059cd27.status","label":"1 - Look up Records (Before Paris Version)➛Status","reference_display":"Status","type":"choice","base_type":"choice","choices":[{"label":"Success","value":"Success","order":0.0},{"label":"Error","value":"Error","order":1.0}],"attributes":{"uiTypeLabel":"Choice","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"choice","uiUniqueId":"38d4f267-7ae4-407e-acfa-84c2e9194830"}},{"name":"1258afb1-fe3c-4f63-ba14-af2d1059cd27.error_message","label":"1 - Look up Records (Before Paris Version)➛Error Message","reference_display":"Error Message","type":"string","base_type":"string","attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","pwd2droppable":"true","uiType":"string","uiUniqueId":"e0e9a7fa-ebee-4da1-a80d-ca339ccb6a59"}},{"name":"1258afb1-fe3c-4f63-ba14-af2d1059cd27.__action_status__","label":"1 - Look up Records (Before Paris Version)➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"co_type_name":"FDACTIONSTATUS","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"object","action_error_output":"true"}},{"name":"1258afb1-fe3c-4f63-ba14-af2d1059cd27.__dont_treat_as_error__","label":"1 - Look up Records (Before Paris Version)➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"boolean","visible_in_ui":"false","action_error_output":"true"}},{"name":"66e3dd10-2427-4bce-9ec9-0fd45e25e800.Records","label":"1 - Look Up Records➛Course Item Skills Records","reference":"sn_lc_course_item_m2m_cmn_skill","reference_display":"Course Item Skills Records","type":"records","base_type":"records","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"66e3dd10-2427-4bce-9ec9-0fd45e25e800.Table","label":"1 - Look Up Records➛Course Item Skills Table","reference":"sn_lc_course_item_m2m_cmn_skill","reference_display":"Course Item Skills Table","type":"table_name","base_type":"table_name","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"66e3dd10-2427-4bce-9ec9-0fd45e25e800.Count","label":"1 - Look Up Records➛Count","reference_display":"Count","type":"integer","base_type":"integer","attributes":{"element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"66e3dd10-2427-4bce-9ec9-0fd45e25e800.__action_status__","label":"1 - Look Up Records➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"uiType":"object","co_type_name":"FDACTIONSTATUS","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"66e3dd10-2427-4bce-9ec9-0fd45e25e800.__dont_treat_as_error__","label":"1 - Look Up Records➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"uiType":"boolean","visible_in_ui":"false","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"Updated_1.table_name","label":"Trigger - Record Updated➛Claims Resource Efficiency Table","reference":"x_snc_integrated_1_claims_resource_efficiency","reference_display":"Claims Resource Efficiency","type":"table_name","base_type":"table_name","attributes":{"test_input_hidden":"true"}},{"name":"Updated_1.current.queue.queue_name","label":"Trigger - Record Updated➛Claims Resource Efficiency Record➛Queue➛Queue Name","reference":"","reference_display":"Queue Name","type":"string","base_type":"string","parent_table_name":"x_snc_integrated_1_claim_queue","column_name":"queue_name"},{"name":"50c3add0-6c56-41e0-9fe1-a4f4d30e96be.__action_status__","label":"2 - Log➛Action Status","reference_display":"Action Status","type":"object","base_type":"object","attributes":{"uiType":"object","co_type_name":"FDACTIONSTATUS","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"50c3add0-6c56-41e0-9fe1-a4f4d30e96be.__dont_treat_as_error__","label":"2 - Log➛Don\u0027t Treat as Error","reference_display":"Don\u0027t Treat as Error","type":"boolean","base_type":"boolean","attributes":{"uiType":"boolean","visible_in_ui":"false","action_error_output":"true","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper"}},{"name":"Updated_1.current.claims_resource.name","label":"Trigger - Record Updated➛Claims Resource Efficiency Record➛Claims Resource➛Name","reference":"","reference_display":"Name","type":"string","base_type":"string","parent_table_name":"x_snc_integrated_1_claims_resource","column_name":"name"}]</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Create Coaching Opportunity for Claims Resource</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id/>
+        <run_as>system</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:17:43</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>602832a21ba95150b5bd2fc02a4bcbb8</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>Create Coaching Opportunity for Claims Resource</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_hub_flow_602832a21ba95150b5bd2fc02a4bcbb8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:48</sys_updated_on>
+        <type>flow</type>
+    </sys_hub_flow>
+    <sys_translated_text action="delete_multiple" query="documentkey=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_variable_value action="delete_multiple" query="document_key=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_hub_trigger_instance action="delete_multiple" query="flow=602832a21ba95150b5bd2fc02a4bcbb8^sys_idNOT IN8b9836e21ba95150b5bd2fc02a4bcb71"/>
+    <sys_hub_trigger_instance action="INSERT_OR_UPDATE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</flow>
+        <name>Updated</name>
+        <remote_sys_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>8b9836e21ba95150b5bd2fc02a4bcb71</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:47</sys_updated_on>
+        <trigger_definition display_value="Updated">bb695e60c31322002841b63b12d3aea5</trigger_definition>
+        <trigger_inputs/>
+        <trigger_outputs/>
+        <trigger_type>record_update</trigger_type>
+    </sys_hub_trigger_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=8b9836e21ba95150b5bd2fc02a4bcb71"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_trigger_instance</document>
+        <document_key>8b9836e21ba95150b5bd2fc02a4bcb71</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>0b9836e21ba95150b5bd2fc02a4bcb73</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:19:48</sys_updated_on>
+        <value>x_snc_integrated_1_claims_resource_efficiency</value>
+        <variable display_value="Table">1dda12e0c31322002841b63b12d3aea8</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_trigger_instance</document>
+        <document_key>8b9836e21ba95150b5bd2fc02a4bcb71</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>4f9836e21ba95150b5bd2fc02a4bcb72</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:19:48</sys_updated_on>
+        <value>below_benchmark=true</value>
+        <variable display_value="Condition">bb9adea0c31322002841b63b12d3ae67</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="table=var__m_sys_hub_trigger_output_bb695e60c31322002841b63b12d3aea5^id=8b9836e21ba95150b5bd2fc02a4bcb71"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=602832a21ba95150b5bd2fc02a4bcbb8^sys_idNOT INec2832a21ba95150b5bd2fc02a4bcbb9"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>602832a21ba95150b5bd2fc02a4bcbb8</id>
+        <name>Create Coaching Opportunity for Claims Resource</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:17:43</sys_created_on>
+        <sys_id>ec2832a21ba95150b5bd2fc02a4bcbb9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:17:43</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=ec2832a21ba95150b5bd2fc02a4bcbb9"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=602832a21ba95150b5bd2fc02a4bcbb8^sys_idNOT IN439836e21ba95150b5bd2fc02a4bcb5f,c39836e21ba95150b5bd2fc02a4bcb5b,c3987aa21ba95150b5bd2fc02a4bcb10"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name,uiTypeLabel=Table Name</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>table_name</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">table_name</internal_type>
+        <label>Table Name</label>
+        <mandatory>false</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</model>
+        <model_id>602832a21ba95150b5bd2fc02a4bcbb8</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8</name>
+        <next_element/>
+        <order>101</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>439836e21ba95150b5bd2fc02a4bcb5f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:19:48</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=439836e21ba95150b5bd2fc02a4bcb5f"/>
+    <sys_complex_object action="INSERT_OR_UPDATE">
+        <label/>
+        <name>FD2d7271feadedd150416c44834c8695d7</name>
+        <namespace>FlowDesigner</namespace>
+        <scope_name>c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</scope_name>
+        <serialized_content>{"FlowDesigner:FD2d7271feadedd150416c44834c8695d7":{"$COCollectionField":[{"FDChangeDetails":{"previous_display_value":"String","previous_display_value.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"String\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"string\",\"default_value\":\"\",\"label\":\"Previous Display Value\",\"mandatory\":\"false\",\"order\":\"4\",\"max_length\":\"0\"}"},"previous_value":"String","previous_value.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"String\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"string\",\"default_value\":\"\",\"label\":\"Previous Value\",\"mandatory\":\"false\",\"order\":\"2\",\"max_length\":\"0\"}"},"current_display_value":"String","current_display_value.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"String\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"string\",\"default_value\":\"\",\"label\":\"Current Display Value\",\"mandatory\":\"false\",\"order\":\"5\",\"max_length\":\"0\"}"},"current_value":"String","current_value.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"String\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"string\",\"default_value\":\"\",\"label\":\"Current Value\",\"mandatory\":\"false\",\"order\":\"3\",\"max_length\":\"0\"}"},"field_name":"String","field_name.$field_facets":{"SimpleMapFacet":"{\"uiTypeLabel\":\"String\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"string\",\"default_value\":\"\",\"label\":\"Field Name\",\"mandatory\":\"false\",\"order\":\"1\",\"max_length\":\"0\"}"}}}],"$COCollectionField.$type_facets":{"SimpleMapFacet":"{\"pwd2droppable\":\"true\",\"default_value\":\"\",\"label\":\"Changed Fields\",\"mandatory\":\"false\",\"child_name\":\"FDChangeDetails\",\"uiTypeLabel\":\"Array.Object\",\"co_type_name\":\"FD2d7271feadedd150416c44834c8695d7\",\"child_label\":\"FDChangeDetails\",\"child_type_label\":\"Object\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"array.object\",\"child_type\":\"object\",\"order\":\"100\",\"max_length\":\"4000\"}"},"$COCollectionField.$field_facets":{"SimpleMapFacet":"{\"up-shift-collection-level\":\"true\"}"}},"FlowDesigner:FD2d7271feadedd150416c44834c8695d7.$type_facets":{"SimpleMapFacet":"{\"pwd2droppable\":\"true\",\"default_value\":\"\",\"label\":\"Changed Fields\",\"mandatory\":\"false\",\"child_name\":\"FDChangeDetails\",\"uiTypeLabel\":\"Array.Object\",\"co_type_name\":\"FD2d7271feadedd150416c44834c8695d7\",\"child_label\":\"FDChangeDetails\",\"child_type_label\":\"Object\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"read_only\":\"false\",\"hint\":\"\",\"uiType\":\"array.object\",\"child_type\":\"object\",\"order\":\"100\",\"max_length\":\"4000\"}"}}</serialized_content>
+        <sys_class_name>sys_complex_object</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-30 02:51:47</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>ed7271fe1bedd150b5bd2fc02a4bcbd7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>FD2d7271feadedd150416c44834c8695d7</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_complex_object_ed7271fe1bedd150b5bd2fc02a4bcbd7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:47</sys_updated_on>
+        <type>complex_object_collection</type>
+    </sys_complex_object>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>child_label=FDChangeDetails,child_name=FDChangeDetails,child_type=object,child_type_label=Object,co_type_name=FD2d7271feadedd150416c44834c8695d7,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,pwd2droppable=true,uiType=array.object,uiTypeLabel=Array.Object</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>changed_fields</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Changed Fields</label>
+        <mandatory>false</mandatory>
+        <max_length>4000</max_length>
+        <model display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</model>
+        <model_id>602832a21ba95150b5bd2fc02a4bcbb8</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>c39836e21ba95150b5bd2fc02a4bcb5b</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:47</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=c39836e21ba95150b5bd2fc02a4bcb5b"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=document_id,uiTypeLabel=Document ID</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent>table_name</dependent>
+        <dependent_on_field>table_name</dependent_on_field>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>current</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">document_id</internal_type>
+        <label>Record</label>
+        <mandatory>true</mandatory>
+        <max_length>200</max_length>
+        <model display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</model>
+        <model_id>602832a21ba95150b5bd2fc02a4bcbb8</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:47</sys_created_on>
+        <sys_id>c3987aa21ba95150b5bd2fc02a4bcb10</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:19:47</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>true</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=c3987aa21ba95150b5bd2fc02a4bcb10"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_hub_action_instance action="delete_multiple" query="flow=602832a21ba95150b5bd2fc02a4bcbb8^sys_idNOT IN3cc06be21b619150b5bd2fc02a4bcb0e,7c956baa1ba19150b5bd2fc02a4bcb71,d7e36fa21ba19150b5bd2fc02a4bcbcc"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Look Up Records">43400a1587003300663ca1bb36cb0b4b</action_type>
+        <action_type_parent/>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</flow>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:15:13</sys_created_on>
+        <sys_id>3cc06be21b619150b5bd2fc02a4bcb0e</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:48</sys_updated_on>
+        <ui_id>66e3dd10-2427-4bce-9ec9-0fd45e25e800</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=3cc06be21b619150b5bd2fc02a4bcb0e"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>3cc06be21b619150b5bd2fc02a4bcb0e</document_key>
+        <order>0</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:15:13</sys_created_on>
+        <sys_id>78c06be21b619150b5bd2fc02a4bcb10</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:15:13</sys_updated_on>
+        <value>sn_lc_course_item_m2m_cmn_skill</value>
+        <variable display_value="Table">8f400a1587003300663ca1bb36cb0b4b</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=3cc06be21b619150b5bd2fc02a4bcb0e"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>conditions</field>
+        <id>3cc06be21b619150b5bd2fc02a4bcb0e</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:15:13</sys_created_on>
+        <sys_id>34c06be21b619150b5bd2fc02a4bcb10</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:33:26</sys_updated_on>
+        <table>var__m_sys_hub_action_input_43400a1587003300663ca1bb36cb0b4b</table>
+        <value>skill.sys_name={{Updated_1.current.queue.queue_name}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>table</field>
+        <id>3cc06be21b619150b5bd2fc02a4bcb0e</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:15:13</sys_created_on>
+        <sys_id>f4c06be21b619150b5bd2fc02a4bcb10</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:15:13</sys_updated_on>
+        <table>var__m_sys_hub_action_input_43400a1587003300663ca1bb36cb0b4b</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=3cc06be21b619150b5bd2fc02a4bcb0e^sys_idNOT IN7cc06be21b619150b5bd2fc02a4bcb0f"/>
+    <sys_hub_input_scripts action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <input_name>conditions</input_name>
+        <instance>3cc06be21b619150b5bd2fc02a4bcb0e</instance>
+        <referenced_table>sys_hub_action_instance</referenced_table>
+        <script>{"conditions":{"scriptActive":false}}</script>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:15:13</sys_created_on>
+        <sys_id>7cc06be21b619150b5bd2fc02a4bcb0f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:15:13</sys_updated_on>
+    </sys_hub_input_scripts>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=3cc06be21b619150b5bd2fc02a4bcb0e"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Create Record">2de05916c31332002841b63b12d3aee1</action_type>
+        <action_type_parent/>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</flow>
+        <order>4</order>
+        <parent_ui_id>f80c5c1a-68cb-4779-b25f-20d8a9a7674a</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:36:14</sys_created_on>
+        <sys_id>7c956baa1ba19150b5bd2fc02a4bcb71</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:48</sys_updated_on>
+        <ui_id>d90b6f4e-a280-4a54-b7eb-cbf1691932fa</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=7c956baa1ba19150b5bd2fc02a4bcb71"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>7c956baa1ba19150b5bd2fc02a4bcb71</document_key>
+        <order>0</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:36:15</sys_created_on>
+        <sys_id>f0956baa1ba19150b5bd2fc02a4bcb74</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:36:15</sys_updated_on>
+        <value>sn_lc_learning_task</value>
+        <variable display_value="Table">61e05916c31332002841b63b12d3aee4</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=7c956baa1ba19150b5bd2fc02a4bcb71"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>table_name</field>
+        <id>7c956baa1ba19150b5bd2fc02a4bcb71</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:36:15</sys_created_on>
+        <sys_id>b8956baa1ba19150b5bd2fc02a4bcb73</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:36:15</sys_updated_on>
+        <table>var__m_sys_hub_action_input_2de05916c31332002841b63b12d3aee1</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>values</field>
+        <id>7c956baa1ba19150b5bd2fc02a4bcb71</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:36:15</sys_created_on>
+        <sys_id>70956baa1ba19150b5bd2fc02a4bcb74</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:48</sys_updated_on>
+        <table>var__m_sys_hub_action_input_2de05916c31332002841b63b12d3aee1</table>
+        <value>assigned_to={{Updated_1.current.claims_resource}}^course_item={{f80c5c1a-68cb-4779-b25f-20d8a9a7674a.item.course_item}}^due_date=2022-09-02 01:00:00^catalog={"display":"Claims Resource Coaching Catalog","value":"2a9ebeae1ba95150b5bd2fc02a4bcb8d"}^short_description=Training for {{Updated_1.current.claims_resource.name}}</value>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=7c956baa1ba19150b5bd2fc02a4bcb71"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=7c956baa1ba19150b5bd2fc02a4bcb71"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Log">5bc1bcc6531003003bf1d9109ec587d4</action_type>
+        <action_type_parent/>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</flow>
+        <order>3</order>
+        <parent_ui_id>f80c5c1a-68cb-4779-b25f-20d8a9a7674a</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:29:02</sys_created_on>
+        <sys_id>d7e36fa21ba19150b5bd2fc02a4bcbcc</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:48</sys_updated_on>
+        <ui_id>3ad3d21c-76b6-4e15-bc42-805a36ef2065</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=d7e36fa21ba19150b5bd2fc02a4bcbcc"/>
+    <sys_element_mapping action="delete_multiple" query="id=d7e36fa21ba19150b5bd2fc02a4bcbcc"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>log_message</field>
+        <id>d7e36fa21ba19150b5bd2fc02a4bcbcc</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:29:02</sys_created_on>
+        <sys_id>13e36fa21ba19150b5bd2fc02a4bcbce</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:29:02</sys_updated_on>
+        <table>var__m_sys_hub_action_input_5bc1bcc6531003003bf1d9109ec587d4</table>
+        <value>Course Item - {{f80c5c1a-68cb-4779-b25f-20d8a9a7674a.item.course_item.title}}</value>
+    </sys_element_mapping>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=d7e36fa21ba19150b5bd2fc02a4bcbcc"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=d7e36fa21ba19150b5bd2fc02a4bcbcc"/>
+    <sys_hub_sub_flow_instance action="delete_multiple" query="flow=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_hub_flow_logic action="delete_multiple" query="flow=602832a21ba95150b5bd2fc02a4bcbb8^sys_idNOT IN8fe36fa21ba19150b5bd2fc02a4bcb9c"/>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">cfe36fa21ba19150b5bd2fc02a4bcb9b</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Create Coaching Opportunity for Claims Resource">602832a21ba95150b5bd2fc02a4bcbb8</flow>
+        <flow_variable/>
+        <flow_variables_assigned/>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="For Each">098e1dc5c3e232002841b63b12d3ae33</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:29:02</sys_created_on>
+        <sys_id>8fe36fa21ba19150b5bd2fc02a4bcb9c</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-30 02:51:48</sys_updated_on>
+        <ui_id>f80c5c1a-68cb-4779-b25f-20d8a9a7674a</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=8fe36fa21ba19150b5bd2fc02a4bcb9c"/>
+    <sys_element_mapping action="delete_multiple" query="id=8fe36fa21ba19150b5bd2fc02a4bcb9c"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>items</field>
+        <id>8fe36fa21ba19150b5bd2fc02a4bcb9c</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 16:29:02</sys_created_on>
+        <sys_id>cfe36fa21ba19150b5bd2fc02a4bcba2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 16:29:02</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_098e1dc5c3e232002841b63b12d3ae33</table>
+        <value>{{66e3dd10-2427-4bce-9ec9-0fd45e25e800.Records}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic_ext_input action="delete_multiple" query="model=8fe36fa21ba19150b5bd2fc02a4bcb9c"/>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=8fe36fa21ba19150b5bd2fc02a4bcb9c"/>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_hub_flow_variable action="delete_multiple" query="model=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8^sys_idNOT IN079836e21ba95150b5bd2fc02a4bcb5a,839836e21ba95150b5bd2fc02a4bcb5e,cb9836e21ba95150b5bd2fc02a4bcb61"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>current</element>
+        <help/>
+        <hint/>
+        <label>Record</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>079836e21ba95150b5bd2fc02a4bcb5a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:19:48</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>changed_fields</element>
+        <help/>
+        <hint/>
+        <label>Changed Fields</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>839836e21ba95150b5bd2fc02a4bcb5e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:19:48</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>table_name</element>
+        <help/>
+        <hint/>
+        <label>Table Name</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2022-08-29 13:19:48</sys_created_on>
+        <sys_id>cb9836e21ba95150b5bd2fc02a4bcb61</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2022-08-29 13:19:48</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_output_602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_flow_trigger_plan action="delete_multiple" query="plan_id=602832a21ba95150b5bd2fc02a4bcbb8"/>
+    <sys_flow_subflow_plan action="delete_multiple" query="plan_id=602832a21ba95150b5bd2fc02a4bcbb8"/>
+</record_update>

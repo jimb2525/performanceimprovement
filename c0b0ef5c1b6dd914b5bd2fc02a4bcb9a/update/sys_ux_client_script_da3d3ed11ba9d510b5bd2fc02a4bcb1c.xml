@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="List view">e93dbad11ba9d510b5bd2fc02a4bcb9d</macroponent>
+        <name>Handle page size user preference fetched</name>
+        <preset/>
+        <required_translations/>
+        <script><![CDATA[/**
+    * @param {params} params
+    * @param {api} params.api
+    * @param {any} params.event
+    * @param {any} params.imports
+    * @param {ApiHelpers} params.helpers
+    */
+    function handler({api, event, helpers, imports}) {
+
+        const {preferences} = api.data.look_up_user_preferences.result;
+        
+        if(preferences && preferences.length > 0){
+            const pref = Number(preferences[0].value);
+            if(pref && pref > 0) {
+                api.setState('pageSize', pref);
+                let pageSizes = api.state.pageSizes;
+                if(!pageSizes.includes(pref)){
+                    pageSizes.push(pref);
+                    pageSizes.sort((a, b) => a - b);
+                    api.setState('pageSizes', pageSizes);
+                }
+            }
+        }
+        
+    }]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-25 16:27:33</sys_created_on>
+        <sys_id>da3d3ed11ba9d510b5bd2fc02a4bcb1c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Handle page size user preference fetched</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_client_script_da3d3ed11ba9d510b5bd2fc02a4bcb1c</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-25 16:27:33</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

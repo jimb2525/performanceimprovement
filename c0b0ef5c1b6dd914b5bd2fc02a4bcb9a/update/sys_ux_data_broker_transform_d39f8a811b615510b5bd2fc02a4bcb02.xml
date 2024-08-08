@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_data_broker_transform">
+    <sys_ux_data_broker_transform action="INSERT_OR_UPDATE">
+        <acl_failure_result/>
+        <api_name>x_snc_integrated_1.Get Claims Resource Calendar Data</api_name>
+        <description/>
+        <mutates_server_data>false</mutates_server_data>
+        <name>Get Claims Resource Calendar Data</name>
+        <output_schema/>
+        <private>false</private>
+        <props/>
+        <required_translations>[ ]</required_translations>
+        <schema_version>1.0.0</schema_version>
+        <script><![CDATA[function transform(input) {
+
+// 	var benchmarks = [];
+	var benchmarkMap = {};
+	var grBenchmark = new GlideRecord('x_snc_integrated_1_claims_efficiency_benchmark');
+	grBenchmark.query();
+	while (grBenchmark.next()) {
+		var benchmark = {
+			sys_id: grBenchmark.getUniqueValue(),
+			number: grBenchmark.getValue('number'),
+			queue: grBenchmark.getValue('queue'),
+// 			queue: grBenchmark.getDisplayValue('queue'), // DISPLAYVALUE
+			minutes_per_item: grBenchmark.getValue('minutes_per_item'),
+			items_per_hour: grBenchmark.getValue('items_per_hour'),
+			items_per_day: grBenchmark.getValue('items_per_day')
+		};
+		
+		benchmarkMap[benchmark.queue] = [];
+		// 7 days
+		for (var i = 0; i < 7; i++) {
+			benchmarkMap[benchmark.queue].push(parseInt(benchmark.items_per_day));
+		}
+		
+// 		benchmarks.push(benchmark);
+		
+		
+		
+	}
+
+	var efficiencies = [];
+	var grEfficiency = new GlideRecord('x_snc_integrated_1_claims_resource_efficiency');
+	grEfficiency.query();
+	while (grEfficiency.next()) {
+		var efficiency = {
+			sys_id: grEfficiency.getUniqueValue(),
+			number: grEfficiency.getValue('number'),
+			date: grEfficiency.getValue('date'),
+			claims_resource: {
+				value: grEfficiency.getValue('claims_resource'),
+				displayValue: grEfficiency.getDisplayValue('claims_resource')
+			},
+			queue: grEfficiency.getValue('queue'),
+// 			queue: grEfficiency.getDisplayValue('queue'), // DISPLAYVALUE
+			minutes_per_item: grEfficiency.getValue('minutes_per_item'),
+			items_per_hour: grEfficiency.getValue('items_per_hour'),
+			items_per_day: grEfficiency.getValue('items_per_day')
+		};
+
+		efficiencies.push(efficiency);
+	}
+
+	var queues = [];
+	var grQueue = new GlideRecord('x_snc_integrated_1_claim_queue');
+	grQueue.query();
+
+	while (grQueue.next()) {
+		var queue = {
+			sys_id: grQueue.getUniqueValue(),
+			queue_name: grQueue.getValue('queue_name'),
+// 			queue_name: grQueue.getDisplayValue('queue_name'), // DISPLAYVALUE (why did I do this one?)
+			resources: []
+		};
+
+		// get children
+		var grM2M = new GlideRecord('x_snc_integrated_1_m2m_claim_queues_claims_resou');
+		grM2M.addQuery('claim_queue', queue.sys_id);
+		grM2M.query();
+
+		while (grM2M.next()) {
+			var m2m = {
+				sys_id: grM2M.getUniqueValue(),
+				claims_resource: {
+					value: grM2M.getValue('claims_resource'),
+					displayValue: grM2M.getDisplayValue('claims_resource'),
+				},
+				queue: queue.sys_id
+// 				queue: queue.queue_name // DISPLAYVALUE
+			};
+			queue.resources.push(m2m);
+		}
+		
+		queues.push(queue);
+	}
+
+	var events = efficiencies.map(function(e) {
+
+		var start = e.date + ' 00:00:00';
+		var end = e.date + ' 23:59:59';
+		var gdt1 = new GlideDateTime(start);
+		var startMS = gdt1.getNumericValue();
+		var gdt2 = new GlideDateTime(end);
+		var endMS = gdt2.getNumericValue();
+
+		var event = {
+			id: e.sys_id,
+			title: e.items_per_day,
+			group: e.queue + ':' + e.claims_resource.value,
+			start: start,
+			end: end,
+			startMS: startMS,
+			endMS: endMS,
+			textColor: "#fff",
+			bgColor: "#4f52bd"
+		};
+		
+		if (parseInt(e.items_per_day) < benchmarkMap[e.queue][0]) {
+			event.textColor = "#151920";
+			event.bgColor = "#f59794";
+		}
+		
+		return event;
+	});
+
+	var timelineSections = queues.map(function (q) {
+		
+		return {
+			id: q.sys_id,
+			title: q.queue_name,
+			isCollapsed: false,
+			showHeader: true,
+			textColor: '',
+			runtimeData: benchmarkMap[q.sys_id],
+			children: q.resources.map(function(m2m) {
+				return {
+					id: q.sys_id + ':' + m2m.claims_resource.value, // 'QUEUESYSID-RESOURCESYSID'
+// 					id: q.queue_name + ':' + m2m.claims_resource.value, // DISPLAYVALUE
+					title: m2m.claims_resource.displayValue,
+					claimsResource: m2m.claims_resource.value
+				};
+			})
+		};
+	});
+	
+	// sort sections by number of children
+	timelineSections.sort(function(a, b) { 
+		return b.children.length - a.children.length;
+	});
+
+	var output = {
+		timelineSections: timelineSections,
+		events: events
+	};
+
+
+	return output;
+}]]></script>
+        <sys_class_name>sys_ux_data_broker_transform</sys_class_name>
+        <sys_created_by>trevor.roberts</sys_created_by>
+        <sys_created_on>2022-08-24 18:32:13</sys_created_on>
+        <sys_id>d39f8a811b615510b5bd2fc02a4bcb02</sys_id>
+        <sys_mod_count>25</sys_mod_count>
+        <sys_name>Get Claims Resource Calendar Data</sys_name>
+        <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+        <sys_update_name>sys_ux_data_broker_transform_d39f8a811b615510b5bd2fc02a4bcb02</sys_update_name>
+        <sys_updated_by>trevor.roberts</sys_updated_by>
+        <sys_updated_on>2022-08-29 15:28:00</sys_updated_on>
+    </sys_ux_data_broker_transform>
+    <sys_translated_text action="delete_multiple" query="documentkey=d39f8a811b615510b5bd2fc02a4bcb02"/>
+</record_update>

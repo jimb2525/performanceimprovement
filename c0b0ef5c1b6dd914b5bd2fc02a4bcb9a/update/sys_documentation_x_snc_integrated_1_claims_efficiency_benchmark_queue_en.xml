@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="queue" label="Queue" language="en" table="x_snc_integrated_1_claims_efficiency_benchmark">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>queue</element>
+            <help/>
+            <hint/>
+            <label>Queue</label>
+            <language>en</language>
+            <name>x_snc_integrated_1_claims_efficiency_benchmark</name>
+            <plural/>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2022-08-22 19:53:51</sys_created_on>
+            <sys_mod_count>5</sys_mod_count>
+            <sys_name>Queue</sys_name>
+            <sys_package display_value="Integrated Staff Production" source="x_snc_integrated_1">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Integrated Staff Production">c0b0ef5c1b6dd914b5bd2fc02a4bcb9a</sys_scope>
+            <sys_update_name>sys_documentation_x_snc_integrated_1_claims_efficiency_benchmark_queue_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2022-08-24 21:44:08</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>
